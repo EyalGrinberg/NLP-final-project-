@@ -1,0 +1,14 @@
+extend-include = ["*.ipynb"]
+
+[format]
+exclude = ["*.ipynb"]
+
+[lint]
+select = [
+   "D"
+]
+ignore = ["D102", "D105", "D107"]
+
+[lint.pydocstyle]
+# Use pep257 docstrings.
+convention = "pep257"
