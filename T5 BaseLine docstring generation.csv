@@ -1,0 +1,1523 @@
+Unnamed: 0,Function,Golden Docstring,Unit Tests,T5 BaseLine docstring generation
+Recursion,"def sum_even(lst): 
+    total = 0
+    for index, item in enumerate(lst):
+        if isinstance(item, list):
+            total += sum_even(item)
+        elif index % 2 == 0:
+            total += item
+    return total","""""""
+Recursively computes the sum of all the even elements in a nested list of integers
+Args:
+- lst (list): a nested list of integers
+Returns:
+- int: the sum of all the even elements in the nested list
+""""""","print(sum_even([1, [2, 3, [4, 5]]]) == 7)  
+print(sum_even([1, 2, 3, 4, 5]) == 9)  
+print(sum_even([1, [2, 3, [4, 5]], 6, [7, 8]]) == 20) 
+print(sum_even([1, [2, 3, [4, 5]], 6, [7, 8, [9, 10]]]) == 29)  
+print(sum_even([]) == 0) 
+print(sum_even([[[1, 2, 3], [4, 5, 6]]]) == 14) ",Return the sum of the items that are delimited by the given number .
+,"def find_num_changes(n, lst): 
+    if n == 0:
+        return 1
+    if len(lst) == 0:
+        return 0
+    if n < 0:
+        return 0
+    return find_num_changes(n - lst[0], lst) + find_num_changes(n, lst[1:])
+
+
+","""""""
+    Recursively computes the number of ways to represent a non-negative integer n
+    as the sum of elements in a list of positive integers
+    Args:
+    - n (int): a non-negative integer
+    - lst (list): a list of positive integers
+    Returns:
+    - int: the number of ways to represent n as the sum of elements in lst
+    """"""","print(find_num_changes(4, [1, 2, 3]) == 4)
+print(find_num_changes(5, [5, 6, 1, 2]) == 4)
+print(find_num_changes(5, []) == 0)
+print(find_num_changes(-4, [1, 2, 3]) == 0)
+print(find_num_changes(0, [1, 2, 3]) == 1)
+print(find_num_changes(1, [2,5,7]) == 0)
+print(find_num_changes(4, [1,2,5,6]) == 3)",Find the number of changes
+,"def sum_nested(lst): 
+    if len(lst) == 0:
+        return 0.0
+    if type(lst[0]) == str:
+        return float(abs(sum_nested(lst[1:])))
+    if type(lst[0]) == list:
+        return float(abs(sum_nested(lst[0]))) + float(abs(sum_nested(lst[1:])))
+    return float(abs(lst[0])) + float(abs(sum_nested(lst[1:])))
+",""""""" 
+Recursively computes the absolute sum of all the numbers in a nested list
+Args:
+- lst (list): a nested list 
+Returns:
+- float: the absolute sum of all the numbers in lst
+""""""","print(sum_nested([1, 2, [3, 4], [5, [6, 7], 8], 9]) == 45.0)
+print(sum_nested([1, 2, [-3, -4.5], 'abc', [5, 'abc', [-4, 0.5]]]) == 20.0)
+print(sum_nested([]) == 0.0)
+print(sum_nested([1, 2, 3]) == 6.0)
+print(sum_nested([1, 2, 3, 4, 5]) == 15.0)
+print(sum_nested([""aa"", [-3, -4.5], 'abc', [5, 'abc', [-4, 0.5]]]) == 17.0)
+print(sum_nested([1, 2, 3, 4, 5, [1, 2, 3, 4, 5, [1, 2, 3, 4, 5, [1, 2, 3, 4, 5]]]]) == 60.0)",Return the sum for nested structures .
+,"def str_decomp(target, word_bank): 
+    if target == ''"":
+        return 1
+    total_count = 0
+    for word in word_bank:
+        if target.startswith(word):
+            new_target = target[len(word):]
+            total_count += str_decomp(new_target, word_bank)
+    return total_count
+
+","""""""
+Recursively computes the number of ways to decompose a string by concatenating strings from a list of strings
+Args:
+- target (str): a string to be decomposed
+- word_bank (list): a list of strings
+Returns:
+- int: the number of ways to decompose target
+""""""","print(str_decomp(""abcdef"", [""ab"", ""abc"", ""cd"", ""def"", ""abcd""]) == 1)
+print(str_decomp('purple', [""purp"", ""p"", ""ur"", ""purpl"", 'le']) == 2)
+print(str_decomp('aaaaaaaaaz', [""a"", ""aa"", ""aaa"", ""aaaa"", ""aaaaa""]) == 0)
+print(str_decomp('aabbcc', [""a"", ""ab"", ""b"", ""bc"", ""c"", ""abc"", ""abcd""]) == 4)",Gets the total number of words in a string .
+,"def n_choose_k(n, k): 
+    if k < 0 or k > n:
+        return 0
+    if k == 1:
+        return n
+    if k == 0:
+        return 1
+    return n_choose_k(n-1, k-1) + n_choose_k(n-1, k)
+","""""""
+Computes the number of options to choose k samples out of n items (pascal's triangle).
+Args:
+- n (int): number of items
+- k (int): number of samples
+Returns:
+- int: the number of possible combinations out of n items and k samples
+""""""","print(n_choose_k(8, 8) == 1)
+print(n_choose_k(20, 1) == 20)
+print(n_choose_k(9, 8) == 9)
+print(n_choose_k(10, 3) == 120)
+print(n_choose_k(4, 0) == 1)
+print(n_choose_k(3,9) == 0)
+print(n_choose_k(29, -3) == 0)",Return the number of k - columns and k - > value .
+,"def dfs_level_order(tree, index=0):
+    if index >= len(tree) or tree[index] is None:
+        return """"
+    visited_str = str(tree[index])
+    left_subtree = dfs_level_order(tree, 2 * index + 1)
+    right_subtree = dfs_level_order(tree, 2 * index + 2)
+    result = visited_str
+    if left_subtree:
+        result += "","" + left_subtree
+    if right_subtree:
+        result += "","" + right_subtree
+    return result
+","""""""
+Performs a DFS traversal on a binary tree represented by a level-order array.
+Args:
+- tree (list): A list representing the tree in level-order.
+- index (int): The starting index in the array (default: 0).
+Returns:
+-str : string containing the visited nodes in DFS order, separated by commas.
+""""""","print(dfs_level_order([1, 2, 3, 4, 5, None, None]) == ""1,2,4,5,3"")
+print(dfs_level_order([1, 2, None, None, 5]) == ""1,2,5"")",Returns an index in a nice tree .
+,"def half_sum_subset(lst):     
+    n = sum(lst) / 2
+    lst_aux = []
+    def find_lst(s, n, lst_aux, n_init):
+        if n == 0:
+            return lst_aux
+        if sum(lst_aux) == n_init:
+            return lst_aux
+        if n < 0 :
+            return None
+        if len(s) == 0:
+            return None
+        first = s.pop(0)
+        lst_aux.append(first)
+        with_first = find_lst(s, n - first, lst_aux, n_init)
+        lst_aux = lst_aux[:-1]
+        wo_first = find_lst(s, n, lst_aux, n_init)
+        return wo_first or with_first
+    return find_lst(lst, n, lst_aux, n)","""""""
+Computes a subset of lst that sums to half the sum of lst, if such a subset exists
+Args:
+- lst (list): a list of integers
+Returns:
+- list: a subset of lst that sums to half the sum of lst, if there's no such subset, returns None
+""""""","print(sum(half_sum_subset([3, 2, 1])) == sum([3, 2, 1]) / 2)
+print(sum(half_sum_subset([3, 2, 4, 2, 2, 1])) == sum(([3, 2, 4, 2, 2, 1])) / 2)
+print(half_sum_subset([1, 1, 1]) == None)
+print(half_sum_subset([1, 1, 1, 1]) == [1, 1])",returns the half of the n_sum_set that is located at the time of first n_iter
+,"def partition_to_subsets(n, k):     
+    mat = [[-1 for i in range(k + 1) ] for j in range(n + 1) ]
+    def partition_to_subsets_mem(n, k, mem):
+        if k == 0:
+            if n == 0:
+                return 1
+            return 0
+        if k == 1 or k == n:
+            return 1
+        if mem[n][k] == -1:
+            mem[n][k] = partition_to_subsets_mem(n - 1, k - 1, mem) + (k * partition_to_subsets_mem(n - 1, k, mem))
+        return mem[n][k]
+    return partition_to_subsets_mem(n, k, mat)
+","""""""
+Computes the number of ways to partition n items into k subsets
+Args:
+- n (int): number of items (positive integer)
+- k (int): number of subsets (positive integer)
+Returns:
+- int: the number of ways to partition n items into k subsets
+""""""","print(partition_to_subsets(4, 2) == 7)
+print(partition_to_subsets(5, 2) == 15)
+print(partition_to_subsets(4, 3) == 6)
+print(partition_to_subsets(7, 1) == 1)",Converts a list of partition sets to a list of subsets
+,"def is_dag(graph): 
+    visited = set()
+    exploring = set()
+    def dfs(node):
+        visited.add(node)
+        exploring.add(node)
+        for neighbor in graph[node]:
+            if neighbor == node:
+                continue
+            if neighbor in exploring:
+                return False
+            if neighbor not in visited:
+                return dfs(neighbor)
+        exploring.remove(node)
+        return True
+
+    for node in range(len(graph)):
+        if node not in visited and not dfs(node):
+            return False
+    return True
+","  """"""
+  Checks if a graph represented as an adjacency list is a DAG (Directed Acyclic Graph).
+
+  Args:
+  - graph (list): A list of lists. Each inner list represents the neighbors of a node.
+
+  Returns:
+  - bool: True if the graph is a DAG, False otherwise.
+  """"""","print(is_dag([[1], [2], []]) == True)
+print(is_dag([[1], [0], []]) == False)
+print(is_dag([[1, 2], [], [1]] ) == True)
+print(is_dag([[1, 2], [1], []] ) == True)
+print(is_dag([[1], [2, 3], [1]]) == False)
+print(is_dag([[], [2], [1]]) == False)
+print(is_dag([[0]]) == True)
+print(is_dag([[]]) == True)",Determines if a graph is a DAG .
+,"def foo(num, x = 0):
+    if num < 10:
+        return num, x
+    return foo(num * (2/3), x + 1)
+","""""""
+Recursively calculates the number of times a number needs to be multiplied by 2/3 
+to be smaller than 10, and returns the final value and the number of multiplications.
+- num (int \ float) : The initial number to operate on.
+- x (int) : An optional counter variable, initialized to 0 (default).
+Returns:
+A tuple containing two elements:
+- The final calculated value.
+- The number of multipications by 2/3.
+""""""","print(foo(9) == (9,0))
+print(foo(12) == (8, 1))
+print(foo(15))
+print(foo(15) == (6.666666666666666, 2))",ISO - 8601 random integer
+Basic,"def diff_sparse_matrices(lst): 
+    res_dict = lst[0]
+    for dict in lst[1:]:
+        for entry in dict:
+            if entry in res_dict:
+                res_dict[entry] -= dict[entry]
+            else:
+                res_dict[entry] = -dict[entry]
+    return res_dict
+
+","""""""
+Computes the difference between sparse matrices represented as dictionaries in a list
+Args:
+- lst (list): a list of dictionaries representing sparse matrices
+Returns:
+- dict: a dictionary representing the difference between the sparse matrices in lst
+""""""","print(diff_sparse_matrices([{(1, 3): 2, (2, 7): 1}, {(1, 3): 6}]) == {(1, 3):-4,(2,7):1})
+print(diff_sparse_matrices([{(1, 3): 2, (2, 7): 1}, {(1, 3): 2}]) == {(1, 3):0,(2,7):1})
+print(diff_sparse_matrices([{(1, 3): 2, (2, 7): 1}, {(1, 3): 6, (9,10): 7}, {(2,7): 0.5, (4,2): 10}]) == {(1, 3): -4, (2, 7): 0.5, (9, 10):-7, (4,2):-10})",Diff a list of matrices
+,"def longest_subsequence_length(lst):     
+    n = len(lst)
+    if n == 0: return 0
+    lis_lengths = [1] * n
+    lds_lengths = [1] * n
+    for i in range(1, n):
+        for j in range(i):
+            if lst[i] > lst[j]:
+                lis_lengths[i] = max(lis_lengths[i], lis_lengths[j] + 1)
+            if lst[i] < lst[j]:
+                lds_lengths[i] = max(lds_lengths[i], lds_lengths[j] + 1)
+    return max(max(lis_lengths), max(lds_lengths))
+
+","""""""
+Computes the length of the longest subsequence of a list of integers that is either strictly increasing or strictly decreasing
+Args:
+- lst (list): a list of numbers
+Returns:
+- int: the length of the longest subsequence that is either strictly increasing or strictly decreasing
+""""""","print(longest_subsequence_length([1, 2, 3, 4, 5]) == 5)
+print(longest_subsequence_length([5, 4, 3, 2, 1]) == 5)
+print(longest_subsequence_length([1, -4, 7, -5,]) == 3)
+print(longest_subsequence_length([]) == 0)
+print(longest_subsequence_length([-4]) == 1)
+print(longest_subsequence_length([1,-4, 2, 9, -8, 10, -6]) == 4)
+print(longest_subsequence_length([1, 3, 5, 4, 2]) == 3)",Length of the longest sub - sequence .
+,"def find_median(nums): 
+    nums_lst = list(nums)
+    n = len(nums)
+    num_smaller_lst = [0] * n
+    for i in range(n):
+        for j in range(n):
+            if nums_lst[i] > nums_lst[j]:
+                num_smaller_lst[i] += 1
+    if n % 2 == 1:
+        return nums_lst[num_smaller_lst.index(n//2)]
+    return (nums_lst[num_smaller_lst.index(n//2)] + nums_lst[num_smaller_lst.index(n//2 - 1)]) / 2
+","""""""
+Computes the median of a non empty numbers set, without sorting the numbers
+Args:
+- nums (set): a set of numbers
+Returns:
+- float: the median of the numbers in the set
+""""""","print(find_median({1, 2, 3, 4, 5}) == 3)
+print(find_median({5, 4, 3, 2, 1}) == 3)
+print(find_median({1, -4, 7, -5}) == -1.5)
+print(find_median({7}) == 7)
+print(find_median({1, 2, -4, -7}) == -1.5)",Find the number of mobile characters for each row in the table .
+,"def find_primary_factors(n): 
+    factors = []
+    k = 2
+    while k * k <= n:
+        if n % k:
+            k += 1
+        else:
+            n //= k
+            factors.append(k)
+    if n > 1:
+        factors.append(n)
+    return factors
+
+","""""""
+Computes the primary factors of a number
+Args:
+- n (int): a positive integer
+Returns:
+- list: a list of the primary factors of n
+""""""","print(find_primary_factors(105) == [3, 5, 7])
+print(find_primary_factors(100) == [2, 2, 5, 5])
+print(find_primary_factors(1) == [])
+print(find_primary_factors(7) == [7])
+print(find_primary_factors(12) == [2, 2, 3])",Find all the primary factor .
+,"def graphs_intersection(g1, g2): 
+    res_dict = {}
+    for node in g1:
+        for adj_node in g1[node]:
+            if adj_node in g2[node]:
+                if node in res_dict:
+                    res_dict[node].append(adj_node)
+                else:
+                    res_dict[node] = [adj_node]
+    return res_dict
+","""""""
+Computes the intersection (in terms of edges) of two graphs represented as dictionaries (same nodes, different edges)
+Args:
+- g1 (dict): a dictionary representing a graph
+- g2 (dict): a dictionary representing a graph
+Returns:
+- dict: a dictionary representing the intersection of the two graphs
+""""""","print(graphs_intersection({1: [2, 3], 2: [1, 3, 4], 3: [1, 2], 4: [2]} , {1: [3, 4], 2: [3, 5], 3: [1, 2], 4: [1], 5: [2]}) == {1: [3], 2: [3], 3: [1, 2]})
+print(graphs_intersection({1: [2, 3], 2: [1, 3, 4], 3: [1, 2], 4: [2]} , {1: [2, 3, 5], 2: [1, 3], 3: [1, 2], 4: [5], 5: [1, 4]}) == {1: [2, 3], 2: [1, 3], 3: [1, 2]})
+print(graphs_intersection({1: [2, 3], 2: [1, 3, 4], 3: [1, 2], 4: [2]} , {1: [2, 3, 4], 2: [1, 3, 4], 3: [1, 2, 4], 4: [1, 2, 3]}) == {1: [2, 3], 2: [1, 3, 4], 3: [1, 2], 4: [2]})",Find the intersection between two graphs .
+,"import itertools
+
+def subset_sum(lst, target): 
+    res = set()
+    for i in range(len(lst)):
+        for subset in itertools.combinations(lst, i):
+            if sum(subset) == target:
+                res.add(subset)
+    return res","""""""
+Computes all subsets of a list of integers that sums up to a target number
+Args:
+- lst (list): a list of integers
+- target (int): a target number
+Returns:
+- set: all subsets of lst that sums up to target
+""""""","print(subset_sum([1, 1, 3, 4], 5) == {(1, 4), (1, 1, 3)})
+print(subset_sum([1, 2, 3, 4, 5], 10) == {(1, 2, 3, 4), (1, 4, 5), (2, 3, 5)})
+print(subset_sum([1, 2, 3, 4, 5], 0) == {()})
+print(subset_sum([1, 1, 2, 2, 3, 3], 6) == {(1, 1, 2, 2), (1, 2, 3), (3, 3)})",Calculates the sum for a sub - selection of target by finding the sum of each of the 2 - tuples for the purpose of finding a subset from its original DROP subsets .
+,"def sum_mult_str(expression):
+    lst = expression.split(sep = ""'"")
+    lst.remove(lst[0])    
+    lst.remove(lst[-1])
+    text = lst[0]
+    for i in range(1, len(lst), 2):
+        if lst[i] == '+':
+            text = text + lst[i+1]
+        else:
+            text = text * int(lst[i+1])
+    return(text)
+","""""""
+    Calculates the result of a string expression that contains only addition and multiplication operations,
+    and numbers and strings as operands. The operations are calculated from left to right.
+    Args:
+    - expression (str): a string expression
+    Returns:
+    - str: the result of the expression
+    """"""","print(sum_mult_str(""'abc'*'3'+'def'"") == ""abcabcabcdef"")
+print(sum_mult_str(""'a'+''"") == ""a"")
+print(sum_mult_str(""'a'*'0'"") == """")
+print(sum_mult_str(""'3a'*'2'"") == ""3a3a"")
+print(sum_mult_str(""'12'+'aa'*'2'"") == ""12aa12aa"")
+print(sum_mult_str(""'a'*'2'+'b'*'2'"") == ""aabaab"")
+print(sum_mult_str(""'a'+'b'*'2'+'c'*'2'"") == ""ababcababc"")",Return the sum_mult_str for the given list of evals .
+,"def str_rep(s, k): 
+    lst = [s[:k]]
+    for i in range(1, len(s) - k + 1):
+        if lst.count(s[i:k+i]) != 0:
+            return True
+        else:
+            lst.append(s[i:k+i])
+    return False","""""""
+Computes if a string s contains a substring of length k that appears more than once
+Args:
+- s (str): a string
+- k (int): a positive integer
+Returns:
+- bool: True if s contains a substring of length k that appears more than once, False otherwise
+""""""","print(str_rep(""abcabc"", 3) == True)
+print(str_rep(""aab2bab22"", 3) == True)
+print(str_rep("""", 1) == False)
+print(str_rep(""a"", 1) == False)",Whether the str_rep is a valid string . Return True if the check was successful False otherwise .
+,"def sort_two_sorted_lists(lst): 
+    new_lst = []
+    n = len(lst)
+    i_even = 0 
+    i_odd = n-1 
+    while i_even < n and i_odd > 0 :
+        even = lst[i_even]
+        odd = lst[i_odd]
+        if even == odd:
+            new_lst.append(even)
+            new_lst.append(odd)
+        elif even < odd:
+            new_lst.append(even)
+            if i_even == n-2:
+                new_lst += lst[i_odd::-2]
+                return new_lst
+            else:
+                i_even += 2
+        else:
+            new_lst.append(odd)
+            if i_odd == 1:
+               new_lst += lst[i_even::2]
+               return new_lst
+            else:
+                i_odd -= 2","""""""
+Sorts a list that contains in the even indices a sorted list of integers in ascending order, 
+and in the odd indices a sorted list of integers in descending order
+Args:
+- lst (list): a list of integers who follows the above pattern
+Returns:
+- list: a sorted list of integers
+""""""","print(sort_two_sorted_lists([7, 6, 11, 4, 12, 0, 20, -10]) == sorted([7, 6, 11, 4, 12, 0, 20, -10]))
+print(sort_two_sorted_lists([-3, 1, -1, -2]) == sorted([-3, 1, -1, -2]))
+print(sort_two_sorted_lists([]) == None)",Sorts lists in a list removing rows that are unique .
+,"def prefix_suffix_match(lst, k): 
+    res_lst = []
+    for i in range(len(lst)): 
+        for j in range(len(lst)): 
+            if i == j: 
+                continue
+            elif lst[i][:k] == lst[j][-k:]: 
+                    res_lst.append((i,j))
+    return res_lst
+
+
+","""""""
+Computes all pairs of different indices i, j in a list of strings such that the first k characters of string i are equal to the last k characters of string j
+Args:
+- lst (list): a list of strings
+- k (int): a positive integer
+Returns:
+- list: a list of tuples of indices (i, j) that satisfy the condition above
+""""""","print(prefix_suffix_match([""aaa"", ""cba"", ""baa""], 2) == [(0, 2), (2, 1)])
+print(prefix_suffix_match([""abc"", ""def""], 1) == [])
+print(prefix_suffix_match([""aa"", ""aa""], 1) == [(0, 1), (1, 0)])
+print(prefix_suffix_match([""abc"", ""bc"", ""c""], 1) == [(2, 0), (2, 1)])",Apply the prefix suffix to the given list of suffixes .
+,"def rotate_matrix_clockwise(mat):
+    n = len(mat)
+    for i in range(n//2):
+        for j in range(i, n-i-1):
+            temp = mat[i][j]
+            mat[i][j] = mat[n-j-1][i]
+            mat[n-j-1][i] = mat[n-i-1][n-j-1]
+            mat[n-i-1][n-j-1] = mat[j][n-i-1]
+            mat[j][n-i-1] = temp
+    return mat
+
+","""""""
+Rotates a square matrix 90 degrees clockwise in-place.
+Args:
+- mat (list): a square matrix
+Returns:
+- list: the rotated matrix    
+""""""","print(rotate_matrix_clockwise([[1, 2], [3, 4]]) == [[3, 1], [4, 2]])
+print(rotate_matrix_clockwise([[1, 2, 3], [4, 5, 6], [7, 8, 9]]) == [[7, 4, 1], [8, 5, 2], [9, 6, 3]])
+print(rotate_matrix_clockwise([1]) == [1])",Rotate clockwise degrees between columns of a matrix .
+,"def cyclic_shift(lst, direction, steps): 
+    if len(lst) == 0:
+        return lst
+    if (direction == 'L' and steps > 0) or (direction == 'R' and steps < 0):
+        for i in range(max(steps, -steps) % len(lst)):
+            lst.append(lst.pop(0))
+    elif (direction == 'R' and steps > 0) or (direction == 'L' and steps < 0):
+        for i in range(max(steps, -steps) % len(lst)):
+            lst.insert(0, lst.pop())
+    return lst
+
+ ","""""""
+Performs a cyclic shift on a list, by the direction and number of steps specified.
+If steps is negaticve, the shift is in the opposite direction.
+The shift is done in place.
+Args:
+- lst (list): list to be shifted
+- direction (string): direction of the shift, 'L' or 'R'
+- steps (int): number of steps to shift the list
+Returns:
+list: shifted list
+""""""","print(cyclic_shift([1, 2, 3, 4, 5], 'L', 2) == [3, 4, 5, 1, 2])
+print(cyclic_shift([1, 2, 3, 4, 5], 'R', 2) == [4, 5, 1, 2, 3])  
+print(cyclic_shift([1, 2, 3, 4, 5], 'L', -2) == [4, 5, 1, 2, 3])
+print(cyclic_shift([], 'R', -2) == []) 
+print(cyclic_shift([1, 2, 3], 'R', 0) == [1, 2, 3])  
+print(cyclic_shift([1, 2, 3, 4, 5], 'L', 7) == [3, 4, 5, 1, 2]) ",Returns the correct cyclic shift for a list of 1 - dimensional cyclic moves .
+,"def encode_string(s): 
+    curr, count = None, 0
+    res = """"
+    for c in s:
+        if c == curr:
+            count += 1
+        else:
+            if count > 0:
+                res += f""{str(count)}[{curr}]""
+            curr = c
+            count = 1
+    if count > 0:
+        res += f""{str(count)}[{curr}]""
+    return res
+
+","""""""
+Encodes an input string to {num of repititions of char c}[{c}]
+Args:
+- s (str): a string of chars.
+Returns:
+- str : an encoding of the input string based by the format of {num of repititions of char c}[{c}]
+""""""","print(encode_string(""abbcdbaaa"") == ""1[a]2[b]1[c]1[d]1[b]3[a]"")
+print(encode_string(""aaaaa"") == ""5[a]"")
+print(encode_string("""") == """")",Encodes a list of strings into a user - friendly string .
+,"def list_sums(lst): 
+    for i in range(1,len(lst)):
+        lst[i] += lst[i-1]
+
+
+","""""""
+Modifies a list in-place, replacing each element with the sum of all previous elements in the original list.
+Args:
+- lst (list): a list of ints.
+Returns:
+- str : an encoding of the input string based by the format of {num of repititions of char c}[{c}]
+""""""","a , b= [1,2,3,4,5], [1]
+list_sums(a)
+print(a == [1,3,6,10,15])
+list_sums(a)
+print(a == [1, 4, 10, 20, 35])
+print(list_sums([b]) == None)
+print(b == [1])",List the sums for the columns in the list .
+,"def convert_base(num, base): 
+    if base > 9 or base < 1 or num < 0:
+        return None # ADD ERROR
+    res = """"
+    if base == 1:
+        return ""1""*num
+    while num > 0:
+        remainder = num % base
+        res = str(remainder) + res
+        num //= base
+    return res  
+
+","""""""
+Converts an int to a string represantation of it in the base provided, the base should be in range[1,9].
+Args:
+- num (int) : the number to convert.
+- base (int) : the base to convert the number to. 
+Returns:
+- str : a string representation of num in the new base.
+""""""","print(convert_base(4,2) == ""100"")
+print(convert_base(9,9) == ""10"")
+print(convert_base(15, 1) == ""1""*15)
+print(convert_base(80, 5) == ""310"")
+print(convert_base(10, -3) == None)
+print(convert_base(-1, 2) == None)",Convert a base 10 number to another base
+,"def max_div_seq(n, k): 
+    lst = []
+    cnt = 0
+    while n > 0:
+        if (n % 10) % k == 0:
+            cnt += 1
+            if n < 10:
+                lst.append(cnt)
+        else:
+            lst.append(cnt)
+            cnt = 0
+        n = n // 10
+    return max(lst)
+
+","""""""
+Computes the length of the longest sequence of digits in a number that are divisible by k
+Args:
+- n (int): a positive integer
+- k (int): a positive integer
+Returns:
+- int: the length of the longest sequence of digits in n that are divisible by k
+""""""","print(max_div_seq(123456, 3) == 1)
+print(max_div_seq(124568633, 2) == 3)
+print(max_div_seq(123456, 1) == 6)
+print(max_div_seq(3, 2) == 0)
+print(max_div_seq(6, 2) == 1)",Find the maximum number of balls given by sern .
+,"def find_dup(lst): 
+    ptr1 = ptr2 = lst[0]
+    while True:
+        ptr1 = lst[ptr1]
+        ptr2 = lst[lst[ptr2]]
+        if ptr1 == ptr2:
+            break
+    ptr1 = lst[0]
+    while ptr1 != ptr2:
+        ptr1 = lst[ptr1]
+        ptr2 = lst[ptr2]
+    return ptr1
+","""""""
+Finds the duplicate number in a list of integers
+Args:
+- nums (list): a list of integers that contains n + 1 integers in the range [1, n]
+Returns:
+- int: the duplicate number
+""""""","print(find_dup([1, 1, 2, 3]) == 1)
+print(find_dup([1, 4, 3, 2, 2]) == 2)
+print(find_dup([1, 1]) == 1)",Find the best pointer to the begin of a list .
+,"def lcm(a, b): 
+    def gcd(x, y):
+        while y:
+            x, y = y, x % y
+        return x
+    return a * b // gcd(a, b)
+
+","""""""
+Computes the least common multiple of two numbers
+Args:
+- a (int): a positive integer
+- b (int): a positive integer
+Returns:
+- int: the least common multiple of a and b
+""""""","print(lcm(3, 5) == 15)
+print(lcm(4, 6) == 12)",Return the smallest length of a non - negative integer .
+,"def f19(): 
+    result = None
+    for number in range(1000, 10000):
+        if number % 15 == 0:
+            digits = [int(digit) for digit in str(number)]
+            product_of_digits = 1
+            for digit in digits:
+                product_of_digits *= digit
+            if 55 < product_of_digits < 65:
+                result = number
+                break
+    return result
+
+","""""""
+finds the smallest 4-digit number that is divisible by 15 and has a product of its digits between 56 and 64 ,inclusive. 
+returns the number if found, None otherwise. 
+""""""","print(f19() == 2235)
+
+",Find the first number of digits and return it as a string .
+,"def f20():
+    num_str = str(14563743)
+    for i in range(len(num_str)):
+        for j in range(i+1, len(num_str)):
+            for k in range(j+1, len(num_str)):
+                new_number = int(num_str[:i] + num_str[i+1:j] + num_str[j+1:k] + num_str[k+1:])
+                if new_number % 22 == 0:
+                    return new_number
+    return None
+","""""""
+finds a number that can be constructed by removing 3 digits from 14563743 such that the resulting number is divisible by 22.
+returns the number if found, None otherwise.
+""""""","print(f20() == 14674)
+",Finds the frequency of the first num_strub_str .
+Classes,"import math
+class triangle: 
+    def __init__(self, a, b, ab, color) -> None:
+        self.d = {}
+        self.d['a'] = a
+        self.d['b'] = b
+        self.d['ab'] = ab
+        self.d['color'] = color
+        c = math.sqrt(a**2 + b**2 - 2*b*a*math.cos(math.radians(ab)))
+        self.d['c'] = c
+        self.d['bc'] = math.degrees(math.acos((b**2 + c**2 - a**2)/(2*b*c)))
+        self.d['ac'] = math.degrees(math.acos((a**2 + c**2 - b**2)/(2*a*c)))
+    def get(self, name):
+        if len(name) == 2:
+            name = """".join(sorted(name))
+        if name not in self.d:
+            raise KeyError(f""ERROR: no triangale attribute with the name {name}."")
+        return self.d[name]
+        
+
+","""""""
+A class used to represent a colored triangle. Edges are represented by a single letter and the angles by the edges adjacant to them.
+Attributes:
+----------
+d : dictionary
+    a dictionary holding all the triangles attributes.
+Methods
+-------
+__init__(a, b, ab, color)
+    creates a triangle object with the attributes a, b, ab, and color.
+    a : int
+        The length of edge a
+    b : int
+        The length of edge b
+    ab : int
+        The size of angle ab, in degrees
+    color : string
+        The color of the triangle
+get(name)
+    returns the triangles attribute called name.
+    raise KeyError if name isn't representing any attribute of the triangle.
+""""""","a = triangle(10, 5, 90, 'black')
+print(a.get('ba') == 90)
+print(a.get('c') == 11.180339887498949)
+print(a.get('ac') == 26.565051177077994)
+print(a.get('bc') == 63.43494882292201)
+print(a.get('d'))",The class attribute is self .
+,"class worker:     
+    def __init__(self, id, first_name, last_name, job, salary = 5000, second_name = None):
+        self.id = id
+        if second_name:
+            self.full_name = first_name + "" "" + second_name + "" "" + last_name
+        else: 
+            self.full_name = first_name + "" "" + last_name
+        self.job = job
+        self.salary = salary
+    
+    def getFullName(self):
+        return self.full_name
+    
+    def getSalary(self):
+        return self.salary
+    
+    def getJob(self):
+        return self.job
+    
+    def update(self, job = None, salary = None):
+        if job:
+            self.job = job
+        if salary:
+            self.salary = salary
+
+","""""""
+A class used to represent a worker.
+Attrinutes:
+----------
+id : int
+    the ID of the worker.
+full_name : str
+    the workers full name, combining first, second (if exist) and last name.
+job : str
+    the workers job.
+salary:
+    the workers salary.
+Methods
+-------
+__init__(id, first_name, last_name, job, salary = 5000, second_name = None)
+    creates a worker object with the attributes id, first_name, last_name, job, salary and second_name if provided.
+getFullName()
+    returns the workers full name.
+getSalary()
+    returns the workers salary.
+getJob()
+    returns the workers job.
+update(job, salary)
+    updates the workers job and salary.
+""""""","jon = worker('12345', 'jon', 'cohen', 'salesman')
+print(jon.getFullName() == ""jon cohen"")
+print(jon.getJob() == ""salesman"")
+print(jon.getSalary() == 5000)
+jon.update(job = 'engineer', salary = 7000)
+print(jon.getJob() == ""engineer"")
+print(jon.getSalary() == 7000)",This method is called by the class constructor . The first_name will be the name of the class .
+,"class Binaric_arithmatic: 
+
+    def __init__(self, num):
+        self.num = num
+    
+    def get(self):
+        return self.num
+    
+    def inc(self):
+        if self.num == ""0"":
+            return ""1""
+        new_bin_rev = """"
+        bin_rev = self.num[::-1]
+        for i in range(len(self.num)):
+            if bin_rev[i] == ""1"":
+                new_bin_rev = new_bin_rev + ""0""
+            else:
+                new_bin_rev = new_bin_rev + ""1"" + bin_rev[i+1:]
+                return new_bin_rev[::-1]
+        if ""1"" not in new_bin_rev:
+            return ""1"" + new_bin_rev
+    
+    def dec(self):
+        if self.num == ""1"":
+            return ""0""
+        new_bin_rev = """"
+        bin_rev = self.num[::-1]
+        for i in range(len(self.num)):
+            if bin_rev[i] == ""0"":
+                new_bin_rev = new_bin_rev + ""1""
+            else:
+                if i == (len(self.num) - 1):
+                    new_bin_rev = new_bin_rev + ""0""
+                    break
+                new_bin_rev = new_bin_rev + ""0"" + bin_rev[i + 1:]
+                break
+        if new_bin_rev[-1] == ""0"":
+            return new_bin_rev[:-1][::-1]
+        return new_bin_rev[::-1] 
+    
+","""""""
+A class used to represent a binaric number and perform arithmatic operations on it without using base conversions.
+Attrinutes:
+----------
+num : string
+    the binaric number represented as a string.
+Methods
+-------
+__init__(num)
+    creates a Binaric_arithmatic object with the attribute num.
+get()
+    returns the binaric number.
+inc()
+    increments number by 1.
+dec()
+    decrements a positive number by 1.
+""""""","seven = Binaric_arithmatic(""111"")
+one = Binaric_arithmatic(""1"")
+print(seven.inc() == ""1000"")
+print(seven.dec() == ""110"")
+print(one.inc() == ""10"")
+print(one.dec() == ""0"")",The bin number for the piston mode . Correctly computes the correctness of the bin edges .
+,"class Point_2D: 
+   
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        self.r = math.sqrt(x**2 + y**2)
+        self.theta = math.atan2(y, x)
+     
+    def __repr__(self):
+        return f""Point({self.x}, {self.y})""
+    
+    def __eq__(self, other):
+        return self.x == other.x and self.y == other.y
+    
+    def __add__(self, other):
+        return Point_2D(self.x + other.x, self.y + other.y)
+    
+    def __sub__(self, other):
+        return Point_2D(self.x - other.x, self.y - other.y)
+    
+    def distance(self, other):
+        return math.sqrt((self.x - other.x)**2 + (self.y - other.y)**2)
+    
+    def angle_wrt_origin(self, other):
+        dif_angle = other.theta - self.theta
+        if dif_angle < 0:
+            return dif_angle + 2 * math.pi
+        return dif_angle    
+    
+ 
+    ","""""""
+A class used to represent a point in 2D space.
+Attrinutes:
+----------
+x : float
+    the x coordinate of the point.
+y : float
+    the y coordinate of the point.
+r : float
+    the distance of the point from the origin.
+theta : float
+    the angle of the point from the x axis.
+Methods
+-------
+__init__(x, y)
+    creates a Point_2D object with the attributes x, y, r and theta.
+__repr__()
+    returns a string representation of the point.
+__eq__(other)
+    checks if two points are equal.
+__add__(other)
+    adds two points treated as two dimensional vectors.
+__sub__(other)
+    subtracts two points treated as two dimensional vectors.
+distance(other)
+    computes the euclidian distance between two points.
+angle_wrt_origin(other)
+    computes the angle between two points with respect to the origin.
+""""""","a = Point_2D(1, 1)
+b = Point_2D(0, 1)
+c = Point_2D(-1, 1)
+d = Point_2D(1, 1)
+print(a == d)
+print(a.distance(c) == 2)
+print(a + b == Point_2D(1, 2))
+print(a - b == Point_2D(1, 0))
+print(b.angle_wrt_origin(c) == math.pi / 4)
+print(c.angle_wrt_origin(b) == 2 * math.pi - math.pi / 4)  ",The point on the 2D line which corresponds to the origin .
+,"import random
+
+class Roulette: 
+
+    def __init__(self, initial_money):
+        self.balance = initial_money
+        self.reds = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36]
+        self.blacks = [2, 4, 6, 8, 10, 11, 13, 15, 17, 20, 22, 24, 26, 28, 29, 31, 33, 35]
+    
+    def get_balance(self):
+        return self.balance
+    
+    def bet(self, amount, bet_type):
+        if amount > self.balance:
+            raise KeyError(f""ERROR: current balance = {self.balance}, can't bet {amount}."")
+        roll = random.randint(0, 36)
+        print(""roll: "", roll)
+        if bet_type == ""red"":
+            self.balance -= amount
+            if roll in self.reds:
+                self.balance += amount * 2
+        elif bet_type == ""black"":
+            self.balance -= amount
+            if roll in self.blacks:
+                self.balance += amount * 2
+        elif bet_type == ""even"":
+            self.balance -= amount
+            if roll > 0 and roll % 2 == 0:
+                self.balance += amount * 2
+        elif bet_type == ""odd"":
+            self.balance -= amount
+            if roll > 0 and roll % 2 == 1:
+                self.balance += amount * 2
+        elif bet_type == ""1-12"":
+            self.balance -= amount
+            if roll > 0 and roll < 13:
+                self.balance += amount * 2
+        elif bet_type == ""13-24"":
+            self.balance -= amount
+            if roll > 12 and roll < 25:
+                self.balance += amount * 2
+        elif bet_type == ""25-36"":
+            self.balance -= amount
+            if roll > 24 and roll < 37:
+                self.balance += amount * 2      
+        else:
+            self.balance -= amount
+            if roll == int(bet_type):
+                self.balance += amount * 36
+        return self.balance
+
+","""""""
+A class used to represent a gambler playing roulette.
+Attrinutes:
+----------
+balance : float
+    the current balance of the gambler.
+reds : list
+    a list of the red numbers on the roulette.
+blacks : list
+    a list of the black numbers on the roulette
+Methods:
+----------
+__init__(initial_money)
+    creates a roulette game for a gambler with his initial money
+get_balance()
+    returns the gambler's balance
+bet(amount, bet_type)
+    updates the gambler's balance after one round of the roulette based on the gambler's bet type, bet size and the roll.
+""""""","gambler = Roulette(1000)
+print(gambler.bet(100, ""red""))
+print(gambler.bet(100, ""black""))
+print(gambler.bet(100, ""even""))
+print(gambler.bet(100, ""odd""))
+print(gambler.bet(100, ""1-12""))
+print(gambler.bet(100, ""13-24""))
+print(gambler.bet(100, ""25-36""))
+print(gambler.bet(100, ""17""))",Create a random instance of the ketama compatible with the given amount .
+,"class investments: 
+
+    def __init__(self, name, initial_investment, avg_yearly_return, monthly_income, monthly_expenses):
+        self.balance = initial_investment
+        self.avg_yearly_return = avg_yearly_return
+        self.monthly_income = monthly_income
+        self.monthly_expenses = monthly_expenses
+        self.name = name
+    
+    def __repr__(self):
+        return f""name: {self.name} \nbalance: {self.balance}\navg_yearly_return: {self.avg_yearly_return}\nmonthly_income: {self.monthly_income}\nmonthly_expenses: {self.monthly_expenses}""
+    
+    def get_balance(self):
+        return self.balance
+    
+    def future_value(self, years):
+        future_balance = self.get_balance()
+        for i in range(years):
+            future_balance = (future_balance + (12 * self.monthly_income - 12 * self.monthly_expenses)) * (1 + self.avg_yearly_return / 100)
+        self.balance = future_balance
+        return future_balance
+    
+    def withdraw(self, amount):
+        if amount > self.balance:
+            raise KeyError(f""ERROR: current balance = {self.balance}, can't withdraw {amount}."")
+        self.balance -= amount
+        return self.balance
+      
+jon = investments(""jon"", 100000, 10, 15000, 10000)
+print(jon.get_balance() == 100000)
+print(jon.future_value(3) == 351560)
+print(jon.withdraw(100000) == 251560)
+print(jon.future_value(3) == 553286.3600000001)
+print(jon.withdraw(100000) == 453286.3600000001)
+print(jon.future_value(4) == 969962.5596760004)","""""""
+A class used to represent an investment portfolio.
+Attrinutes:
+----------
+balance : float
+    the current balance of the portfolio.
+avg_yearly_return : float
+    the average yearly return of the portfolio in percentage.
+monthly_income : float
+    monthly income of the investor (from other income sources).
+monthly_expenses : float
+    monthly expenses of the investor.
+name : str
+    the name of the investor.
+Methods:
+----------
+__init__(name, initial_investment, avg_yearly_return, monthly_income, monthly_expenses)
+    creates an investment portfolio for an investor with its attributes.
+get_balance()
+    returns the current balance of the portfolio.
+future_value(years)
+    evaluates the future value of the portfolio after a number of years,
+    based on the average yearly return expected and on the monthly inocme - expanses.
+withdraw(amount)
+    withdraws an amount from the portfolio if balance allows it.
+""""""","jon = investments(""jon"", 100000, 10, 15000, 10000)
+print(jon.get_balance() == 100000)
+print(jon.future_value(3) == 351560)
+print(jon.withdraw(100000) == 251560)
+print(jon.future_value(3) == 553286.3600000001)
+print(jon.withdraw(100000) == 453286.3600000001)
+print(jon.future_value(4) == 969962.5596760004)",The heart of the class .
+,"class Restaurant: 
+
+    def __init__(self, name, cuisine, rating):
+        self.name = name
+        self.cuisine = cuisine
+        self.rating = rating
+        self.menu = {}
+        self.chefs = []
+
+    def __repr__(self):
+        return f""{self.name} ({self.cuisine}) - {self.rating}/5""
+
+    def add_dish(self, name, price):
+        self.menu[name] = price
+        
+    def remove_dish(self, name):
+        if name in self.menu:
+            del self.menu[name]
+        
+    def add_chef(self, chef):
+        self.chefs.append(chef)
+    
+    def remove_chef(self, chef):
+        if chef in self.chefs:
+            self.chefs.remove(chef)
+            
+    def get_menu(self):
+        return self.menu
+    
+    def get_chefs(self):
+        return self.chefs            
+            
+","""""""
+A class to represent a restaurant.
+Attributes:
+----------
+name : str
+    name of the restaurant
+cuisine : str
+    type of cuisine
+rating : float
+    rating of the restaurant (0-5)
+menu : dict
+    menu of the restaurant, with dish name as key and price as value
+chefs : list
+    list of chefs working at the restaurant
+Methods:
+-------
+__init__(name, cuisine, rating)
+    creates a restaurant object with the attributes name, cuisine, and rating. Also initializes empty Menu and chefs roster.
+__repr__()
+    returns a string representation of the restaurant
+add_dish(name, price)
+    adds a dish to the menu
+remove_dish(name)
+    removes a dish from the menu
+add_chef(chef)
+    adds a chef to the chefs list
+remove_chef(chef)
+    removes a chef from the chefs list
+get_menu()
+    returns the menu
+get_chefs()
+    returns the chefs list
+""""""","r = Restaurant(""Ragazzo"", ""Italian"", 4.5)
+r.add_dish(""pasta"", 10)
+r.add_dish(""pizza"", 20)
+print(r.get_menu() == {'pasta': 10, 'pizza': 20})
+r.remove_dish(""pasta"")
+print(r.get_menu() == {'pizza': 20})
+r.add_chef(""Mario"")
+r.add_chef(""Luigi"")
+print(r.get_chefs() == ['Mario', 'Luigi'])
+r.remove_chef(""Mario"")
+print(r.get_chefs() == ['Luigi'])",The naming of the menu .
+,"class Polynomial: 
+
+    def __init__(self, coeffs):
+        self.coeffs = coeffs
+    
+    def __repr__(self):
+        res = """"
+        if len(self.coeffs) == 1:
+            return str(self.coeffs[0])
+        if self.coeffs[0] != 0:
+            if self.coeffs[1] > 0:
+                res += f""{self.coeffs[0]} + {self.coeffs[1]}x""
+            elif self.coeffs[1] < 0:
+                res += f""{self.coeffs[0]} - {abs(self.coeffs[1])}x""
+        if self.coeffs[0] == 0 and self.coeffs[1] != 0:
+            res += f""{self.coeffs[1]}x""
+        if self.coeffs[0] != 0 and self.coeffs[1] == 0:
+            res += f""{self.coeffs[0]}""
+        for i in range(2, len(self.coeffs)):
+            if self.coeffs[i] > 0:
+                res += f"" + {self.coeffs[i]}x^{i}""
+            elif self.coeffs[i] < 0:
+                res += f"" - {abs(self.coeffs[i])}x^{i}""
+        return res
+    
+    def get_deg(self):
+        return len(self.coeffs) - 1
+    
+    def __add__(self, other):
+        if len(self.coeffs) > len(other.coeffs):
+            pad_other = other.coeffs + [0] * (len(self.coeffs) - len(other.coeffs))
+            return Polynomial([x + y for x, y in zip(self.coeffs, pad_other)])
+        else:
+            pad_self = self.coeffs + [0] * (len(other.coeffs) - len(self.coeffs))
+            return Polynomial([x + y for x, y in zip(pad_self, other.coeffs)])
+    
+    def __eq__(self, other):
+        return self.coeffs == other.coeffs
+             
+
+","""""""
+A class to represent a polynomial.
+Attributes:
+----------
+coeffs : list
+    list of coefficients of the polynomial, starting from the constant term
+Methods:
+-------
+__init__(coeffs)
+    creates a polynomial object with the attribute coeffs
+__repr__()
+    returns a string representation of the polynomial in the form of (a0 + a1x + a2x^2 + ...)
+    such that only the non zero coefficients are shown
+get_deg()
+    returns the degree of the polynomial
+__add__(other)
+    adds two polynomials
+__eq__(other)
+    checks if two polynomials are equal
+""""""","a = Polynomial([1, 2, 0, 4])
+b = Polynomial([0, 2, -5, 0])
+c = Polynomial([-7, 2, 0, 4])
+d = Polynomial([-6, -2, 0, 4, 5])
+e = Polynomial([0])
+
+print(str(a) == ""1 + 2x + 4x^3"")
+print(str(b) == ""2x - 5x^2"")
+print(str(c) == ""-7 + 2x + 4x^3"")
+print(str(d) == ""-6 - 2x + 4x^3 + 5x^4"")    
+print(str(e) == ""0"")
+print(d.get_deg() == 4)
+print(str(a + b) == ""1 + 4x - 5x^2 + 4x^3"")
+print(str(c + d) == ""-13 + 8x^3 + 5x^4"")
+print(b + e == b)",The class method that gets passed into the class
+,"class TodoList: 
+
+    def __init__(self):
+        self.tasks = []
+
+    def __repr__(self):
+        output = []
+        for t in self.tasks:
+            status = 'V' if t['completed'] else 'X'
+            output.append(f""[{status}] {t['task']}"")
+        return ""\n"".join(output)
+    
+    def add_task(self, task):
+        self.tasks.append({'task': task, 'completed': False})
+
+    def remove_task(self, task):
+        for t in self.tasks:
+            if t['task'] == task:
+                self.tasks.remove(t)
+                return True
+        return False
+
+    def mark_completed(self, task):
+        for t in self.tasks:
+            if t['task'] == task:
+                t['completed'] = True
+                return True
+        return False
+
+    def list_tasks(self, completed=None):
+        if completed is None:
+            return [t['task'] for t in self.tasks]
+        return [t['task'] for t in self.tasks if t['completed'] == completed]
+
+
+","""""""
+A class to represent a to-do list.
+Attributes:
+----------
+tasks : list
+    list of tasks, each task is a dictionary with keys 'task' and 'completed'
+Methods:
+-------
+__init__()
+    creates a to-do list object with an empty list of tasks
+__repr__()
+    returns a string representation of the to-do list
+add_task(task)
+    adds a task to the list
+remove_task(task)
+    removes a task from the list, returns True if the task was removed, False otherwise
+mark_completed(task)
+    marks a task as completed, returns True if the task was found and marked, False otherwise
+list_tasks(completed)
+    returns a list of tasks, if completed is None, returns all tasks, if completed is True, returns completed tasks, if completed is False, returns incomplete tasks
+""""""","lst = TodoList()
+lst.add_task(""Buy groceries"")
+lst.add_task(""go to school"")
+lst.add_task(""do HW"")
+print(str(lst) == ""[X] Buy groceries\n[X] go to school\n[X] do HW"")
+lst.mark_completed(""Buy groceries"")
+print(str(lst) == ""[V] Buy groceries\n[X] go to school\n[X] do HW"")
+lst.remove_task(""do HW"")
+print(str(lst) == ""[V] Buy groceries\n[X] go to school"")
+print(lst.list_tasks(completed=True) == [""Buy groceries""])
+print(lst.list_tasks(completed=False) == [""go to school""])",This function is called when the task is in a non - main .
+,"class Recipe:
+ 
+    def __init__(self, name, ingredients, instructions):
+        self.name = name
+        self.ingredients = ingredients
+        self.instructions = instructions
+
+    def __repr__(self):
+        return f""Recipe: {self.name}\nIngredients: {', '.join(self.ingredients)}\nInstructions: {self.instructions}\n""
+
+
+    class RecipeBook:
+    
+    def __init__(self):
+        self.recipes = []
+        
+    def __repr__(self):
+        return ""\n"".join(str(recipe) for recipe in self.recipes)
+
+    def add_recipe(self, name, ingredients, instructions):
+        new_recipe = Recipe(name, ingredients, instructions)
+        self.recipes.append(new_recipe)
+
+    def remove_recipe(self, name):
+        for recipe in self.recipes:
+            if recipe.name == name:
+                self.recipes.remove(recipe)
+                return True
+        return False
+
+    def search_by_ingredient(self, ingredient):
+        return [recipe for recipe in self.recipes if ingredient in recipe.ingredients]
+
+    def list_recipes(self):
+        return [str(recipe) for recipe in self.recipes]
+
+
+","""""""
+class Recipe:
+
+A class to represent a recipe.
+Attributes:
+----------
+name : str
+    name of the recipe
+ingredients : list
+    list of ingredients
+instructions : str
+    instructions to prepare the recipe
+Methods:
+-------
+__repr__()
+    returns a string representation of the recipe
+
+
+class RecipeBook:
+
+A class to represent a recipe book.
+Attributes:
+----------
+recipes : list
+    list of recipes
+Methods:
+-------
+__init__()
+    creates a recipe book object with an empty list of recipes
+__repr__()
+    returns a string representation of all recipes in the recipe book
+add_recipe(name, ingredients, instructions)
+    adds a recipe to the recipe book
+remove_recipe(name)
+    removes a recipe from the recipe book, returns True if the recipe was removed, False otherwise
+search_by_ingredient(ingredient)
+    returns a list of recipes that include the specified ingredient
+list_recipes()
+    returns a list of all recipes
+""""""","book = RecipeBook()
+book.add_recipe(""Pasta"", [""pasta"", ""tomato sauce"", ""cheese""], ""Cook pasta, add sauce and cheese"")
+print(str(book) == ""Recipe: Pasta\nIngredients: pasta, tomato sauce, cheese\nInstructions: Cook pasta, add sauce and cheese\n"")
+book.add_recipe(""Pizza"", [""dough"", ""tomato sauce"", ""cheese""], ""Bake dough, add sauce and cheese"")
+book.add_recipe(""Salad"", [""lettuce"", ""tomato"", ""cucumber""], ""Mix all ingredients"")
+cheese_recipes = book.search_by_ingredient(""cheese"")
+print(cheese_recipes[0].name == ""Pasta"" and cheese_recipes[1].name == ""Pizza"" and len(cheese_recipes) == 2)
+book.remove_recipe(""Pasta"")
+print(book.list_recipes() == [""Recipe: Pizza\nIngredients: dough, tomato sauce, cheese\nInstructions: Bake dough, add sauce and cheese\n"", ""Recipe: Salad\nIngredients: lettuce, tomato, cucumber\nInstructions: Mix all ingredients\n""])",Produces a name that uses this recipe
+Numpy,,,,
+,"def mask_n(im, n, idx): 
+    size = (im.max() - im.min()) / n 
+    mask_greater = im >= (im.min() + size * idx) 
+    mask_lower = im <= (im.min() + size * (idx + 1)) 
+    return mask_greater * mask_lower 
+
+","""""""
+Calculates a mask where True values are the elements of the input image that fall within a range determined by the image's min and max values, n, and idx.
+Args:
+- im (NumPy array) : A 2D NumPy array (short for image) 
+- n (int) : a positive number that represents the number of parts to divide the image's pixel values into.
+- idx (int) : determines the part of the image to be masked.
+""""""","im = np.array([[3,5,9],[8,1,2],[7,6,4]]) 
+print(np.all(mask_n(im, 3, 0) == np.array([[True, False, False], [False, True, True], [False, False, False]])))
+print(np.all(mask_n(im, 3, 1) == np.array([[False, True, False], [False, False, False], [False, True, True]])))",Mask the given integer n - by - 1 .
+,"def entropy(mat): 
+    mat_values = mat.flatten() 
+    bin_prob = np.bincount(mat_values) / (mat_values.shape[0]) 
+    bin_prob = bin_prob[bin_prob != 0] 
+    return (-bin_prob * np.log2(bin_prob)).sum() 
+
+","""""""
+Calculates the entropy of a matrix.
+Args:
+- mat (NumPy array) : A 2D NumPy array with non-negative integer values.
+Returns:
+- float : The entropy value of the input matrix.
+""""""","mat1 = np.array([[3,5,3],[8,1,1],[7,7,7]]) 
+mat2 = np.array([[0, 1], [1, 0]])
+print(entropy(mat1) == 2.197159723424149)
+print(entropy(mat2) == 1)",Calculates the entropy for a group of data .
+,"def squeeze_vertical(im, factor): 
+    h, w = im.shape 
+    new_h = h // factor 
+    res = np.zeros((new_h, w), dtype=im.dtype) 
+    for i in range(new_h): 
+        res[i, :] = im[i * factor: (i + 1) * factor, :].mean(axis=0) 
+    return res
+
+","""""""
+Squeezes a 2D image vertically by a given factor, by averaging the pixel values in each group of factor rows.
+Args:
+- im (NumPy array) : A 2D NumPy array representing the image.
+- factor (int) : The factor by which to squeeze the image vertically. factor is a positive integer and divides the hieght of the image.
+Returns:
+- NumPy array : A new 2D NumPy array representing the vertically squeezed image.
+""""""","print(np.all(squeeze_vertical(np.array([[1, 2], [3, 4], [5, 6], [7, 8]]), 2) == np.array([[2, 3], [6, 7]])))
+print(np.all(squeeze_vertical(np.array([[1, 2], [3, 4], [5, 6], [7, 8]]), 4) == np.array([[4, 5]])))
+print(np.all(squeeze_vertical(np.array([[1, 2], [3, 4], [5, 6], [7, 8]]), 1) == np.array([[1, 2], [3, 4], [5, 6], [7, 8]])))",Reduce the image using a human - readable version .
+,,,,
+Pandas,"import pandas as pd
+
+def calculate_monthly_sales(data): 
+  data['Date'] = pd.to_datetime(data['Date'])    
+  data['YearMonth'] = data['Date'].dt.to_period('M')  
+  monthly_sales = data.groupby(['Product', 'YearMonth'])['Sales'].sum().reset_index()
+  monthly_average_sales = monthly_sales.groupby('Product')['Sales'].mean().reset_index()
+  monthly_average_sales.rename(columns={'Sales': 'AverageMonthlySales'}, inplace=True)  
+  result = pd.merge(monthly_sales, monthly_average_sales, on='Product')
+  return result","""""""
+Calculates monthly sales figures and average monthly sales per product from a DataFrame containing sales data.
+Args:
+- data (pandas DataFrame) : A dataframe containing sales data. it is expected to have a 'Date' column with datetime format, a 'Product' column with products names and a 'Sales' column with numerical sales values.
+Returns:
+pandas DataFrame : A new dataframe with four columns: 'Product', 'YearMonth' (representing the year and month), 'Sales' (total sales for each product in that month) and 'AverageMonthlySales', representing the average monthly sales for each product across all months in the data.
+""""""","data = pd.DataFrame({
+    'Date': ['2024-01-01', '2024-01-15', '2024-02-01', '2024-02-15', '2024-03-01', 
+             '2024-01-03', '2024-01-20', '2024-02-05', '2024-02-25', '2024-03-10'],
+    'Product': ['A', 'A', 'A', 'A', 'A', 
+                'B', 'B', 'B', 'B', 'B'],
+    'Sales': [100, 150, 200, 250, 300, 
+              120, 130, 140, 150, 160]
+})
+monthly_sales_analysis = calculate_monthly_sales(data)
+print(monthly_sales_analysis)",Extract data from a pandas . DataFrame and convert it to a dataframe .
+,"def recommendations(movies, movies_genres, genres, search_title):
+    matching_title = movies[movies['title'].str.contains(search_title, case=False, na=False)].iloc[0]
+    matching_title_genres = movies_genres[movies_genres['movie_id'] == matching_title['id']]['genre_id'].tolist()
+    genre_movie_ids = movies_genres[movies_genres['genre_id'].isin(matching_title_genres)]['movie_id'].tolist()
+    filtered_movies = movies[
+        (movies['id'].isin(genre_movie_ids)) &
+        (movies['rate'].between(matching_title['rate'] - 1, matching_title['rate'] + 1)) &
+        (movies['runtime'].between(matching_title['runtime'] - 15, matching_title['runtime'] + 15)) &
+        (movies['id'] != matching_title['id'])
+    ]
+    return filtered_movies.head(10)","""""""
+Finds up to 10 movies that are similar to a given movie title based on genre, rating, and runtime.
+Args:
+- movies (pandas DataFrame) : A dataframe containing movie data. It is expected to have 'id', 'title', 'rate', and 'runtime' columns.
+- movies_genres (pandas DataFrame) : A dataframe containing movie-genre mapping data. It is expected to have 'movie_id' and 'genre_id' columns.
+- genres (pandas DataFrame) : A dataframe containing genre data. It is expected to have 'genre_id' and 'genre_name' columns.
+Returns:
+    - pandas DataFrame : A new dataframe containing up to 10 movies that are similar to the given movie title based on genre, rating, and runtime.
+The similar movies should have the same genre as the given movie, a rating within 1 point of the given movie, and a runtime within 15 minutes of the given movie. 
+The returned dataframe should have 'id', 'title', 'rate', and 'runtime' columns.
+""""""","movies = pd.DataFrame({
+    'id': [1, 2, 3, 4],
+    'title': ['Inception', 'The Matrix', 'Interstellar', 'Memento'],
+    'overview': ['Dreams within dreams', 'Reality is a simulation', 'Space exploration', 'Memory loss thriller'],
+    'rate': [8.8, 8.7, 8.6, 8.4],
+    'runtime': [148, 136, 169, 113]
+})
+movies_genres = pd.DataFrame({
+    'movie_id': [1, 2, 3, 4],
+    'genre_id': [1, 1, 2, 3]
+})
+genres = pd.DataFrame({
+    'genre_id': [1, 2, 3],
+    'genre_name': ['Sci-Fi', 'Adventure', 'Thriller']
+})
+search_title = 'Inception'
+print(recommendations(movies, movies_genres, genres, search_title))",Extracts genres from a search_gens_key .
+,"def top_hours_worked_departments(employees, departments, works_on): 
+    employees_project_hours = works_on.groupby('employee_id')['hours_worked'].sum().reset_index()
+    employees_project_hours = employees_project_hours.merge(employees[['employee_id', 'name', 'department_id']], on='employee_id')
+    employees_project_hours = employees_project_hours[['name', 'department_id', 'hours_worked']]
+    employees_project_hours = employees_project_hours.rename(columns={'hours_worked': 'total_project_hours'})
+    department_hours = employees_project_hours.groupby('department_id')['total_project_hours'].sum().reset_index()
+    department_hours = department_hours.merge(departments, on='department_id')
+    department_hours = department_hours[['name', 'total_project_hours']]
+    department_hours = department_hours.rename(columns={'name': 'department_name', 'total_project_hours': 'total_hours'})
+    return department_hours.sort_values(by='total_hours', ascending=False).head(5)","""""""
+Finds the top 5 departments with the highest total hours worked on projects.
+Args:
+- employees (pandas DataFrame) : A dataframe containing employee data. It is expected to have 'employee_id', 'name', 'department_id' and 'salary' columns.
+- departments (pandas DataFrame) : A dataframe containing department data. It is expected to have 'department_id' and 'name' columns.
+- works_on (pandas DataFrame) : A dataframe containing project work data. It is expected to have 'employee_id', 'project_id', and 'hours_worked' columns.
+Returns:
+pandas DataFrame : A new dataframe containing the top 5 departments with the highest total hours worked on projects.
+""""""","employees = pd.DataFrame({
+    'employee_id': [1, 2, 3, 4],
+    'name': ['Alice', 'Bob', 'Charlie', 'David'],
+    'department_id': [101, 102, 101, 103],
+    'salary': [50000, 60000, 55000, 70000]
+})
+departments = pd.DataFrame({
+    'department_id': [101, 102, 103],
+    'name': ['HR', 'Engineering', 'Sales']
+})
+works_on = pd.DataFrame({
+    'employee_id': [1, 2, 2, 3, 4],
+    'project_id': [1, 1, 2, 3, 2],
+    'hours_worked': [120, 150, 200, 80, 100]
+})
+print(top_hours_worked_departments(employees, departments, works_on))",Generates a total hours that have been ordered by the selected hours .
+,"def huge_population_countries(countries, borders):
+    merged = borders.merge(countries, how='left', left_on='country2', right_on='name')
+    merged = merged.rename(columns={'name': 'country_name_2', 'population': 'population_2'})
+    merged = merged.merge(countries, how='left', left_on='country1', right_on='name')
+    merged = merged.rename(columns={'name': 'country_name_1', 'population': 'population_1'})
+    border_population_sum = merged.groupby('country1')['population_2'].sum().reset_index()
+    border_population_sum = border_population_sum.rename(columns={'country1': 'name', 'population_2': 'border_population_sum'})
+    result = countries.merge(border_population_sum, on='name', how='left')
+    filtered_countries = result[result['population'] > result['border_population_sum']]
+    return filtered_countries[['name', 'population', 'border_population_sum']]","""""""
+Finds countries with a population greater than the sum of the populations of their neighboring countries.
+Args:
+- countries (pandas DataFrame) : A dataframe containing country data. It is expected to have 'name' and 'population' columns.
+- borders (pandas DataFrame) : A dataframe containing border data. It is expected to have 'country1' and 'country2' columns.
+Returns:
+pandas DataFrame : A new dataframe containing the names of countries with a population greater than the sum of the populations 
+of their neighboring countries, along with their populations and the sum of the populations of their neighboring countries.
+""""""","countries = pd.DataFrame({
+    'name': ['A', 'B', 'C', 'D', 'E'],
+    'population': [1000, 2000, 500, 700, 300]
+})
+borders = pd.DataFrame({
+    'country1': ['A', 'A', 'B', 'B', 'C', 'C', 'D', 'E'],
+    'country2': ['B', 'C', 'C', 'D', 'D', 'E', 'E', 'A']
+})
+print(huge_population_countries(countries, borders))",Compute a flat count of all digits that are compatible with ISA .
