@@ -7,7 +7,7 @@ exclude = ["*.ipynb"]
 select = [
    "D"
 ]
-ignore = ["D102", "D105", "D107", "D213"]
+ignore = ["D212"]
 
 [lint.pydocstyle]
 # Use google docstrings.
