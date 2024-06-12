@@ -5,10 +5,10 @@ exclude = ["*.ipynb"]
 
 [lint]
 select = [
-   "D"
+   "D", "D213"
 ]
-ignore = ["D102", "D105", "D107"]
+ignore = ["D102", "D105", "D107", "D212"]
 
 [lint.pydocstyle]
 # Use pep257 docstrings.
-convention = "pep257"
+convention = "google"
