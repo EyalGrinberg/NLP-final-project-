@@ -1,4 +1,4 @@
-Unnamed: 0,Function,Golden Docstring,Unit Tests,T5 BaseLine docstring generation
+,Function,Golden Docstring,Unit Tests
 Recursion,"def sum_even(lst): 
     total = 0
     for index, item in enumerate(lst):
@@ -17,7 +17,7 @@ print(sum_even([1, 2, 3, 4, 5]) == 9)
 print(sum_even([1, [2, 3, [4, 5]], 6, [7, 8]]) == 20) 
 print(sum_even([1, [2, 3, [4, 5]], 6, [7, 8, [9, 10]]]) == 29)  
 print(sum_even([]) == 0) 
-print(sum_even([[[1, 2, 3], [4, 5, 6]]]) == 14) ",Return the sum of the items that are delimited by the given number .
+print(sum_even([[[1, 2, 3], [4, 5, 6]]]) == 14) "
 ,"def find_num_changes(n, lst): 
     if n == 0:
         return 1
@@ -41,7 +41,7 @@ print(find_num_changes(5, []) == 0)
 print(find_num_changes(-4, [1, 2, 3]) == 0)
 print(find_num_changes(0, [1, 2, 3]) == 1)
 print(find_num_changes(1, [2,5,7]) == 0)
-print(find_num_changes(4, [1,2,5,6]) == 3)",Find the number of changes
+print(find_num_changes(4, [1,2,5,6]) == 3)"
 ,"def sum_nested(lst): 
     if len(lst) == 0:
         return 0.0
@@ -62,7 +62,7 @@ print(sum_nested([]) == 0.0)
 print(sum_nested([1, 2, 3]) == 6.0)
 print(sum_nested([1, 2, 3, 4, 5]) == 15.0)
 print(sum_nested([""aa"", [-3, -4.5], 'abc', [5, 'abc', [-4, 0.5]]]) == 17.0)
-print(sum_nested([1, 2, 3, 4, 5, [1, 2, 3, 4, 5, [1, 2, 3, 4, 5, [1, 2, 3, 4, 5]]]]) == 60.0)",Return the sum for nested structures .
+print(sum_nested([1, 2, 3, 4, 5, [1, 2, 3, 4, 5, [1, 2, 3, 4, 5, [1, 2, 3, 4, 5]]]]) == 60.0)"
 ,"def str_decomp(target, word_bank): 
     if target == ''"":
         return 1
@@ -83,7 +83,7 @@ Returns:
 int: the number of ways to decompose target.","print(str_decomp(""abcdef"", [""ab"", ""abc"", ""cd"", ""def"", ""abcd""]) == 1)
 print(str_decomp('purple', [""purp"", ""p"", ""ur"", ""purpl"", 'le']) == 2)
 print(str_decomp('aaaaaaaaaz', [""a"", ""aa"", ""aaa"", ""aaaa"", ""aaaaa""]) == 0)
-print(str_decomp('aabbcc', [""a"", ""ab"", ""b"", ""bc"", ""c"", ""abc"", ""abcd""]) == 4)",Gets the total number of words in a string .
+print(str_decomp('aabbcc', [""a"", ""ab"", ""b"", ""bc"", ""c"", ""abc"", ""abcd""]) == 4)"
 ,"def n_choose_k(n, k): 
     if k < 0 or k > n:
         return 0
@@ -105,7 +105,7 @@ print(n_choose_k(9, 8) == 9)
 print(n_choose_k(10, 3) == 120)
 print(n_choose_k(4, 0) == 1)
 print(n_choose_k(3,9) == 0)
-print(n_choose_k(29, -3) == 0)",Return the number of k - columns and k - > value .
+print(n_choose_k(29, -3) == 0)"
 ,"def dfs_level_order(tree, index=0):
     if index >= len(tree) or tree[index] is None:
         return """"
@@ -126,7 +126,7 @@ index (int): The starting index in the array (default: 0).
 
 Returns:
 str : string containing the visited nodes in DFS order, separated by commas.","print(dfs_level_order([1, 2, 3, 4, 5, None, None]) == ""1,2,4,5,3"")
-print(dfs_level_order([1, 2, None, None, 5]) == ""1,2,5"")",Returns an index in a nice tree .
+print(dfs_level_order([1, 2, None, None, 5]) == ""1,2,5"")"
 ,"def half_sum_subset(lst):     
     n = sum(lst) / 2
     lst_aux = []
@@ -154,7 +154,7 @@ Returns:
 list: a subset of lst that sums to half the sum of lst, if there's no such subset, returns None.","print(sum(half_sum_subset([3, 2, 1])) == sum([3, 2, 1]) / 2)
 print(sum(half_sum_subset([3, 2, 4, 2, 2, 1])) == sum(([3, 2, 4, 2, 2, 1])) / 2)
 print(half_sum_subset([1, 1, 1]) == None)
-print(half_sum_subset([1, 1, 1, 1]) == [1, 1])",returns the half of the n_sum_set that is located at the time of first n_iter
+print(half_sum_subset([1, 1, 1, 1]) == [1, 1])"
 ,"def partition_to_subsets(n, k):     
     mat = [[-1 for i in range(k + 1) ] for j in range(n + 1) ]
     def partition_to_subsets_mem(n, k, mem):
@@ -178,7 +178,7 @@ Returns:
 int: the number of ways to partition n items into k subsets.","print(partition_to_subsets(4, 2) == 7)
 print(partition_to_subsets(5, 2) == 15)
 print(partition_to_subsets(4, 3) == 6)
-print(partition_to_subsets(7, 1) == 1)",Converts a list of partition sets to a list of subsets
+print(partition_to_subsets(7, 1) == 1)"
 ,"def is_dag(graph): 
     visited = set()
     exploring = set()
@@ -212,7 +212,7 @@ print(is_dag([[1, 2], [1], []] ) == True)
 print(is_dag([[1], [2, 3], [1]]) == False)
 print(is_dag([[], [2], [1]]) == False)
 print(is_dag([[0]]) == True)
-print(is_dag([[]]) == True)",Determines if a graph is a DAG .
+print(is_dag([[]]) == True)"
 ,"def foo(num, x = 0):
     if num < 10:
         return num, x
@@ -229,7 +229,7 @@ A tuple containing two elements:
     - The number of multipications by 2/3.","print(foo(9) == (9,0))
 print(foo(12) == (8, 1))
 print(foo(15))
-print(foo(15) == (6.666666666666666, 2))",ISO - 8601 random integer
+print(foo(15) == (6.666666666666666, 2))"
 Basic,"def diff_sparse_matrices(lst): 
     res_dict = lst[0]
     for dict in lst[1:]:
@@ -248,7 +248,7 @@ lst (list): a list of dictionaries representing sparse matrices.
 Returns:
 dict: a dictionary representing the difference between the sparse matrices in lst.","print(diff_sparse_matrices([{(1, 3): 2, (2, 7): 1}, {(1, 3): 6}]) == {(1, 3):-4,(2,7):1})
 print(diff_sparse_matrices([{(1, 3): 2, (2, 7): 1}, {(1, 3): 2}]) == {(1, 3):0,(2,7):1})
-print(diff_sparse_matrices([{(1, 3): 2, (2, 7): 1}, {(1, 3): 6, (9,10): 7}, {(2,7): 0.5, (4,2): 10}]) == {(1, 3): -4, (2, 7): 0.5, (9, 10):-7, (4,2):-10})",Diff a list of matrices
+print(diff_sparse_matrices([{(1, 3): 2, (2, 7): 1}, {(1, 3): 6, (9,10): 7}, {(2,7): 0.5, (4,2): 10}]) == {(1, 3): -4, (2, 7): 0.5, (9, 10):-7, (4,2):-10})"
 ,"def longest_subsequence_length(lst):     
     n = len(lst)
     if n == 0: return 0
@@ -274,7 +274,7 @@ print(longest_subsequence_length([1, -4, 7, -5,]) == 3)
 print(longest_subsequence_length([]) == 0)
 print(longest_subsequence_length([-4]) == 1)
 print(longest_subsequence_length([1,-4, 2, 9, -8, 10, -6]) == 4)
-print(longest_subsequence_length([1, 3, 5, 4, 2]) == 3)",Length of the longest sub - sequence .
+print(longest_subsequence_length([1, 3, 5, 4, 2]) == 3)"
 ,"def find_median(nums): 
     nums_lst = list(nums)
     n = len(nums)
@@ -296,7 +296,7 @@ float: the median of the numbers in the set.","print(find_median({1, 2, 3, 4, 5}
 print(find_median({5, 4, 3, 2, 1}) == 3)
 print(find_median({1, -4, 7, -5}) == -1.5)
 print(find_median({7}) == 7)
-print(find_median({1, 2, -4, -7}) == -1.5)",Find the number of mobile characters for each row in the table .
+print(find_median({1, 2, -4, -7}) == -1.5)"
 ,"def find_primary_factors(n): 
     factors = []
     k = 2
@@ -320,7 +320,7 @@ list: a list of the primary factors of n.","print(find_primary_factors(105) == [
 print(find_primary_factors(100) == [2, 2, 5, 5])
 print(find_primary_factors(1) == [])
 print(find_primary_factors(7) == [7])
-print(find_primary_factors(12) == [2, 2, 3])",Find all the primary factor .
+print(find_primary_factors(12) == [2, 2, 3])"
 ,"def graphs_intersection(g1, g2): 
     res_dict = {}
     for node in g1:
@@ -340,7 +340,7 @@ g2 (dict): a dictionary representing a graph.
 Returns:
 dict: a dictionary representing the intersection of the two graphs.","print(graphs_intersection({1: [2, 3], 2: [1, 3, 4], 3: [1, 2], 4: [2]} , {1: [3, 4], 2: [3, 5], 3: [1, 2], 4: [1], 5: [2]}) == {1: [3], 2: [3], 3: [1, 2]})
 print(graphs_intersection({1: [2, 3], 2: [1, 3, 4], 3: [1, 2], 4: [2]} , {1: [2, 3, 5], 2: [1, 3], 3: [1, 2], 4: [5], 5: [1, 4]}) == {1: [2, 3], 2: [1, 3], 3: [1, 2]})
-print(graphs_intersection({1: [2, 3], 2: [1, 3, 4], 3: [1, 2], 4: [2]} , {1: [2, 3, 4], 2: [1, 3, 4], 3: [1, 2, 4], 4: [1, 2, 3]}) == {1: [2, 3], 2: [1, 3, 4], 3: [1, 2], 4: [2]})",Find the intersection between two graphs .
+print(graphs_intersection({1: [2, 3], 2: [1, 3, 4], 3: [1, 2], 4: [2]} , {1: [2, 3, 4], 2: [1, 3, 4], 3: [1, 2, 4], 4: [1, 2, 3]}) == {1: [2, 3], 2: [1, 3, 4], 3: [1, 2], 4: [2]})"
 ,"import itertools
 
 def subset_sum(lst, target): 
@@ -359,7 +359,7 @@ Returns:
 set: all subsets of lst that sums up to target.","print(subset_sum([1, 1, 3, 4], 5) == {(1, 4), (1, 1, 3)})
 print(subset_sum([1, 2, 3, 4, 5], 10) == {(1, 2, 3, 4), (1, 4, 5), (2, 3, 5)})
 print(subset_sum([1, 2, 3, 4, 5], 0) == {()})
-print(subset_sum([1, 1, 2, 2, 3, 3], 6) == {(1, 1, 2, 2), (1, 2, 3), (3, 3)})",Calculates the sum for a sub - selection of target by finding the sum of each of the 2 - tuples for the purpose of finding a subset from its original DROP subsets .
+print(subset_sum([1, 1, 2, 2, 3, 3], 6) == {(1, 1, 2, 2), (1, 2, 3), (3, 3)})"
 ,"def sum_mult_str(expression):
     lst = expression.split(sep = ""'"")
     lst.remove(lst[0])    
@@ -383,7 +383,7 @@ print(sum_mult_str(""'a'*'0'"") == """")
 print(sum_mult_str(""'3a'*'2'"") == ""3a3a"")
 print(sum_mult_str(""'12'+'aa'*'2'"") == ""12aa12aa"")
 print(sum_mult_str(""'a'*'2'+'b'*'2'"") == ""aabaab"")
-print(sum_mult_str(""'a'+'b'*'2'+'c'*'2'"") == ""ababcababc"")",Return the sum_mult_str for the given list of evals .
+print(sum_mult_str(""'a'+'b'*'2'+'c'*'2'"") == ""ababcababc"")"
 ,"def str_rep(s, k): 
     lst = [s[:k]]
     for i in range(1, len(s) - k + 1):
@@ -401,7 +401,7 @@ Returns:
 bool: True if s contains a substring of length k that appears more than once, False otherwise.","print(str_rep(""abcabc"", 3) == True)
 print(str_rep(""aab2bab22"", 3) == True)
 print(str_rep("""", 1) == False)
-print(str_rep(""a"", 1) == False)",Whether the str_rep is a valid string . Return True if the check was successful False otherwise .
+print(str_rep(""a"", 1) == False)"
 ,"def sort_two_sorted_lists(lst): 
     new_lst = []
     n = len(lst)
@@ -434,7 +434,7 @@ lst (list): a list of integers who follows the above pattern.
 Returns:
 list: a sorted list of integers.","print(sort_two_sorted_lists([7, 6, 11, 4, 12, 0, 20, -10]) == sorted([7, 6, 11, 4, 12, 0, 20, -10]))
 print(sort_two_sorted_lists([-3, 1, -1, -2]) == sorted([-3, 1, -1, -2]))
-print(sort_two_sorted_lists([]) == None)",Sorts lists in a list removing rows that are unique .
+print(sort_two_sorted_lists([]) == None)"
 ,"def prefix_suffix_match(lst, k): 
     res_lst = []
     for i in range(len(lst)): 
@@ -456,7 +456,7 @@ Returns:
 list: a list of tuples of indices (i, j) that satisfy the condition above.","print(prefix_suffix_match([""aaa"", ""cba"", ""baa""], 2) == [(0, 2), (2, 1)])
 print(prefix_suffix_match([""abc"", ""def""], 1) == [])
 print(prefix_suffix_match([""aa"", ""aa""], 1) == [(0, 1), (1, 0)])
-print(prefix_suffix_match([""abc"", ""bc"", ""c""], 1) == [(2, 0), (2, 1)])",Apply the prefix suffix to the given list of suffixes .
+print(prefix_suffix_match([""abc"", ""bc"", ""c""], 1) == [(2, 0), (2, 1)])"
 ,"def rotate_matrix_clockwise(mat):
     n = len(mat)
     for i in range(n//2):
@@ -476,7 +476,7 @@ mat (list): a square matrix.
 Returns:
 list: the rotated matrix.","print(rotate_matrix_clockwise([[1, 2], [3, 4]]) == [[3, 1], [4, 2]])
 print(rotate_matrix_clockwise([[1, 2, 3], [4, 5, 6], [7, 8, 9]]) == [[7, 4, 1], [8, 5, 2], [9, 6, 3]])
-print(rotate_matrix_clockwise([1]) == [1])",Rotate clockwise degrees between columns of a matrix .
+print(rotate_matrix_clockwise([1]) == [1])"
 ,"def cyclic_shift(lst, direction, steps): 
     if len(lst) == 0:
         return lst
@@ -504,7 +504,7 @@ print(cyclic_shift([1, 2, 3, 4, 5], 'R', 2) == [4, 5, 1, 2, 3])
 print(cyclic_shift([1, 2, 3, 4, 5], 'L', -2) == [4, 5, 1, 2, 3])
 print(cyclic_shift([], 'R', -2) == []) 
 print(cyclic_shift([1, 2, 3], 'R', 0) == [1, 2, 3])  
-print(cyclic_shift([1, 2, 3, 4, 5], 'L', 7) == [3, 4, 5, 1, 2]) ",Returns the correct cyclic shift for a list of 1 - dimensional cyclic moves .
+print(cyclic_shift([1, 2, 3, 4, 5], 'L', 7) == [3, 4, 5, 1, 2]) "
 ,"def encode_string(s): 
     curr, count = None, 0
     res = """"
@@ -528,7 +528,7 @@ s (str): a string of chars.
 Returns:
 str : an encoding of the input string based by the format of {num of repititions of char c}[{c}].","print(encode_string(""abbcdbaaa"") == ""1[a]2[b]1[c]1[d]1[b]3[a]"")
 print(encode_string(""aaaaa"") == ""5[a]"")
-print(encode_string("""") == """")",Encodes a list of strings into a user - friendly string .
+print(encode_string("""") == """")"
 ,"def list_sums(lst): 
     for i in range(1,len(lst)):
         lst[i] += lst[i-1]
@@ -546,7 +546,7 @@ print(a == [1,3,6,10,15])
 list_sums(a)
 print(a == [1, 4, 10, 20, 35])
 print(list_sums([b]) == None)
-print(b == [1])",List the sums for the columns in the list .
+print(b == [1])"
 ,"def convert_base(num, base): 
     if base > 9 or base < 1 or num < 0:
         return None # ADD ERROR
@@ -571,7 +571,7 @@ print(convert_base(9,9) == ""10"")
 print(convert_base(15, 1) == ""1""*15)
 print(convert_base(80, 5) == ""310"")
 print(convert_base(10, -3) == None)
-print(convert_base(-1, 2) == None)",Convert a base 10 number to another base
+print(convert_base(-1, 2) == None)"
 ,"def max_div_seq(n, k): 
     lst = []
     cnt = 0
@@ -597,7 +597,7 @@ int: the length of the longest sequence of digits in n that are divisible by k."
 print(max_div_seq(124568633, 2) == 3)
 print(max_div_seq(123456, 1) == 6)
 print(max_div_seq(3, 2) == 0)
-print(max_div_seq(6, 2) == 1)",Find the maximum number of balls given by sern .
+print(max_div_seq(6, 2) == 1)"
 ,"def find_dup(lst): 
     ptr1 = ptr2 = lst[0]
     while True:
@@ -618,7 +618,7 @@ lst (list): a list of integers that contains n + 1 integers in the range [1, n].
 Returns:
 int: the duplicate number.","print(find_dup([1, 1, 2, 3]) == 1)
 print(find_dup([1, 4, 3, 2, 2]) == 2)
-print(find_dup([1, 1]) == 1)",Find the best pointer to the begin of a list .
+print(find_dup([1, 1]) == 1)"
 ,"def lcm(a, b): 
     def gcd(x, y):
         while y:
@@ -634,7 +634,7 @@ b (int): a positive integer.
 
 Returns:
 int: the least common multiple of a and b.","print(lcm(3, 5) == 15)
-print(lcm(4, 6) == 12)",Return the smallest length of a non - negative integer .
+print(lcm(4, 6) == 12)"
 ,"def f19(): 
     result = None
     for number in range(1000, 10000):
@@ -653,7 +653,7 @@ print(lcm(4, 6) == 12)",Return the smallest length of a non - negative integer .
 Returns:
 int: the number if found, None otherwise. ","print(f19() == 2235)
 
-",Find the first number of digits and return it as a string .
+"
 ,"def f20():
     num_str = str(14563743)
     for i in range(len(num_str)):
@@ -667,7 +667,7 @@ int: the number if found, None otherwise. ","print(f19() == 2235)
 
 Returns:
 int: the number if found, None otherwise.","print(f20() == 14674)
-",Finds the frequency of the first num_strub_str .
+"
 Numpy,"import numpy as np
 
 def convolve_1d(signal, kernel): 
@@ -691,7 +691,7 @@ NumPy array: A new array containing the convolution result. The length of the re
 is (len(signal) + len(kernel) - 1).","signal = np.array([1, 2, 3, 4, 5])
 kernel = np.array([0.2, 0.5, 0.2])
 convolved_signal = convolve_1d(signal, kernel)
-print(convolved_signal)",Raises an exception if the kernel is not normalized enough to be plotted . Returns the result of the convolve1d is only important .
+print(convolved_signal)"
 ,"def mask_n(im, n, idx): 
     size = (im.max() - im.min()) / n 
     mask_greater = im >= (im.min() + size * idx) 
@@ -708,7 +708,7 @@ idx (int) : determines the part of the image to be masked.
 Returns:
 NumPy array: A new array containing the mask defined by the input args.","im = np.array([[3,5,9],[8,1,2],[7,6,4]]) 
 print(np.all(mask_n(im, 3, 0) == np.array([[True, False, False], [False, True, True], [False, False, False]])))
-print(np.all(mask_n(im, 3, 1) == np.array([[False, True, False], [False, False, False], [False, True, True]])))",Mask the given integer n - by - 1 .
+print(np.all(mask_n(im, 3, 1) == np.array([[False, True, False], [False, False, False], [False, True, True]])))"
 ,"def entropy(mat): 
     mat_values = mat.flatten() 
     bin_prob = np.bincount(mat_values) / (mat_values.shape[0]) 
@@ -724,7 +724,7 @@ Returns:
 float : The entropy value of the input matrix.","mat1 = np.array([[3,5,3],[8,1,1],[7,7,7]]) 
 mat2 = np.array([[0, 1], [1, 0]])
 print(entropy(mat1) == 2.197159723424149)
-print(entropy(mat2) == 1)",Calculates the entropy for a group of data .
+print(entropy(mat2) == 1)"
 ,"def squeeze_vertical(im, factor): 
     h, w = im.shape 
     new_h = h // factor 
@@ -742,7 +742,7 @@ factor (int) : The factor by which to squeeze the image vertically. factor is a 
 Returns:
 NumPy array : A new 2D NumPy array representing the vertically squeezed image.","print(np.all(squeeze_vertical(np.array([[1, 2], [3, 4], [5, 6], [7, 8]]), 2) == np.array([[2, 3], [6, 7]])))
 print(np.all(squeeze_vertical(np.array([[1, 2], [3, 4], [5, 6], [7, 8]]), 4) == np.array([[4, 5]])))
-print(np.all(squeeze_vertical(np.array([[1, 2], [3, 4], [5, 6], [7, 8]]), 1) == np.array([[1, 2], [3, 4], [5, 6], [7, 8]])))",Reduce the image using a human - readable version .
+print(np.all(squeeze_vertical(np.array([[1, 2], [3, 4], [5, 6], [7, 8]]), 1) == np.array([[1, 2], [3, 4], [5, 6], [7, 8]])))"
 ,"def denoise(im):  
     def denoise_pixel(im, x, y, dx, dy):
         left = max(x - dx, 0)
@@ -765,7 +765,7 @@ im (NumPy array) : A 2D NumPy array representing the image.
 
 Returns:
 NumPy array : A new 2D NumPy array representing the denoised image.","im = np.array([[15, 110, 64, 150], [231, 150, 98, 160], [77, 230, 2, 0], [100, 81, 189, 91]])
-print(np.all(denoise(im) == np.array([[130, 104, 130, 124], [130, 98, 130, 98], [125, 100, 124, 98], [90.5, 90.5, 91, 91]])))",Denoise using non - uniform - watershed algorithm
+print(np.all(denoise(im) == np.array([[130, 104, 130, 124], [130, 98, 130, 98], [125, 100, 124, 98], [90.5, 90.5, 91, 91]])))"
 Pandas,"import pandas as pd
 
 def calculate_monthly_sales(data): 
@@ -790,7 +790,7 @@ pandas DataFrame : A new dataframe with four columns: 'Product', 'YearMonth' (re
               120, 130, 140, 150, 160]
 })
 monthly_sales_analysis = calculate_monthly_sales(data)
-print(monthly_sales_analysis)",Extract data from a pandas . DataFrame and convert it to a dataframe .
+print(monthly_sales_analysis)"
 ,"def recommendations(movies, movies_genres, genres, search_title):
     matching_title = movies[movies['title'].str.contains(search_title, case=False, na=False)].iloc[0]
     matching_title_genres = movies_genres[movies_genres['movie_id'] == matching_title['id']]['genre_id'].tolist()
@@ -828,7 +828,7 @@ genres = pd.DataFrame({
     'genre_name': ['Sci-Fi', 'Adventure', 'Thriller']
 })
 search_title = 'Inception'
-print(recommendations(movies, movies_genres, genres, search_title))",Extracts genres from a search_gens_key .
+print(recommendations(movies, movies_genres, genres, search_title))"
 ,"def top_hours_worked_departments(employees, departments, works_on): 
     employees_project_hours = works_on.groupby('employee_id')['hours_worked'].sum().reset_index()
     employees_project_hours = employees_project_hours.merge(employees[['employee_id', 'name', 'department_id']], on='employee_id')
@@ -861,7 +861,7 @@ works_on = pd.DataFrame({
     'project_id': [1, 1, 2, 3, 2],
     'hours_worked': [120, 150, 200, 80, 100]
 })
-print(top_hours_worked_departments(employees, departments, works_on))",Generates a total hours that have been ordered by the selected hours .
+print(top_hours_worked_departments(employees, departments, works_on))"
 ,"def huge_population_countries(countries, borders):
     merged = borders.merge(countries, how='left', left_on='country2', right_on='name')
     merged = merged.rename(columns={'name': 'country_name_2', 'population': 'population_2'})
@@ -887,7 +887,7 @@ borders = pd.DataFrame({
     'country1': ['A', 'A', 'B', 'B', 'C', 'C', 'D', 'E'],
     'country2': ['B', 'C', 'C', 'D', 'D', 'E', 'E', 'A']
 })
-print(huge_population_countries(countries, borders))",Compute a flat count of all digits that are compatible with ISA .
+print(huge_population_countries(countries, borders))"
 ,"def countries_bordering_most_populated_in_asia(country_df, border_df): 
     asian_countries = country_df[country_df['continent'] == 'Asia']    
     max_population = asian_countries['population'].max()
@@ -926,7 +926,7 @@ border_data = {
 country_df = pd.DataFrame(country_data)
 border_df = pd.DataFrame(border_data)
 
-print(countries_bordering_most_populated_in_asia(country_df, border_df))",A function to populate the border_count field of the ISO hybridization .
+print(countries_bordering_most_populated_in_asia(country_df, border_df))"
 Classes,"import math
 class triangle: 
     def __init__(self, a, b, ab, color) -> None:
@@ -973,7 +973,7 @@ print(a.get('ba') == 90)
 print(a.get('c') == 11.180339887498949)
 print(a.get('ac') == 26.565051177077994)
 print(a.get('bc') == 63.43494882292201)
-print(a.get('d'))",The class attribute is self .
+print(a.get('d'))"
 ,"class worker:     
     def __init__(self, id, first_name, last_name, job, salary = 5000, second_name = None):
         self.id = id
@@ -1029,7 +1029,7 @@ print(jon.getJob() == ""salesman"")
 print(jon.getSalary() == 5000)
 jon.update(job = 'engineer', salary = 7000)
 print(jon.getJob() == ""engineer"")
-print(jon.getSalary() == 7000)",This method is called by the class constructor . The first_name will be the name of the class .
+print(jon.getSalary() == 7000)"
 ,"class Binaric_arithmatic: 
 
     def __init__(self, num):
@@ -1091,7 +1091,7 @@ one = Binaric_arithmatic(""1"")
 print(seven.inc() == ""1000"")
 print(seven.dec() == ""110"")
 print(one.inc() == ""10"")
-print(one.dec() == ""0"")",The bin number for the piston mode . Correctly computes the correctness of the bin edges .
+print(one.dec() == ""0"")"
 ,"class Point_2D: 
    
     def __init__(self, x, y):
@@ -1159,7 +1159,7 @@ print(a.distance(c) == 2)
 print(a + b == Point_2D(1, 2))
 print(a - b == Point_2D(1, 0))
 print(b.angle_wrt_origin(c) == math.pi / 4)
-print(c.angle_wrt_origin(b) == 2 * math.pi - math.pi / 4)  ",The point on the 2D line which corresponds to the origin .
+print(c.angle_wrt_origin(b) == 2 * math.pi - math.pi / 4)  "
 ,"import random
 
 class Roulette: 
@@ -1237,7 +1237,7 @@ print(gambler.bet(100, ""odd""))
 print(gambler.bet(100, ""1-12""))
 print(gambler.bet(100, ""13-24""))
 print(gambler.bet(100, ""25-36""))
-print(gambler.bet(100, ""17""))",Create a random instance of the ketama compatible with the given amount .
+print(gambler.bet(100, ""17""))"
 ,"class investments: 
 
     def __init__(self, name, initial_investment, avg_yearly_return, monthly_income, monthly_expenses):
@@ -1296,7 +1296,7 @@ print(jon.future_value(3) == 351560)
 print(jon.withdraw(100000) == 251560)
 print(jon.future_value(3) == 553286.3600000001)
 print(jon.withdraw(100000) == 453286.3600000001)
-print(jon.future_value(4) == 969962.5596760004)",The average amounts of the non - outer data of the class .
+print(jon.future_value(4) == 969962.5596760004)"
 ,"class Restaurant: 
 
     def __init__(self, name, cuisine, rating):
@@ -1371,7 +1371,7 @@ r.add_chef(""Mario"")
 r.add_chef(""Luigi"")
 print(r.get_chefs() == ['Mario', 'Luigi'])
 r.remove_chef(""Mario"")
-print(r.get_chefs() == ['Luigi'])",The naming of the menu .
+print(r.get_chefs() == ['Luigi'])"
 ,"class Polynomial: 
 
     def __init__(self, coeffs):
@@ -1445,7 +1445,7 @@ print(str(e) == ""0"")
 print(d.get_deg() == 4)
 print(str(a + b) == ""1 + 4x - 5x^2 + 4x^3"")
 print(str(c + d) == ""-13 + 8x^3 + 5x^4"")
-print(b + e == b)",The class method that gets passed into the class
+print(b + e == b)"
 ,"class TodoList: 
 
     def __init__(self):
@@ -1511,7 +1511,7 @@ print(str(lst) == ""[V] Buy groceries\n[X] go to school\n[X] do HW"")
 lst.remove_task(""do HW"")
 print(str(lst) == ""[V] Buy groceries\n[X] go to school"")
 print(lst.list_tasks(completed=True) == [""Buy groceries""])
-print(lst.list_tasks(completed=False) == [""go to school""])",This function is called when the task is in a non - main .
+print(lst.list_tasks(completed=False) == [""go to school""])"
 ,"class Recipe:
  
     def __init__(self, name, ingredients, instructions):
@@ -1599,4 +1599,4 @@ book.add_recipe(""Salad"", [""lettuce"", ""tomato"", ""cucumber""], ""Mix all in
 cheese_recipes = book.search_by_ingredient(""cheese"")
 print(cheese_recipes[0].name == ""Pasta"" and cheese_recipes[1].name == ""Pizza"" and len(cheese_recipes) == 2)
 book.remove_recipe(""Pasta"")
-print(book.list_recipes() == [""Recipe: Pizza\nIngredients: dough, tomato sauce, cheese\nInstructions: Bake dough, add sauce and cheese\n"", ""Recipe: Salad\nIngredients: lettuce, tomato, cucumber\nInstructions: Mix all ingredients\n""])",Produces a name that uses this recipe
+print(book.list_recipes() == [""Recipe: Pizza\nIngredients: dough, tomato sauce, cheese\nInstructions: Bake dough, add sauce and cheese\n"", ""Recipe: Salad\nIngredients: lettuce, tomato, cucumber\nInstructions: Mix all ingredients\n""])"
