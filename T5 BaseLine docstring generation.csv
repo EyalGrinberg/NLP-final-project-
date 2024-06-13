@@ -6,13 +6,13 @@ Recursion,"def sum_even(lst):
             total += sum_even(item)
         elif index % 2 == 0:
             total += item
-    return total","""""""
-Recursively computes the sum of all the even elements in a nested list of integers
+    return total","Recursively compute the sum of all the even elements in a nested list of integers.
+
 Args:
-- lst (list): a nested list of integers
+lst (list): a nested list of integers.
+
 Returns:
-- int: the sum of all the even elements in the nested list
-""""""","print(sum_even([1, [2, 3, [4, 5]]]) == 7)  
+int: the sum of all the even elements in the nested list.","print(sum_even([1, [2, 3, [4, 5]]]) == 7)  
 print(sum_even([1, 2, 3, 4, 5]) == 9)  
 print(sum_even([1, [2, 3, [4, 5]], 6, [7, 8]]) == 20) 
 print(sum_even([1, [2, 3, [4, 5]], 6, [7, 8, [9, 10]]]) == 29)  
@@ -28,15 +28,14 @@ print(sum_even([[[1, 2, 3], [4, 5, 6]]]) == 14) ",Return the sum of the items th
     return find_num_changes(n - lst[0], lst) + find_num_changes(n, lst[1:])
 
 
-","""""""
-    Recursively computes the number of ways to represent a non-negative integer n
-    as the sum of elements in a list of positive integers
-    Args:
-    - n (int): a non-negative integer
-    - lst (list): a list of positive integers
-    Returns:
-    - int: the number of ways to represent n as the sum of elements in lst
-    """"""","print(find_num_changes(4, [1, 2, 3]) == 4)
+","Recursively compute the number of ways to represent a non-negative integer n as the sum of elements in a list of positive integers.
+
+Args:
+n (int): a non-negative integer.
+lst (list): a list of positive integers.
+
+Returns:
+int: the number of ways to represent n as the sum of elements in lst.","print(find_num_changes(4, [1, 2, 3]) == 4)
 print(find_num_changes(5, [5, 6, 1, 2]) == 4)
 print(find_num_changes(5, []) == 0)
 print(find_num_changes(-4, [1, 2, 3]) == 0)
@@ -51,13 +50,13 @@ print(find_num_changes(4, [1,2,5,6]) == 3)",Find the number of changes
     if type(lst[0]) == list:
         return float(abs(sum_nested(lst[0]))) + float(abs(sum_nested(lst[1:])))
     return float(abs(lst[0])) + float(abs(sum_nested(lst[1:])))
-",""""""" 
-Recursively computes the absolute sum of all the numbers in a nested list
+","Recursively compute the absolute sum of all the numbers in a nested list.
+
 Args:
-- lst (list): a nested list 
+lst (list): a nested list.
+
 Returns:
-- float: the absolute sum of all the numbers in lst
-""""""","print(sum_nested([1, 2, [3, 4], [5, [6, 7], 8], 9]) == 45.0)
+float: the absolute sum of all the numbers in lst.","print(sum_nested([1, 2, [3, 4], [5, [6, 7], 8], 9]) == 45.0)
 print(sum_nested([1, 2, [-3, -4.5], 'abc', [5, 'abc', [-4, 0.5]]]) == 20.0)
 print(sum_nested([]) == 0.0)
 print(sum_nested([1, 2, 3]) == 6.0)
@@ -74,14 +73,14 @@ print(sum_nested([1, 2, 3, 4, 5, [1, 2, 3, 4, 5, [1, 2, 3, 4, 5, [1, 2, 3, 4, 5]
             total_count += str_decomp(new_target, word_bank)
     return total_count
 
-","""""""
-Recursively computes the number of ways to decompose a string by concatenating strings from a list of strings
+","Recursively compute the number of ways to decompose a string by concatenating strings from a list of strings.
+
 Args:
-- target (str): a string to be decomposed
-- word_bank (list): a list of strings
+target (str): a string to be decomposed.
+word_bank (list): a list of strings.
+
 Returns:
-- int: the number of ways to decompose target
-""""""","print(str_decomp(""abcdef"", [""ab"", ""abc"", ""cd"", ""def"", ""abcd""]) == 1)
+int: the number of ways to decompose target.","print(str_decomp(""abcdef"", [""ab"", ""abc"", ""cd"", ""def"", ""abcd""]) == 1)
 print(str_decomp('purple', [""purp"", ""p"", ""ur"", ""purpl"", 'le']) == 2)
 print(str_decomp('aaaaaaaaaz', [""a"", ""aa"", ""aaa"", ""aaaa"", ""aaaaa""]) == 0)
 print(str_decomp('aabbcc', [""a"", ""ab"", ""b"", ""bc"", ""c"", ""abc"", ""abcd""]) == 4)",Gets the total number of words in a string .
@@ -93,14 +92,14 @@ print(str_decomp('aabbcc', [""a"", ""ab"", ""b"", ""bc"", ""c"", ""abc"", ""abcd
     if k == 0:
         return 1
     return n_choose_k(n-1, k-1) + n_choose_k(n-1, k)
-","""""""
-Computes the number of options to choose k samples out of n items (pascal's triangle).
+","Compute the number of options to choose k samples out of n items (pascal's triangle).
+
 Args:
-- n (int): number of items
-- k (int): number of samples
+n (int): number of items.
+k (int): number of samples.
+
 Returns:
-- int: the number of possible combinations out of n items and k samples
-""""""","print(n_choose_k(8, 8) == 1)
+int: the number of possible combinations out of n items and k samples.","print(n_choose_k(8, 8) == 1)
 print(n_choose_k(20, 1) == 20)
 print(n_choose_k(9, 8) == 9)
 print(n_choose_k(10, 3) == 120)
@@ -119,14 +118,14 @@ print(n_choose_k(29, -3) == 0)",Return the number of k - columns and k - > value
     if right_subtree:
         result += "","" + right_subtree
     return result
-","""""""
-Performs a DFS traversal on a binary tree represented by a level-order array.
+","Perform a DFS traversal on a binary tree represented by a level-order array.
+
 Args:
-- tree (list): A list representing the tree in level-order.
-- index (int): The starting index in the array (default: 0).
+tree (list): A list representing the tree in level-order.
+index (int): The starting index in the array (default: 0).
+
 Returns:
--str : string containing the visited nodes in DFS order, separated by commas.
-""""""","print(dfs_level_order([1, 2, 3, 4, 5, None, None]) == ""1,2,4,5,3"")
+str : string containing the visited nodes in DFS order, separated by commas.","print(dfs_level_order([1, 2, 3, 4, 5, None, None]) == ""1,2,4,5,3"")
 print(dfs_level_order([1, 2, None, None, 5]) == ""1,2,5"")",Returns an index in a nice tree .
 ,"def half_sum_subset(lst):     
     n = sum(lst) / 2
@@ -146,13 +145,13 @@ print(dfs_level_order([1, 2, None, None, 5]) == ""1,2,5"")",Returns an index in
         lst_aux = lst_aux[:-1]
         wo_first = find_lst(s, n, lst_aux, n_init)
         return wo_first or with_first
-    return find_lst(lst, n, lst_aux, n)","""""""
-Computes a subset of lst that sums to half the sum of lst, if such a subset exists
+    return find_lst(lst, n, lst_aux, n)","Compute a subset of lst that sums to half the sum of lst, if such a subset exists.
+
 Args:
-- lst (list): a list of integers
+lst (list): a list of integers.
+
 Returns:
-- list: a subset of lst that sums to half the sum of lst, if there's no such subset, returns None
-""""""","print(sum(half_sum_subset([3, 2, 1])) == sum([3, 2, 1]) / 2)
+list: a subset of lst that sums to half the sum of lst, if there's no such subset, returns None.","print(sum(half_sum_subset([3, 2, 1])) == sum([3, 2, 1]) / 2)
 print(sum(half_sum_subset([3, 2, 4, 2, 2, 1])) == sum(([3, 2, 4, 2, 2, 1])) / 2)
 print(half_sum_subset([1, 1, 1]) == None)
 print(half_sum_subset([1, 1, 1, 1]) == [1, 1])",returns the half of the n_sum_set that is located at the time of first n_iter
@@ -169,14 +168,14 @@ print(half_sum_subset([1, 1, 1, 1]) == [1, 1])",returns the half of the n_sum_se
             mem[n][k] = partition_to_subsets_mem(n - 1, k - 1, mem) + (k * partition_to_subsets_mem(n - 1, k, mem))
         return mem[n][k]
     return partition_to_subsets_mem(n, k, mat)
-","""""""
-Computes the number of ways to partition n items into k subsets
+","Compute the number of ways to partition n items into k subsets.
+
 Args:
-- n (int): number of items (positive integer)
-- k (int): number of subsets (positive integer)
+n (int): number of items (positive integer).
+k (int): number of subsets (positive integer).
+
 Returns:
-- int: the number of ways to partition n items into k subsets
-""""""","print(partition_to_subsets(4, 2) == 7)
+int: the number of ways to partition n items into k subsets.","print(partition_to_subsets(4, 2) == 7)
 print(partition_to_subsets(5, 2) == 15)
 print(partition_to_subsets(4, 3) == 6)
 print(partition_to_subsets(7, 1) == 1)",Converts a list of partition sets to a list of subsets
@@ -200,15 +199,13 @@ print(partition_to_subsets(7, 1) == 1)",Converts a list of partition sets to a l
         if node not in visited and not dfs(node):
             return False
     return True
-","  """"""
-  Checks if a graph represented as an adjacency list is a DAG (Directed Acyclic Graph).
+","Check if a graph represented as an adjacency list is a DAG (Directed Acyclic Graph).
 
-  Args:
-  - graph (list): A list of lists. Each inner list represents the neighbors of a node.
+Args:
+graph (list): A list of lists. Each inner list represents the neighbors of a node.
 
-  Returns:
-  - bool: True if the graph is a DAG, False otherwise.
-  """"""","print(is_dag([[1], [2], []]) == True)
+Returns:
+bool: True if the graph is a DAG, False otherwise.","print(is_dag([[1], [2], []]) == True)
 print(is_dag([[1], [0], []]) == False)
 print(is_dag([[1, 2], [], [1]] ) == True)
 print(is_dag([[1, 2], [1], []] ) == True)
@@ -220,16 +217,16 @@ print(is_dag([[]]) == True)",Determines if a graph is a DAG .
     if num < 10:
         return num, x
     return foo(num * (2/3), x + 1)
-","""""""
-Recursively calculates the number of times a number needs to be multiplied by 2/3 
-to be smaller than 10, and returns the final value and the number of multiplications.
-- num (int \ float) : The initial number to operate on.
-- x (int) : An optional counter variable, initialized to 0 (default).
+","Recursively calculate the number of times a number needs to be multiplied by 2/3 to be smaller than 10, and returns the final value and the number of multiplications.
+
+Args:
+num (int \ float) : The initial number to operate on.
+x (int) : An optional counter variable, initialized to 0 (default).
+
 Returns:
 A tuple containing two elements:
-- The final calculated value.
-- The number of multipications by 2/3.
-""""""","print(foo(9) == (9,0))
+    - The final calculated value.
+    - The number of multipications by 2/3.","print(foo(9) == (9,0))
 print(foo(12) == (8, 1))
 print(foo(15))
 print(foo(15) == (6.666666666666666, 2))",ISO - 8601 random integer
@@ -243,13 +240,13 @@ Basic,"def diff_sparse_matrices(lst):
                 res_dict[entry] = -dict[entry]
     return res_dict
 
-","""""""
-Computes the difference between sparse matrices represented as dictionaries in a list
+","Compute the difference between sparse matrices represented as dictionaries in a list.
+
 Args:
-- lst (list): a list of dictionaries representing sparse matrices
+lst (list): a list of dictionaries representing sparse matrices.
+
 Returns:
-- dict: a dictionary representing the difference between the sparse matrices in lst
-""""""","print(diff_sparse_matrices([{(1, 3): 2, (2, 7): 1}, {(1, 3): 6}]) == {(1, 3):-4,(2,7):1})
+dict: a dictionary representing the difference between the sparse matrices in lst.","print(diff_sparse_matrices([{(1, 3): 2, (2, 7): 1}, {(1, 3): 6}]) == {(1, 3):-4,(2,7):1})
 print(diff_sparse_matrices([{(1, 3): 2, (2, 7): 1}, {(1, 3): 2}]) == {(1, 3):0,(2,7):1})
 print(diff_sparse_matrices([{(1, 3): 2, (2, 7): 1}, {(1, 3): 6, (9,10): 7}, {(2,7): 0.5, (4,2): 10}]) == {(1, 3): -4, (2, 7): 0.5, (9, 10):-7, (4,2):-10})",Diff a list of matrices
 ,"def longest_subsequence_length(lst):     
@@ -265,13 +262,13 @@ print(diff_sparse_matrices([{(1, 3): 2, (2, 7): 1}, {(1, 3): 6, (9,10): 7}, {(2,
                 lds_lengths[i] = max(lds_lengths[i], lds_lengths[j] + 1)
     return max(max(lis_lengths), max(lds_lengths))
 
-","""""""
-Computes the length of the longest subsequence of a list of integers that is either strictly increasing or strictly decreasing
+","Compute the length of the longest subsequence of a list of integers that is either strictly increasing or strictly decreasing.
+
 Args:
-- lst (list): a list of numbers
+lst (list): a list of numbers.
+
 Returns:
-- int: the length of the longest subsequence that is either strictly increasing or strictly decreasing
-""""""","print(longest_subsequence_length([1, 2, 3, 4, 5]) == 5)
+int: the length of the longest subsequence that is either strictly increasing or strictly decreasing.","print(longest_subsequence_length([1, 2, 3, 4, 5]) == 5)
 print(longest_subsequence_length([5, 4, 3, 2, 1]) == 5)
 print(longest_subsequence_length([1, -4, 7, -5,]) == 3)
 print(longest_subsequence_length([]) == 0)
@@ -289,13 +286,13 @@ print(longest_subsequence_length([1, 3, 5, 4, 2]) == 3)",Length of the longest s
     if n % 2 == 1:
         return nums_lst[num_smaller_lst.index(n//2)]
     return (nums_lst[num_smaller_lst.index(n//2)] + nums_lst[num_smaller_lst.index(n//2 - 1)]) / 2
-","""""""
-Computes the median of a non empty numbers set, without sorting the numbers
+","Compute the median of a non empty numbers set, without sorting the numbers.
+
 Args:
-- nums (set): a set of numbers
+nums (set): a set of numbers.
+
 Returns:
-- float: the median of the numbers in the set
-""""""","print(find_median({1, 2, 3, 4, 5}) == 3)
+float: the median of the numbers in the set.","print(find_median({1, 2, 3, 4, 5}) == 3)
 print(find_median({5, 4, 3, 2, 1}) == 3)
 print(find_median({1, -4, 7, -5}) == -1.5)
 print(find_median({7}) == 7)
@@ -313,13 +310,13 @@ print(find_median({1, 2, -4, -7}) == -1.5)",Find the number of mobile characters
         factors.append(n)
     return factors
 
-","""""""
-Computes the primary factors of a number
+","Compute the primary factors of a number.
+
 Args:
-- n (int): a positive integer
+n (int): a positive integer.
+
 Returns:
-- list: a list of the primary factors of n
-""""""","print(find_primary_factors(105) == [3, 5, 7])
+list: a list of the primary factors of n.","print(find_primary_factors(105) == [3, 5, 7])
 print(find_primary_factors(100) == [2, 2, 5, 5])
 print(find_primary_factors(1) == [])
 print(find_primary_factors(7) == [7])
@@ -334,14 +331,14 @@ print(find_primary_factors(12) == [2, 2, 3])",Find all the primary factor .
                 else:
                     res_dict[node] = [adj_node]
     return res_dict
-","""""""
-Computes the intersection (in terms of edges) of two graphs represented as dictionaries (same nodes, different edges)
+","Compute the intersection (in terms of edges) of two graphs represented as dictionaries (same nodes, different edges).
+
 Args:
-- g1 (dict): a dictionary representing a graph
-- g2 (dict): a dictionary representing a graph
+g1 (dict): a dictionary representing a graph.
+g2 (dict): a dictionary representing a graph.
+
 Returns:
-- dict: a dictionary representing the intersection of the two graphs
-""""""","print(graphs_intersection({1: [2, 3], 2: [1, 3, 4], 3: [1, 2], 4: [2]} , {1: [3, 4], 2: [3, 5], 3: [1, 2], 4: [1], 5: [2]}) == {1: [3], 2: [3], 3: [1, 2]})
+dict: a dictionary representing the intersection of the two graphs.","print(graphs_intersection({1: [2, 3], 2: [1, 3, 4], 3: [1, 2], 4: [2]} , {1: [3, 4], 2: [3, 5], 3: [1, 2], 4: [1], 5: [2]}) == {1: [3], 2: [3], 3: [1, 2]})
 print(graphs_intersection({1: [2, 3], 2: [1, 3, 4], 3: [1, 2], 4: [2]} , {1: [2, 3, 5], 2: [1, 3], 3: [1, 2], 4: [5], 5: [1, 4]}) == {1: [2, 3], 2: [1, 3], 3: [1, 2]})
 print(graphs_intersection({1: [2, 3], 2: [1, 3, 4], 3: [1, 2], 4: [2]} , {1: [2, 3, 4], 2: [1, 3, 4], 3: [1, 2, 4], 4: [1, 2, 3]}) == {1: [2, 3], 2: [1, 3, 4], 3: [1, 2], 4: [2]})",Find the intersection between two graphs .
 ,"import itertools
@@ -352,14 +349,14 @@ def subset_sum(lst, target):
         for subset in itertools.combinations(lst, i):
             if sum(subset) == target:
                 res.add(subset)
-    return res","""""""
-Computes all subsets of a list of integers that sums up to a target number
+    return res","Compute all subsets of a list of integers that sums up to a target number.
+
 Args:
-- lst (list): a list of integers
-- target (int): a target number
+lst (list): a list of integers.
+target (int): a target number.
+
 Returns:
-- set: all subsets of lst that sums up to target
-""""""","print(subset_sum([1, 1, 3, 4], 5) == {(1, 4), (1, 1, 3)})
+set: all subsets of lst that sums up to target.","print(subset_sum([1, 1, 3, 4], 5) == {(1, 4), (1, 1, 3)})
 print(subset_sum([1, 2, 3, 4, 5], 10) == {(1, 2, 3, 4), (1, 4, 5), (2, 3, 5)})
 print(subset_sum([1, 2, 3, 4, 5], 0) == {()})
 print(subset_sum([1, 1, 2, 2, 3, 3], 6) == {(1, 1, 2, 2), (1, 2, 3), (3, 3)})",Calculates the sum for a sub - selection of target by finding the sum of each of the 2 - tuples for the purpose of finding a subset from its original DROP subsets .
@@ -374,14 +371,13 @@ print(subset_sum([1, 1, 2, 2, 3, 3], 6) == {(1, 1, 2, 2), (1, 2, 3), (3, 3)})",C
         else:
             text = text * int(lst[i+1])
     return(text)
-","""""""
-    Calculates the result of a string expression that contains only addition and multiplication operations,
-    and numbers and strings as operands. The operations are calculated from left to right.
-    Args:
-    - expression (str): a string expression
-    Returns:
-    - str: the result of the expression
-    """"""","print(sum_mult_str(""'abc'*'3'+'def'"") == ""abcabcabcdef"")
+","Calculate the result of a string expression that contains only addition and multiplication operations, and numbers and strings as operands. The operations are calculated from left to right.
+
+Args:
+expression (str): a string expression.
+
+Returns:
+str: the result of the expression.","print(sum_mult_str(""'abc'*'3'+'def'"") == ""abcabcabcdef"")
 print(sum_mult_str(""'a'+''"") == ""a"")
 print(sum_mult_str(""'a'*'0'"") == """")
 print(sum_mult_str(""'3a'*'2'"") == ""3a3a"")
@@ -395,14 +391,14 @@ print(sum_mult_str(""'a'+'b'*'2'+'c'*'2'"") == ""ababcababc"")",Return the sum_m
             return True
         else:
             lst.append(s[i:k+i])
-    return False","""""""
-Computes if a string s contains a substring of length k that appears more than once
+    return False","Compute if a string s contains a substring of length k that appears more than once.
+
 Args:
-- s (str): a string
-- k (int): a positive integer
+s (str): a string.
+k (int): a positive integer.
+
 Returns:
-- bool: True if s contains a substring of length k that appears more than once, False otherwise
-""""""","print(str_rep(""abcabc"", 3) == True)
+bool: True if s contains a substring of length k that appears more than once, False otherwise.","print(str_rep(""abcabc"", 3) == True)
 print(str_rep(""aab2bab22"", 3) == True)
 print(str_rep("""", 1) == False)
 print(str_rep(""a"", 1) == False)",Whether the str_rep is a valid string . Return True if the check was successful False otherwise .
@@ -430,14 +426,13 @@ print(str_rep(""a"", 1) == False)",Whether the str_rep is a valid string . Retur
                new_lst += lst[i_even::2]
                return new_lst
             else:
-                i_odd -= 2","""""""
-Sorts a list that contains in the even indices a sorted list of integers in ascending order, 
-and in the odd indices a sorted list of integers in descending order
+                i_odd -= 2","Sort a list that contains in the even indices a sorted list of integers in ascending order, and in the odd indices a sorted list of integers in descending order.
+
 Args:
-- lst (list): a list of integers who follows the above pattern
+lst (list): a list of integers who follows the above pattern.
+
 Returns:
-- list: a sorted list of integers
-""""""","print(sort_two_sorted_lists([7, 6, 11, 4, 12, 0, 20, -10]) == sorted([7, 6, 11, 4, 12, 0, 20, -10]))
+list: a sorted list of integers.","print(sort_two_sorted_lists([7, 6, 11, 4, 12, 0, 20, -10]) == sorted([7, 6, 11, 4, 12, 0, 20, -10]))
 print(sort_two_sorted_lists([-3, 1, -1, -2]) == sorted([-3, 1, -1, -2]))
 print(sort_two_sorted_lists([]) == None)",Sorts lists in a list removing rows that are unique .
 ,"def prefix_suffix_match(lst, k): 
@@ -451,14 +446,14 @@ print(sort_two_sorted_lists([]) == None)",Sorts lists in a list removing rows th
     return res_lst
 
 
-","""""""
-Computes all pairs of different indices i, j in a list of strings such that the first k characters of string i are equal to the last k characters of string j
+","Compute all pairs of different indices i, j in a list of strings such that the first k characters of string i are equal to the last k characters of string j.
+
 Args:
-- lst (list): a list of strings
-- k (int): a positive integer
+lst (list): a list of strings.
+k (int): a positive integer.
+
 Returns:
-- list: a list of tuples of indices (i, j) that satisfy the condition above
-""""""","print(prefix_suffix_match([""aaa"", ""cba"", ""baa""], 2) == [(0, 2), (2, 1)])
+list: a list of tuples of indices (i, j) that satisfy the condition above.","print(prefix_suffix_match([""aaa"", ""cba"", ""baa""], 2) == [(0, 2), (2, 1)])
 print(prefix_suffix_match([""abc"", ""def""], 1) == [])
 print(prefix_suffix_match([""aa"", ""aa""], 1) == [(0, 1), (1, 0)])
 print(prefix_suffix_match([""abc"", ""bc"", ""c""], 1) == [(2, 0), (2, 1)])",Apply the prefix suffix to the given list of suffixes .
@@ -473,13 +468,13 @@ print(prefix_suffix_match([""abc"", ""bc"", ""c""], 1) == [(2, 0), (2, 1)])",App
             mat[j][n-i-1] = temp
     return mat
 
-","""""""
-Rotates a square matrix 90 degrees clockwise in-place.
+","Rotate a square matrix 90 degrees clockwise in-place.
+
 Args:
-- mat (list): a square matrix
+mat (list): a square matrix.
+
 Returns:
-- list: the rotated matrix    
-""""""","print(rotate_matrix_clockwise([[1, 2], [3, 4]]) == [[3, 1], [4, 2]])
+list: the rotated matrix.","print(rotate_matrix_clockwise([[1, 2], [3, 4]]) == [[3, 1], [4, 2]])
 print(rotate_matrix_clockwise([[1, 2, 3], [4, 5, 6], [7, 8, 9]]) == [[7, 4, 1], [8, 5, 2], [9, 6, 3]])
 print(rotate_matrix_clockwise([1]) == [1])",Rotate clockwise degrees between columns of a matrix .
 ,"def cyclic_shift(lst, direction, steps): 
@@ -493,17 +488,18 @@ print(rotate_matrix_clockwise([1]) == [1])",Rotate clockwise degrees between col
             lst.insert(0, lst.pop())
     return lst
 
- ","""""""
-Performs a cyclic shift on a list, by the direction and number of steps specified.
-If steps is negaticve, the shift is in the opposite direction.
+ ","Perform a cyclic shift on a list, by the direction and number of steps specified.
+
+If steps is negative, the shift is in the opposite direction.
 The shift is done in place.
+
 Args:
-- lst (list): list to be shifted
-- direction (string): direction of the shift, 'L' or 'R'
-- steps (int): number of steps to shift the list
+lst (list): list to be shifted.
+direction (string): direction of the shift, 'L' or 'R'.
+steps (int): number of steps to shift the list.
+
 Returns:
-list: shifted list
-""""""","print(cyclic_shift([1, 2, 3, 4, 5], 'L', 2) == [3, 4, 5, 1, 2])
+list: shifted list.","print(cyclic_shift([1, 2, 3, 4, 5], 'L', 2) == [3, 4, 5, 1, 2])
 print(cyclic_shift([1, 2, 3, 4, 5], 'R', 2) == [4, 5, 1, 2, 3])  
 print(cyclic_shift([1, 2, 3, 4, 5], 'L', -2) == [4, 5, 1, 2, 3])
 print(cyclic_shift([], 'R', -2) == []) 
@@ -524,13 +520,13 @@ print(cyclic_shift([1, 2, 3, 4, 5], 'L', 7) == [3, 4, 5, 1, 2]) ",Returns the co
         res += f""{str(count)}[{curr}]""
     return res
 
-","""""""
-Encodes an input string to {num of repititions of char c}[{c}]
+","Encode an input string to {num of repititions of char c}[{c}].
+
 Args:
-- s (str): a string of chars.
+s (str): a string of chars.
+
 Returns:
-- str : an encoding of the input string based by the format of {num of repititions of char c}[{c}]
-""""""","print(encode_string(""abbcdbaaa"") == ""1[a]2[b]1[c]1[d]1[b]3[a]"")
+str : an encoding of the input string based by the format of {num of repititions of char c}[{c}].","print(encode_string(""abbcdbaaa"") == ""1[a]2[b]1[c]1[d]1[b]3[a]"")
 print(encode_string(""aaaaa"") == ""5[a]"")
 print(encode_string("""") == """")",Encodes a list of strings into a user - friendly string .
 ,"def list_sums(lst): 
@@ -538,13 +534,13 @@ print(encode_string("""") == """")",Encodes a list of strings into a user - frie
         lst[i] += lst[i-1]
 
 
-","""""""
-Modifies a list in-place, replacing each element with the sum of all previous elements in the original list.
+","Modify a list in-place, replacing each element with the sum of all previous elements in the original list.
+
 Args:
-- lst (list): a list of ints.
+lst (list): a list of ints.
+
 Returns:
-- str : an encoding of the input string based by the format of {num of repititions of char c}[{c}]
-""""""","a , b= [1,2,3,4,5], [1]
+None.","a , b= [1,2,3,4,5], [1]
 list_sums(a)
 print(a == [1,3,6,10,15])
 list_sums(a)
@@ -563,14 +559,14 @@ print(b == [1])",List the sums for the columns in the list .
         num //= base
     return res  
 
-","""""""
-Converts an int to a string represantation of it in the base provided, the base should be in range[1,9].
+","Convert an int to a string represantation of it in the base provided, the base should be in range[1,9].
+
 Args:
-- num (int) : the number to convert.
-- base (int) : the base to convert the number to. 
+num (int) : the number to convert.
+base (int) : the base to convert the number to. 
+
 Returns:
-- str : a string representation of num in the new base.
-""""""","print(convert_base(4,2) == ""100"")
+str : a string representation of num in the new base.","print(convert_base(4,2) == ""100"")
 print(convert_base(9,9) == ""10"")
 print(convert_base(15, 1) == ""1""*15)
 print(convert_base(80, 5) == ""310"")
@@ -590,14 +586,14 @@ print(convert_base(-1, 2) == None)",Convert a base 10 number to another base
         n = n // 10
     return max(lst)
 
-","""""""
-Computes the length of the longest sequence of digits in a number that are divisible by k
+","Compute the length of the longest sequence of digits in a number that are divisible by k.
+
 Args:
-- n (int): a positive integer
-- k (int): a positive integer
+n (int): a positive integer.
+k (int): a positive integer.
+
 Returns:
-- int: the length of the longest sequence of digits in n that are divisible by k
-""""""","print(max_div_seq(123456, 3) == 1)
+int: the length of the longest sequence of digits in n that are divisible by k.","print(max_div_seq(123456, 3) == 1)
 print(max_div_seq(124568633, 2) == 3)
 print(max_div_seq(123456, 1) == 6)
 print(max_div_seq(3, 2) == 0)
@@ -614,13 +610,13 @@ print(max_div_seq(6, 2) == 1)",Find the maximum number of balls given by sern .
         ptr1 = lst[ptr1]
         ptr2 = lst[ptr2]
     return ptr1
-","""""""
-Finds the duplicate number in a list of integers
+","Find the duplicate number in a list of integers.
+
 Args:
-- nums (list): a list of integers that contains n + 1 integers in the range [1, n]
+lst (list): a list of integers that contains n + 1 integers in the range [1, n].
+
 Returns:
-- int: the duplicate number
-""""""","print(find_dup([1, 1, 2, 3]) == 1)
+int: the duplicate number.","print(find_dup([1, 1, 2, 3]) == 1)
 print(find_dup([1, 4, 3, 2, 2]) == 2)
 print(find_dup([1, 1]) == 1)",Find the best pointer to the begin of a list .
 ,"def lcm(a, b): 
@@ -630,14 +626,14 @@ print(find_dup([1, 1]) == 1)",Find the best pointer to the begin of a list .
         return x
     return a * b // gcd(a, b)
 
-","""""""
-Computes the least common multiple of two numbers
+","Compute the least common multiple of two numbers.
+
 Args:
-- a (int): a positive integer
-- b (int): a positive integer
+a (int): a positive integer.
+b (int): a positive integer.
+
 Returns:
-- int: the least common multiple of a and b
-""""""","print(lcm(3, 5) == 15)
+int: the least common multiple of a and b.","print(lcm(3, 5) == 15)
 print(lcm(4, 6) == 12)",Return the smallest length of a non - negative integer .
 ,"def f19(): 
     result = None
@@ -652,10 +648,10 @@ print(lcm(4, 6) == 12)",Return the smallest length of a non - negative integer .
                 break
     return result
 
-","""""""
-finds the smallest 4-digit number that is divisible by 15 and has a product of its digits between 56 and 64 ,inclusive. 
-returns the number if found, None otherwise. 
-""""""","print(f19() == 2235)
+","find the smallest 4-digit number that is divisible by 15 and has a product of its digits between 56 and 64 ,inclusive.
+
+Returns:
+int: the number if found, None otherwise. ","print(f19() == 2235)
 
 ",Find the first number of digits and return it as a string .
 ,"def f20():
@@ -667,11 +663,270 @@ returns the number if found, None otherwise.
                 if new_number % 22 == 0:
                     return new_number
     return None
-","""""""
-finds a number that can be constructed by removing 3 digits from 14563743 such that the resulting number is divisible by 22.
-returns the number if found, None otherwise.
-""""""","print(f20() == 14674)
+","find a number that can be constructed by removing 3 digits from 14563743 such that the resulting number is divisible by 22.
+
+Returns:
+int: the number if found, None otherwise.","print(f20() == 14674)
 ",Finds the frequency of the first num_strub_str .
+Numpy,"import numpy as np
+
+def convolve_1d(signal, kernel): 
+    signal_len = len(signal)
+    kernel_len = len(kernel)
+    result_len = signal_len + kernel_len - 1
+    result = np.zeros(result_len)
+    padded_signal = np.pad(signal, (kernel_len - 1, kernel_len - 1), mode='constant')
+    flipped_kernel = np.flip(kernel)
+    for i in range(result_len):
+        result[i] = np.sum(padded_signal[i:i + kernel_len] * flipped_kernel)
+    return result
+","Perform 1-dimensional discrete convolution between a signal and a kernel.
+
+Args:
+signal (NumPy array) :An array representing the signal data.
+kernel (NumPy array): An array representing the kernel (filter) data.
+
+Returns:
+NumPy array: A new array containing the convolution result. The length of the result 
+is (len(signal) + len(kernel) - 1).","signal = np.array([1, 2, 3, 4, 5])
+kernel = np.array([0.2, 0.5, 0.2])
+convolved_signal = convolve_1d(signal, kernel)
+print(convolved_signal)",Raises an exception if the kernel is not normalized enough to be plotted . Returns the result of the convolve1d is only important .
+,"def mask_n(im, n, idx): 
+    size = (im.max() - im.min()) / n 
+    mask_greater = im >= (im.min() + size * idx) 
+    mask_lower = im <= (im.min() + size * (idx + 1)) 
+    return mask_greater * mask_lower 
+
+","Calculate a mask where True values are the elements of the input image that fall within a range determined by the image's min and max values, n, and idx.
+
+Args:
+im (NumPy array) : A 2D NumPy array (short for image).
+n (int) : a positive number that represents the number of parts to divide the image's pixel values into.
+idx (int) : determines the part of the image to be masked.
+
+Returns:
+NumPy array: A new array containing the mask defined by the input args.","im = np.array([[3,5,9],[8,1,2],[7,6,4]]) 
+print(np.all(mask_n(im, 3, 0) == np.array([[True, False, False], [False, True, True], [False, False, False]])))
+print(np.all(mask_n(im, 3, 1) == np.array([[False, True, False], [False, False, False], [False, True, True]])))",Mask the given integer n - by - 1 .
+,"def entropy(mat): 
+    mat_values = mat.flatten() 
+    bin_prob = np.bincount(mat_values) / (mat_values.shape[0]) 
+    bin_prob = bin_prob[bin_prob != 0] 
+    return (-bin_prob * np.log2(bin_prob)).sum() 
+
+","Calculate the entropy of a matrix.
+
+Args:
+mat (NumPy array) : A 2D NumPy array with non-negative integer values.
+
+Returns:
+float : The entropy value of the input matrix.","mat1 = np.array([[3,5,3],[8,1,1],[7,7,7]]) 
+mat2 = np.array([[0, 1], [1, 0]])
+print(entropy(mat1) == 2.197159723424149)
+print(entropy(mat2) == 1)",Calculates the entropy for a group of data .
+,"def squeeze_vertical(im, factor): 
+    h, w = im.shape 
+    new_h = h // factor 
+    res = np.zeros((new_h, w), dtype=im.dtype) 
+    for i in range(new_h): 
+        res[i, :] = im[i * factor: (i + 1) * factor, :].mean(axis=0) 
+    return res
+
+","Squeeze a 2D image vertically by a given factor, by averaging the pixel values in each group of factor rows.
+
+Args:
+im (NumPy array) : A 2D NumPy array representing the image.
+factor (int) : The factor by which to squeeze the image vertically. factor is a positive integer and divides the hieght of the image.
+
+Returns:
+NumPy array : A new 2D NumPy array representing the vertically squeezed image.","print(np.all(squeeze_vertical(np.array([[1, 2], [3, 4], [5, 6], [7, 8]]), 2) == np.array([[2, 3], [6, 7]])))
+print(np.all(squeeze_vertical(np.array([[1, 2], [3, 4], [5, 6], [7, 8]]), 4) == np.array([[4, 5]])))
+print(np.all(squeeze_vertical(np.array([[1, 2], [3, 4], [5, 6], [7, 8]]), 1) == np.array([[1, 2], [3, 4], [5, 6], [7, 8]])))",Reduce the image using a human - readable version .
+,"def denoise(im):  
+    def denoise_pixel(im, x, y, dx, dy):
+        left = max(x - dx, 0)
+        right = min(x + dx + 1, im.shape[1])
+        down = max(y - dy, 0)
+        up = min(y + dy + 1, im.shape[0])
+        neighbors = im[down:up, left:right]
+        good_nbrs = neighbors[neighbors > 0]
+        if good_nbrs.size > 0:
+            return np.median(good_nbrs)
+        return im[y, x]
+    new_im = np.zeros(im.shape)
+    for x in range(im.shape[0]):
+        for y in range(im.shape[1]):
+            new_im[y, x] = denoise_pixel(im, x, y, 1, 1)
+    return new_im","Denoise a 2D image by replacing each pixel value with the median of its neighboring pixels (including itself) that are greater than 0.
+
+Args:
+im (NumPy array) : A 2D NumPy array representing the image.
+
+Returns:
+NumPy array : A new 2D NumPy array representing the denoised image.","im = np.array([[15, 110, 64, 150], [231, 150, 98, 160], [77, 230, 2, 0], [100, 81, 189, 91]])
+print(np.all(denoise(im) == np.array([[130, 104, 130, 124], [130, 98, 130, 98], [125, 100, 124, 98], [90.5, 90.5, 91, 91]])))",Denoise using non - uniform - watershed algorithm
+Pandas,"import pandas as pd
+
+def calculate_monthly_sales(data): 
+  data['Date'] = pd.to_datetime(data['Date'])
+  data['YearMonth'] = data['Date'].dt.to_period('M')
+  monthly_sales = data.groupby(['Product', 'YearMonth'])['Sales'].sum().reset_index()
+  monthly_average_sales = monthly_sales.groupby('Product')['Sales'].mean().reset_index()
+  monthly_average_sales.rename(columns={'Sales': 'AverageMonthlySales'}, inplace=True)
+  result = pd.merge(monthly_sales, monthly_average_sales, on='Product')
+  return result","Calculate monthly sales figures and average monthly sales per product from a DataFrame containing sales data.
+
+Args:
+data (pandas DataFrame) : A dataframe containing sales data. it is expected to have a 'Date' column with datetime format, a 'Product' column with products names and a 'Sales' column with numerical sales values.
+
+Returns:
+pandas DataFrame : A new dataframe with four columns: 'Product', 'YearMonth' (representing the year and month), 'Sales' (total sales for each product in that month) and 'AverageMonthlySales', representing the average monthly sales for each product across all months in the data.","data = pd.DataFrame({
+    'Date': ['2024-01-01', '2024-01-15', '2024-02-01', '2024-02-15', '2024-03-01', 
+             '2024-01-03', '2024-01-20', '2024-02-05', '2024-02-25', '2024-03-10'],
+    'Product': ['A', 'A', 'A', 'A', 'A', 
+                'B', 'B', 'B', 'B', 'B'],
+    'Sales': [100, 150, 200, 250, 300, 
+              120, 130, 140, 150, 160]
+})
+monthly_sales_analysis = calculate_monthly_sales(data)
+print(monthly_sales_analysis)",Extract data from a pandas . DataFrame and convert it to a dataframe .
+,"def recommendations(movies, movies_genres, genres, search_title):
+    matching_title = movies[movies['title'].str.contains(search_title, case=False, na=False)].iloc[0]
+    matching_title_genres = movies_genres[movies_genres['movie_id'] == matching_title['id']]['genre_id'].tolist()
+    genre_movie_ids = movies_genres[movies_genres['genre_id'].isin(matching_title_genres)]['movie_id'].tolist()
+    filtered_movies = movies[
+        (movies['id'].isin(genre_movie_ids)) &
+        (movies['rate'].between(matching_title['rate'] - 1, matching_title['rate'] + 1)) &
+        (movies['runtime'].between(matching_title['runtime'] - 15, matching_title['runtime'] + 15)) &
+        (movies['id'] != matching_title['id'])
+    ]
+    return filtered_movies.head(10)","Find up to 10 movies that are similar to a given movie title based on genre, rating, and runtime.
+
+Args:
+movies (pandas DataFrame) : A dataframe containing movie data. It is expected to have 'id', 'title', 'rate', and 'runtime' columns.
+movies_genres (pandas DataFrame) : A dataframe containing movie-genre mapping data. It is expected to have 'movie_id' and 'genre_id' columns.
+genres (pandas DataFrame) : A dataframe containing genre data. It is expected to have 'genre_id' and 'genre_name' columns.
+search_title (str) : A string containing a movie title.
+
+Returns:
+pandas DataFrame : A new dataframe containing up to 10 movies that are similar to the given movie title based on genre, rating, and runtime.
+The similar movies should have the same genre as the given movie, a rating within 1 point of the given movie, and a runtime within 15 minutes of the given movie. 
+The returned dataframe should have 'id', 'title', 'rate', and 'runtime' columns.","movies = pd.DataFrame({
+    'id': [1, 2, 3, 4],
+    'title': ['Inception', 'The Matrix', 'Interstellar', 'Memento'],
+    'overview': ['Dreams within dreams', 'Reality is a simulation', 'Space exploration', 'Memory loss thriller'],
+    'rate': [8.8, 8.7, 8.6, 8.4],
+    'runtime': [148, 136, 169, 113]
+})
+movies_genres = pd.DataFrame({
+    'movie_id': [1, 2, 3, 4],
+    'genre_id': [1, 1, 2, 3]
+})
+genres = pd.DataFrame({
+    'genre_id': [1, 2, 3],
+    'genre_name': ['Sci-Fi', 'Adventure', 'Thriller']
+})
+search_title = 'Inception'
+print(recommendations(movies, movies_genres, genres, search_title))",Extracts genres from a search_gens_key .
+,"def top_hours_worked_departments(employees, departments, works_on): 
+    employees_project_hours = works_on.groupby('employee_id')['hours_worked'].sum().reset_index()
+    employees_project_hours = employees_project_hours.merge(employees[['employee_id', 'name', 'department_id']], on='employee_id')
+    employees_project_hours = employees_project_hours[['name', 'department_id', 'hours_worked']]
+    employees_project_hours = employees_project_hours.rename(columns={'hours_worked': 'total_project_hours'})
+    department_hours = employees_project_hours.groupby('department_id')['total_project_hours'].sum().reset_index()
+    department_hours = department_hours.merge(departments, on='department_id')
+    department_hours = department_hours[['name', 'total_project_hours']]
+    department_hours = department_hours.rename(columns={'name': 'department_name', 'total_project_hours': 'total_hours'})
+    return department_hours.sort_values(by='total_hours', ascending=False).head(5)","Find the top 5 departments with the highest total hours worked on projects.
+
+Args:
+employees (pandas DataFrame) : A dataframe containing employee data. It is expected to have 'employee_id', 'name', 'department_id' and 'salary' columns.
+departments (pandas DataFrame) : A dataframe containing department data. It is expected to have 'department_id' and 'name' columns.
+works_on (pandas DataFrame) : A dataframe containing project work data. It is expected to have 'employee_id', 'project_id', and 'hours_worked' columns.
+
+Returns:
+pandas DataFrame : A new dataframe containing the top 5 departments with the highest total hours worked on projects.","employees = pd.DataFrame({
+    'employee_id': [1, 2, 3, 4],
+    'name': ['Alice', 'Bob', 'Charlie', 'David'],
+    'department_id': [101, 102, 101, 103],
+    'salary': [50000, 60000, 55000, 70000]
+})
+departments = pd.DataFrame({
+    'department_id': [101, 102, 103],
+    'name': ['HR', 'Engineering', 'Sales']
+})
+works_on = pd.DataFrame({
+    'employee_id': [1, 2, 2, 3, 4],
+    'project_id': [1, 1, 2, 3, 2],
+    'hours_worked': [120, 150, 200, 80, 100]
+})
+print(top_hours_worked_departments(employees, departments, works_on))",Generates a total hours that have been ordered by the selected hours .
+,"def huge_population_countries(countries, borders):
+    merged = borders.merge(countries, how='left', left_on='country2', right_on='name')
+    merged = merged.rename(columns={'name': 'country_name_2', 'population': 'population_2'})
+    merged = merged.merge(countries, how='left', left_on='country1', right_on='name')
+    merged = merged.rename(columns={'name': 'country_name_1', 'population': 'population_1'})
+    border_population_sum = merged.groupby('country1')['population_2'].sum().reset_index()
+    border_population_sum = border_population_sum.rename(columns={'country1': 'name', 'population_2': 'border_population_sum'})
+    result = countries.merge(border_population_sum, on='name', how='left')
+    filtered_countries = result[result['population'] > result['border_population_sum']]
+    return filtered_countries[['name', 'population', 'border_population_sum']]","Find countries with a population greater than the sum of the populations of their neighboring countries.
+
+Args:
+countries (pandas DataFrame) : A dataframe containing country data. It is expected to have 'name' and 'population' columns.
+borders (pandas DataFrame) : A dataframe containing border data. It is expected to have 'country1' and 'country2' columns.
+
+Returns:
+pandas DataFrame : A new dataframe containing the names of countries with a population greater than the sum of the populations 
+of their neighboring countries, along with their populations and the sum of the populations of their neighboring countries.","countries = pd.DataFrame({
+    'name': ['A', 'B', 'C', 'D', 'E'],
+    'population': [1000, 2000, 500, 700, 300]
+})
+borders = pd.DataFrame({
+    'country1': ['A', 'A', 'B', 'B', 'C', 'C', 'D', 'E'],
+    'country2': ['B', 'C', 'C', 'D', 'D', 'E', 'E', 'A']
+})
+print(huge_population_countries(countries, borders))",Compute a flat count of all digits that are compatible with ISA .
+,"def countries_bordering_most_populated_in_asia(country_df, border_df): 
+    asian_countries = country_df[country_df['continent'] == 'Asia']    
+    max_population = asian_countries['population'].max()
+    most_populated_countries = asian_countries[asian_countries['population'] == max_population]
+    bordering_countries_set = set()
+    for country in most_populated_countries['name']:
+        borders = border_df[(border_df['country1'] == country) | (border_df['country2'] == country)]
+        for _, row in borders.iterrows():
+            bordering_countries_set.add(row['country1'])
+            bordering_countries_set.add(row['country2'])
+    bordering_countries_set -= set(most_populated_countries['name'])
+    bordering_countries_list = sorted(bordering_countries_set)
+    return bordering_countries_list
+
+
+","Finds the countries bordering the most populated country in Asia. If there are multiple most populated countries in Asia, it finds all the countries bordering any of them.
+
+Args:
+country_df (pandas DataFrame) : A dataframe containing country data. It is expected to have 'name', 'capital', 'continent', and 'population' columns.
+border_df (pandas DataFrame) : A dataframe containing border data. It is expected to have 'country1' and 'country2' columns.
+
+Returns:
+list : A list of names of countries bordering the most populated country in Asia. The list should be sorted in ascending lexicographic order. 
+If there are multiple most populated countries in Asia, it finds all the countries bordering any of them.","country_data = {
+    'name': ['China', 'India', 'Japan', 'Pakistan', 'Nepal', 'USA'],
+    'capital': ['Beijing', 'New Delhi', 'Tokyo', 'Islamabad', 'Kathmandu', 'Washington D.C.'],
+    'continent': ['Asia', 'Asia', 'Asia', 'Asia', 'Asia', 'North America'],
+    'population': [1444216107, 1444216107, 126476461, 225199937, 29136808, 331002651]
+}
+
+border_data = {
+    'country1': ['China', 'China', 'India', 'India', 'Pakistan', 'Pakistan', 'Nepal', 'USA', 'China'] ,
+    'country2': ['India', 'Pakistan', 'Pakistan', 'Nepal', 'China', 'Nepal', 'Pakistan', 'Mexico', 'Mongolia']
+}
+
+country_df = pd.DataFrame(country_data)
+border_df = pd.DataFrame(border_data)
+
+print(countries_bordering_most_populated_in_asia(country_df, border_df))",A function to populate the border_count field of the ISO hybridization .
 Classes,"import math
 class triangle: 
     def __init__(self, a, b, ab, color) -> None:
@@ -692,28 +947,28 @@ class triangle:
         return self.d[name]
         
 
-","""""""
-A class used to represent a colored triangle. Edges are represented by a single letter and the angles by the edges adjacant to them.
+","A class used to represent a colored triangle. Edges are represented by a single letter and the angles by the edges adjacant to them.
+
 Attributes:
 ----------
 d : dictionary
-    a dictionary holding all the triangles attributes.
-Methods
+    a dictionary holding all the triangles attributes. Single letters represent edges, two letters represent an angle between the edges, and color holds the triangles color.
+
+Methods:
 -------
 __init__(a, b, ab, color)
     creates a triangle object with the attributes a, b, ab, and color.
     a : int
-        The length of edge a
+        The length of edge a.
     b : int
-        The length of edge b
+        The length of edge b.
     ab : int
-        The size of angle ab, in degrees
+        The size of angle ab, in degrees.
     color : string
-        The color of the triangle
+        The color of the triangle.
 get(name)
     returns the triangles attribute called name.
-    raise KeyError if name isn't representing any attribute of the triangle.
-""""""","a = triangle(10, 5, 90, 'black')
+    raise KeyError if name isn't representing any attribute of the triangle.","a = triangle(10, 5, 90, 'black')
 print(a.get('ba') == 90)
 print(a.get('c') == 11.180339887498949)
 print(a.get('ac') == 26.565051177077994)
@@ -744,19 +999,20 @@ print(a.get('d'))",The class attribute is self .
         if salary:
             self.salary = salary
 
-","""""""
-A class used to represent a worker.
+","A class used to represent a worker.
+
 Attrinutes:
 ----------
 id : int
     the ID of the worker.
 full_name : str
-    the workers full name, combining first, second (if exist) and last name.
+    the worker's full name, combining first, second (if exist) and last name.
 job : str
-    the workers job.
+    the worker's job.
 salary:
-    the workers salary.
-Methods
+    the worker's salary.
+    
+Methods:
 -------
 __init__(id, first_name, last_name, job, salary = 5000, second_name = None)
     creates a worker object with the attributes id, first_name, last_name, job, salary and second_name if provided.
@@ -767,8 +1023,7 @@ getSalary()
 getJob()
     returns the workers job.
 update(job, salary)
-    updates the workers job and salary.
-""""""","jon = worker('12345', 'jon', 'cohen', 'salesman')
+    updates the workers job and salary.","jon = worker('12345', 'jon', 'cohen', 'salesman')
 print(jon.getFullName() == ""jon cohen"")
 print(jon.getJob() == ""salesman"")
 print(jon.getSalary() == 5000)
@@ -815,13 +1070,14 @@ print(jon.getSalary() == 7000)",This method is called by the class constructor .
             return new_bin_rev[:-1][::-1]
         return new_bin_rev[::-1] 
     
-","""""""
-A class used to represent a binaric number and perform arithmatic operations on it without using base conversions.
+","A class used to represent a binaric number and perform arithmatic operations on it without using base conversions.
+
 Attrinutes:
 ----------
 num : string
     the binaric number represented as a string.
-Methods
+    
+Methods:
 -------
 __init__(num)
     creates a Binaric_arithmatic object with the attribute num.
@@ -830,8 +1086,7 @@ get()
 inc()
     increments number by 1.
 dec()
-    decrements a positive number by 1.
-""""""","seven = Binaric_arithmatic(""111"")
+    decrements a positive number by 1.","seven = Binaric_arithmatic(""111"")
 one = Binaric_arithmatic(""1"")
 print(seven.inc() == ""1000"")
 print(seven.dec() == ""110"")
@@ -867,8 +1122,8 @@ print(one.dec() == ""0"")",The bin number for the piston mode . Correctly comput
         return dif_angle    
     
  
-    ","""""""
-A class used to represent a point in 2D space.
+    ","A class used to represent a point in 2D space.
+
 Attrinutes:
 ----------
 x : float
@@ -879,7 +1134,8 @@ r : float
     the distance of the point from the origin.
 theta : float
     the angle of the point from the x axis.
-Methods
+    
+Methods:
 -------
 __init__(x, y)
     creates a Point_2D object with the attributes x, y, r and theta.
@@ -894,8 +1150,7 @@ __sub__(other)
 distance(other)
     computes the euclidian distance between two points.
 angle_wrt_origin(other)
-    computes the angle between two points with respect to the origin.
-""""""","a = Point_2D(1, 1)
+    computes the angle between two points with respect to the origin.","a = Point_2D(1, 1)
 b = Point_2D(0, 1)
 c = Point_2D(-1, 1)
 d = Point_2D(1, 1)
@@ -956,8 +1211,8 @@ class Roulette:
                 self.balance += amount * 36
         return self.balance
 
-","""""""
-A class used to represent a gambler playing roulette.
+","A class used to represent a gambler playing roulette.
+
 Attrinutes:
 ----------
 balance : float
@@ -965,16 +1220,16 @@ balance : float
 reds : list
     a list of the red numbers on the roulette.
 blacks : list
-    a list of the black numbers on the roulette
+    a list of the black numbers on the roulette.
+    
 Methods:
 ----------
 __init__(initial_money)
-    creates a roulette game for a gambler with his initial money
+    creates a roulette game for a gambler with his initial money.
 get_balance()
-    returns the gambler's balance
+    returns the gambler's balance.
 bet(amount, bet_type)
-    updates the gambler's balance after one round of the roulette based on the gambler's bet type, bet size and the roll.
-""""""","gambler = Roulette(1000)
+    updates the gambler's balance after one round of the roulette based on the gambler's bet type, bet size and the roll.","gambler = Roulette(1000)
 print(gambler.bet(100, ""red""))
 print(gambler.bet(100, ""black""))
 print(gambler.bet(100, ""even""))
@@ -1010,45 +1265,38 @@ print(gambler.bet(100, ""17""))",Create a random instance of the ketama compatib
             raise KeyError(f""ERROR: current balance = {self.balance}, can't withdraw {amount}."")
         self.balance -= amount
         return self.balance
-      
-jon = investments(""jon"", 100000, 10, 15000, 10000)
+     "," A class used to represent an investor portfolio.
+    
+    Attrinutes:
+    ----------
+    balance : float
+        the current balance of the portfolio.
+    avg_yearly_return : float
+        the average yearly return of the portfolio in percentage.
+    monthly_income : float
+        monthly income of the investor (from other income sources).
+    monthly_expenses : float
+        monthly expenses of the investor.
+    name : str
+        the name of the investor.
+        
+    Methods:
+    ----------
+    __init__(name, initial_investment, avg_yearly_return, monthly_income, monthly_expenses)
+        creates an investment portfolio for an investor with its attributes.
+    get_balance()
+        returns the current balance of the portfolio.
+    future_value(years)
+        evaluates the future value of the portfolio after a number of years,
+        based on the average yearly return expected and on the monthly inocme - expanses.
+    withdraw(amount)
+        withdraws an amount from the portfolio if balance allows it.","jon = investments(""jon"", 100000, 10, 15000, 10000)
 print(jon.get_balance() == 100000)
 print(jon.future_value(3) == 351560)
 print(jon.withdraw(100000) == 251560)
 print(jon.future_value(3) == 553286.3600000001)
 print(jon.withdraw(100000) == 453286.3600000001)
-print(jon.future_value(4) == 969962.5596760004)","""""""
-A class used to represent an investment portfolio.
-Attrinutes:
-----------
-balance : float
-    the current balance of the portfolio.
-avg_yearly_return : float
-    the average yearly return of the portfolio in percentage.
-monthly_income : float
-    monthly income of the investor (from other income sources).
-monthly_expenses : float
-    monthly expenses of the investor.
-name : str
-    the name of the investor.
-Methods:
-----------
-__init__(name, initial_investment, avg_yearly_return, monthly_income, monthly_expenses)
-    creates an investment portfolio for an investor with its attributes.
-get_balance()
-    returns the current balance of the portfolio.
-future_value(years)
-    evaluates the future value of the portfolio after a number of years,
-    based on the average yearly return expected and on the monthly inocme - expanses.
-withdraw(amount)
-    withdraws an amount from the portfolio if balance allows it.
-""""""","jon = investments(""jon"", 100000, 10, 15000, 10000)
-print(jon.get_balance() == 100000)
-print(jon.future_value(3) == 351560)
-print(jon.withdraw(100000) == 251560)
-print(jon.future_value(3) == 553286.3600000001)
-print(jon.withdraw(100000) == 453286.3600000001)
-print(jon.future_value(4) == 969962.5596760004)",The heart of the class .
+print(jon.future_value(4) == 969962.5596760004)",The average amounts of the non - outer data of the class .
 ,"class Restaurant: 
 
     def __init__(self, name, cuisine, rating):
@@ -1081,39 +1329,39 @@ print(jon.future_value(4) == 969962.5596760004)",The heart of the class .
     def get_chefs(self):
         return self.chefs            
             
-","""""""
-A class to represent a restaurant.
+","A class to represent a restaurant.
+
 Attributes:
 ----------
 name : str
-    name of the restaurant
+    name of the restaurant.
 cuisine : str
-    type of cuisine
+    type of cuisine.
 rating : float
-    rating of the restaurant (0-5)
+    rating of the restaurant (0-5).
 menu : dict
-    menu of the restaurant, with dish name as key and price as value
+    menu of the restaurant, with dish name as key and price as value.
 chefs : list
-    list of chefs working at the restaurant
+    list of chefs working at the restaurant.
+    
 Methods:
 -------
 __init__(name, cuisine, rating)
     creates a restaurant object with the attributes name, cuisine, and rating. Also initializes empty Menu and chefs roster.
 __repr__()
-    returns a string representation of the restaurant
+    returns a string representation of the restaurant.
 add_dish(name, price)
-    adds a dish to the menu
+    adds a dish to the menu.
 remove_dish(name)
-    removes a dish from the menu
+    removes a dish from the menu.
 add_chef(chef)
-    adds a chef to the chefs list
+    adds a chef to the chefs list.
 remove_chef(chef)
-    removes a chef from the chefs list
+    removes a chef from the chefs list.
 get_menu()
-    returns the menu
+    returns the menu.
 get_chefs()
-    returns the chefs list
-""""""","r = Restaurant(""Ragazzo"", ""Italian"", 4.5)
+    returns the chefs list.","r = Restaurant(""Ragazzo"", ""Italian"", 4.5)
 r.add_dish(""pasta"", 10)
 r.add_dish(""pizza"", 20)
 print(r.get_menu() == {'pasta': 10, 'pizza': 20})
@@ -1164,26 +1412,26 @@ print(r.get_chefs() == ['Luigi'])",The naming of the menu .
         return self.coeffs == other.coeffs
              
 
-","""""""
-A class to represent a polynomial.
+","A class to represent a polynomial.
+
 Attributes:
 ----------
 coeffs : list
-    list of coefficients of the polynomial, starting from the constant term
+    list of coefficients of the polynomial, starting from the constant term.
+    
 Methods:
 -------
 __init__(coeffs)
-    creates a polynomial object with the attribute coeffs
+    creates a polynomial object with the attribute coeffs.
 __repr__()
     returns a string representation of the polynomial in the form of (a0 + a1x + a2x^2 + ...)
-    such that only the non zero coefficients are shown
+    such that only the non zero coefficients are shown.
 get_deg()
-    returns the degree of the polynomial
+    returns the degree of the polynomial.
 __add__(other)
-    adds two polynomials
+    adds two polynomials.
 __eq__(other)
-    checks if two polynomials are equal
-""""""","a = Polynomial([1, 2, 0, 4])
+    checks if two polynomials are equal.","a = Polynomial([1, 2, 0, 4])
 b = Polynomial([0, 2, -5, 0])
 c = Polynomial([-7, 2, 0, 4])
 d = Polynomial([-6, -2, 0, 4, 5])
@@ -1233,27 +1481,27 @@ print(b + e == b)",The class method that gets passed into the class
         return [t['task'] for t in self.tasks if t['completed'] == completed]
 
 
-","""""""
-A class to represent a to-do list.
+","A class to represent a to-do list.
+
 Attributes:
 ----------
 tasks : list
-    list of tasks, each task is a dictionary with keys 'task' and 'completed'
+    list of tasks, each task is a dictionary with keys 'task' and 'completed'.
+
 Methods:
 -------
 __init__()
-    creates a to-do list object with an empty list of tasks
+    creates a to-do list object with an empty list of tasks.
 __repr__()
-    returns a string representation of the to-do list
+    returns a string representation of the to-do list.
 add_task(task)
-    adds a task to the list
+    adds a task to the list.
 remove_task(task)
-    removes a task from the list, returns True if the task was removed, False otherwise
+    removes a task from the list, returns True if the task was removed, False otherwise.
 mark_completed(task)
-    marks a task as completed, returns True if the task was found and marked, False otherwise
+    marks a task as completed, returns True if the task was found and marked, False otherwise.
 list_tasks(completed)
-    returns a list of tasks, if completed is None, returns all tasks, if completed is True, returns completed tasks, if completed is False, returns incomplete tasks
-""""""","lst = TodoList()
+    returns a list of tasks, if completed is None, returns all tasks, if completed is True, returns completed tasks, if completed is False, returns incomplete tasks.","lst = TodoList()
 lst.add_task(""Buy groceries"")
 lst.add_task(""go to school"")
 lst.add_task(""do HW"")
@@ -1301,46 +1549,49 @@ print(lst.list_tasks(completed=False) == [""go to school""])",This function is c
         return [str(recipe) for recipe in self.recipes]
 
 
-","""""""
-class Recipe:
+","class Recipe:
 
 A class to represent a recipe.
+
 Attributes:
 ----------
 name : str
-    name of the recipe
+    name of the recipe.
 ingredients : list
-    list of ingredients
+    list of ingredients.
 instructions : str
-    instructions to prepare the recipe
+    instructions to prepare the recipe.
+    
 Methods:
 -------
+__init__(name, ingredients, instructions)
+    creates a recipe object with the attributes name, ingredients, and instructions.
 __repr__()
-    returns a string representation of the recipe
-
+    returns a string representation of the recipe.
 
 class RecipeBook:
 
 A class to represent a recipe book.
-Attributes:
-----------
-recipes : list
-    list of recipes
-Methods:
--------
-__init__()
-    creates a recipe book object with an empty list of recipes
-__repr__()
-    returns a string representation of all recipes in the recipe book
-add_recipe(name, ingredients, instructions)
-    adds a recipe to the recipe book
-remove_recipe(name)
-    removes a recipe from the recipe book, returns True if the recipe was removed, False otherwise
-search_by_ingredient(ingredient)
-    returns a list of recipes that include the specified ingredient
-list_recipes()
-    returns a list of all recipes
-""""""","book = RecipeBook()
+
+    Attributes:
+    ----------
+    recipes : list
+        list of recipes.
+        
+    Methods:
+    -------
+    __init__()
+        creates a recipe book object with an empty list of recipes.
+    __repr__()
+        returns a string representation of all recipes in the recipe book.
+    add_recipe(name, ingredients, instructions)
+        adds a recipe to the recipe book.
+    remove_recipe(name)
+        removes a recipe from the recipe book, returns True if the recipe was removed, False otherwise.
+    search_by_ingredient(ingredient)
+        returns a list of recipes that include the specified ingredient.
+    list_recipes()
+        returns a list of all recipes.","book = RecipeBook()
 book.add_recipe(""Pasta"", [""pasta"", ""tomato sauce"", ""cheese""], ""Cook pasta, add sauce and cheese"")
 print(str(book) == ""Recipe: Pasta\nIngredients: pasta, tomato sauce, cheese\nInstructions: Cook pasta, add sauce and cheese\n"")
 book.add_recipe(""Pizza"", [""dough"", ""tomato sauce"", ""cheese""], ""Bake dough, add sauce and cheese"")
@@ -1349,175 +1600,3 @@ cheese_recipes = book.search_by_ingredient(""cheese"")
 print(cheese_recipes[0].name == ""Pasta"" and cheese_recipes[1].name == ""Pizza"" and len(cheese_recipes) == 2)
 book.remove_recipe(""Pasta"")
 print(book.list_recipes() == [""Recipe: Pizza\nIngredients: dough, tomato sauce, cheese\nInstructions: Bake dough, add sauce and cheese\n"", ""Recipe: Salad\nIngredients: lettuce, tomato, cucumber\nInstructions: Mix all ingredients\n""])",Produces a name that uses this recipe
-Numpy,,,,
-,"def mask_n(im, n, idx): 
-    size = (im.max() - im.min()) / n 
-    mask_greater = im >= (im.min() + size * idx) 
-    mask_lower = im <= (im.min() + size * (idx + 1)) 
-    return mask_greater * mask_lower 
-
-","""""""
-Calculates a mask where True values are the elements of the input image that fall within a range determined by the image's min and max values, n, and idx.
-Args:
-- im (NumPy array) : A 2D NumPy array (short for image) 
-- n (int) : a positive number that represents the number of parts to divide the image's pixel values into.
-- idx (int) : determines the part of the image to be masked.
-""""""","im = np.array([[3,5,9],[8,1,2],[7,6,4]]) 
-print(np.all(mask_n(im, 3, 0) == np.array([[True, False, False], [False, True, True], [False, False, False]])))
-print(np.all(mask_n(im, 3, 1) == np.array([[False, True, False], [False, False, False], [False, True, True]])))",Mask the given integer n - by - 1 .
-,"def entropy(mat): 
-    mat_values = mat.flatten() 
-    bin_prob = np.bincount(mat_values) / (mat_values.shape[0]) 
-    bin_prob = bin_prob[bin_prob != 0] 
-    return (-bin_prob * np.log2(bin_prob)).sum() 
-
-","""""""
-Calculates the entropy of a matrix.
-Args:
-- mat (NumPy array) : A 2D NumPy array with non-negative integer values.
-Returns:
-- float : The entropy value of the input matrix.
-""""""","mat1 = np.array([[3,5,3],[8,1,1],[7,7,7]]) 
-mat2 = np.array([[0, 1], [1, 0]])
-print(entropy(mat1) == 2.197159723424149)
-print(entropy(mat2) == 1)",Calculates the entropy for a group of data .
-,"def squeeze_vertical(im, factor): 
-    h, w = im.shape 
-    new_h = h // factor 
-    res = np.zeros((new_h, w), dtype=im.dtype) 
-    for i in range(new_h): 
-        res[i, :] = im[i * factor: (i + 1) * factor, :].mean(axis=0) 
-    return res
-
-","""""""
-Squeezes a 2D image vertically by a given factor, by averaging the pixel values in each group of factor rows.
-Args:
-- im (NumPy array) : A 2D NumPy array representing the image.
-- factor (int) : The factor by which to squeeze the image vertically. factor is a positive integer and divides the hieght of the image.
-Returns:
-- NumPy array : A new 2D NumPy array representing the vertically squeezed image.
-""""""","print(np.all(squeeze_vertical(np.array([[1, 2], [3, 4], [5, 6], [7, 8]]), 2) == np.array([[2, 3], [6, 7]])))
-print(np.all(squeeze_vertical(np.array([[1, 2], [3, 4], [5, 6], [7, 8]]), 4) == np.array([[4, 5]])))
-print(np.all(squeeze_vertical(np.array([[1, 2], [3, 4], [5, 6], [7, 8]]), 1) == np.array([[1, 2], [3, 4], [5, 6], [7, 8]])))",Reduce the image using a human - readable version .
-,,,,
-Pandas,"import pandas as pd
-
-def calculate_monthly_sales(data): 
-  data['Date'] = pd.to_datetime(data['Date'])    
-  data['YearMonth'] = data['Date'].dt.to_period('M')  
-  monthly_sales = data.groupby(['Product', 'YearMonth'])['Sales'].sum().reset_index()
-  monthly_average_sales = monthly_sales.groupby('Product')['Sales'].mean().reset_index()
-  monthly_average_sales.rename(columns={'Sales': 'AverageMonthlySales'}, inplace=True)  
-  result = pd.merge(monthly_sales, monthly_average_sales, on='Product')
-  return result","""""""
-Calculates monthly sales figures and average monthly sales per product from a DataFrame containing sales data.
-Args:
-- data (pandas DataFrame) : A dataframe containing sales data. it is expected to have a 'Date' column with datetime format, a 'Product' column with products names and a 'Sales' column with numerical sales values.
-Returns:
-pandas DataFrame : A new dataframe with four columns: 'Product', 'YearMonth' (representing the year and month), 'Sales' (total sales for each product in that month) and 'AverageMonthlySales', representing the average monthly sales for each product across all months in the data.
-""""""","data = pd.DataFrame({
-    'Date': ['2024-01-01', '2024-01-15', '2024-02-01', '2024-02-15', '2024-03-01', 
-             '2024-01-03', '2024-01-20', '2024-02-05', '2024-02-25', '2024-03-10'],
-    'Product': ['A', 'A', 'A', 'A', 'A', 
-                'B', 'B', 'B', 'B', 'B'],
-    'Sales': [100, 150, 200, 250, 300, 
-              120, 130, 140, 150, 160]
-})
-monthly_sales_analysis = calculate_monthly_sales(data)
-print(monthly_sales_analysis)",Extract data from a pandas . DataFrame and convert it to a dataframe .
-,"def recommendations(movies, movies_genres, genres, search_title):
-    matching_title = movies[movies['title'].str.contains(search_title, case=False, na=False)].iloc[0]
-    matching_title_genres = movies_genres[movies_genres['movie_id'] == matching_title['id']]['genre_id'].tolist()
-    genre_movie_ids = movies_genres[movies_genres['genre_id'].isin(matching_title_genres)]['movie_id'].tolist()
-    filtered_movies = movies[
-        (movies['id'].isin(genre_movie_ids)) &
-        (movies['rate'].between(matching_title['rate'] - 1, matching_title['rate'] + 1)) &
-        (movies['runtime'].between(matching_title['runtime'] - 15, matching_title['runtime'] + 15)) &
-        (movies['id'] != matching_title['id'])
-    ]
-    return filtered_movies.head(10)","""""""
-Finds up to 10 movies that are similar to a given movie title based on genre, rating, and runtime.
-Args:
-- movies (pandas DataFrame) : A dataframe containing movie data. It is expected to have 'id', 'title', 'rate', and 'runtime' columns.
-- movies_genres (pandas DataFrame) : A dataframe containing movie-genre mapping data. It is expected to have 'movie_id' and 'genre_id' columns.
-- genres (pandas DataFrame) : A dataframe containing genre data. It is expected to have 'genre_id' and 'genre_name' columns.
-Returns:
-    - pandas DataFrame : A new dataframe containing up to 10 movies that are similar to the given movie title based on genre, rating, and runtime.
-The similar movies should have the same genre as the given movie, a rating within 1 point of the given movie, and a runtime within 15 minutes of the given movie. 
-The returned dataframe should have 'id', 'title', 'rate', and 'runtime' columns.
-""""""","movies = pd.DataFrame({
-    'id': [1, 2, 3, 4],
-    'title': ['Inception', 'The Matrix', 'Interstellar', 'Memento'],
-    'overview': ['Dreams within dreams', 'Reality is a simulation', 'Space exploration', 'Memory loss thriller'],
-    'rate': [8.8, 8.7, 8.6, 8.4],
-    'runtime': [148, 136, 169, 113]
-})
-movies_genres = pd.DataFrame({
-    'movie_id': [1, 2, 3, 4],
-    'genre_id': [1, 1, 2, 3]
-})
-genres = pd.DataFrame({
-    'genre_id': [1, 2, 3],
-    'genre_name': ['Sci-Fi', 'Adventure', 'Thriller']
-})
-search_title = 'Inception'
-print(recommendations(movies, movies_genres, genres, search_title))",Extracts genres from a search_gens_key .
-,"def top_hours_worked_departments(employees, departments, works_on): 
-    employees_project_hours = works_on.groupby('employee_id')['hours_worked'].sum().reset_index()
-    employees_project_hours = employees_project_hours.merge(employees[['employee_id', 'name', 'department_id']], on='employee_id')
-    employees_project_hours = employees_project_hours[['name', 'department_id', 'hours_worked']]
-    employees_project_hours = employees_project_hours.rename(columns={'hours_worked': 'total_project_hours'})
-    department_hours = employees_project_hours.groupby('department_id')['total_project_hours'].sum().reset_index()
-    department_hours = department_hours.merge(departments, on='department_id')
-    department_hours = department_hours[['name', 'total_project_hours']]
-    department_hours = department_hours.rename(columns={'name': 'department_name', 'total_project_hours': 'total_hours'})
-    return department_hours.sort_values(by='total_hours', ascending=False).head(5)","""""""
-Finds the top 5 departments with the highest total hours worked on projects.
-Args:
-- employees (pandas DataFrame) : A dataframe containing employee data. It is expected to have 'employee_id', 'name', 'department_id' and 'salary' columns.
-- departments (pandas DataFrame) : A dataframe containing department data. It is expected to have 'department_id' and 'name' columns.
-- works_on (pandas DataFrame) : A dataframe containing project work data. It is expected to have 'employee_id', 'project_id', and 'hours_worked' columns.
-Returns:
-pandas DataFrame : A new dataframe containing the top 5 departments with the highest total hours worked on projects.
-""""""","employees = pd.DataFrame({
-    'employee_id': [1, 2, 3, 4],
-    'name': ['Alice', 'Bob', 'Charlie', 'David'],
-    'department_id': [101, 102, 101, 103],
-    'salary': [50000, 60000, 55000, 70000]
-})
-departments = pd.DataFrame({
-    'department_id': [101, 102, 103],
-    'name': ['HR', 'Engineering', 'Sales']
-})
-works_on = pd.DataFrame({
-    'employee_id': [1, 2, 2, 3, 4],
-    'project_id': [1, 1, 2, 3, 2],
-    'hours_worked': [120, 150, 200, 80, 100]
-})
-print(top_hours_worked_departments(employees, departments, works_on))",Generates a total hours that have been ordered by the selected hours .
-,"def huge_population_countries(countries, borders):
-    merged = borders.merge(countries, how='left', left_on='country2', right_on='name')
-    merged = merged.rename(columns={'name': 'country_name_2', 'population': 'population_2'})
-    merged = merged.merge(countries, how='left', left_on='country1', right_on='name')
-    merged = merged.rename(columns={'name': 'country_name_1', 'population': 'population_1'})
-    border_population_sum = merged.groupby('country1')['population_2'].sum().reset_index()
-    border_population_sum = border_population_sum.rename(columns={'country1': 'name', 'population_2': 'border_population_sum'})
-    result = countries.merge(border_population_sum, on='name', how='left')
-    filtered_countries = result[result['population'] > result['border_population_sum']]
-    return filtered_countries[['name', 'population', 'border_population_sum']]","""""""
-Finds countries with a population greater than the sum of the populations of their neighboring countries.
-Args:
-- countries (pandas DataFrame) : A dataframe containing country data. It is expected to have 'name' and 'population' columns.
-- borders (pandas DataFrame) : A dataframe containing border data. It is expected to have 'country1' and 'country2' columns.
-Returns:
-pandas DataFrame : A new dataframe containing the names of countries with a population greater than the sum of the populations 
-of their neighboring countries, along with their populations and the sum of the populations of their neighboring countries.
-""""""","countries = pd.DataFrame({
-    'name': ['A', 'B', 'C', 'D', 'E'],
-    'population': [1000, 2000, 500, 700, 300]
-})
-borders = pd.DataFrame({
-    'country1': ['A', 'A', 'B', 'B', 'C', 'C', 'D', 'E'],
-    'country2': ['B', 'C', 'C', 'D', 'D', 'E', 'E', 'A']
-})
-print(huge_population_countries(countries, borders))",Compute a flat count of all digits that are compatible with ISA .
