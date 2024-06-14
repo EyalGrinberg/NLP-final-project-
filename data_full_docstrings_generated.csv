@@ -17,28 +17,24 @@ print(sum_even([1, 2, 3, 4, 5]) == 9)
 print(sum_even([1, [2, 3, [4, 5]], 6, [7, 8]]) == 20) 
 print(sum_even([1, [2, 3, [4, 5]], 6, [7, 8, [9, 10]]]) == 29)  
 print(sum_even([]) == 0) 
-print(sum_even([[[1, 2, 3], [4, 5, 6]]]) == 14) ",Return the sum of the items that are delimited by the given number .,"Iteratively compute the sum of all elements in a list of integers.
-If the element is a list, recursively call the sum_even function.
-If the element is an integer and its index is even, add it to the total.
-
-Args:
+print(sum_even([[[1, 2, 3], [4, 5, 6]]]) == 14) ",Return the sum of the items that are delimited by the given number .,"Iteratively compute the sum of all even-indexed elements in a list of integers.
+    
+    Args:
     lst (list): a list of integers.
-
-Returns:
-    int: the sum of all even-indexed elements in the list and all elements in any sublists.","Iteratively compute the sum of all elements in a list of integers at even indices (0-based) or in nested sublists at any level.
-
-Args:
-lst (list): a list of integers and nested sublists.
-
-Returns:
-int: the sum of all elements in the list at even indices or in nested sublists at even levels."," '''Iteratively compute the sum of all even indexed elements from a nested list of integers.
+    
+    Returns:
+    int: the sum of all even-indexed elements in the list.","
+Calculate the sum of even-indexed elements in a nested list recursively.
 
 Args:
-  lst (list): A nested list of integers.
+lst (list): A list containing integers and possibly nested lists.
 
 Returns:
-  int: The sum of all even indexed elements from the nested list. Recursively sums even elements from nested lists.
-'''"
+int: The sum of all even-indexed elements in the list, including elements in nested lists."," Computes the sum of all even indexed elements in a nested list.
+
+Iteratively calculates the total by iterating through the list and its sublists. If an item is itself a list, recursively calls sum_even on that sublist. Otherwise, adds the item to the total if its index in the parent list is even. 
+
+Returns the total sum of all even indexed elements."
 ,"def find_num_changes(n, lst): 
     if n == 0:
         return 1
@@ -62,31 +58,32 @@ print(find_num_changes(5, []) == 0)
 print(find_num_changes(-4, [1, 2, 3]) == 0)
 print(find_num_changes(0, [1, 2, 3]) == 1)
 print(find_num_changes(1, [2,5,7]) == 0)
-print(find_num_changes(4, [1,2,5,6]) == 3)",Find the number of changes,"Iteratively computes the number of ways to make change for a given amount of money using given list of denominations.
-    
-    Args:
-    n (int): the amount of money to make change for.
-    lst (list): a list of denominations.
-    
-    Returns:
-    int: the number of ways to make change for the given amount of money using the given list of denominations.","
-    Recursively find the number of ways to represent a given number as a sum of elements in a list.
-    
-    Args:
-    n (int): the target number to represent as a sum.
-    lst (list): a list of integers to use for the sum.
-    
-    Returns:
-    int: the number of ways the target number can be represented as a sum of elements from the list."," """"""Count the number of ways to make change for n cents using coins of the values in lst.
-
-This function recursively calculates the number of combinations to make change for n cents using coins in lst. Base cases are when n is 0 or lst is empty, which return 1 and 0 respectively. If n is negative it returns 0 since change cannot be less than 0. Otherwise it recursively calls itself subtracting the current coin value and considering the remaining coins, and adds that to considering the remaining coins without subtracting the current coin value. 
+print(find_num_changes(4, [1,2,5,6]) == 3)",Find the number of changes,"Iteratively compute the number of ways to make change for a target value n using an array of coin denominations lst.
 
 Args:
-    n (int): the amount of cents to make change for
-    lst (list): a list of coin values that can be used to make change
-    
-Returns: 
-    int: the number of possible combinations to make change for n cents using coins in lst
+    n (int): the target value.
+    lst (list): an array of coin denominations.
+
+Returns:
+    int: the number of ways to make change for the target value using the coin denominations.","
+Find the number of ways to represent a given sum 'n' using elements from a list 'lst'.
+
+Args:
+n (int): the target sum to be represented.
+lst (list): a list of integers to be used for representation.
+
+Returns:
+int: the number of ways to represent the sum 'n' using elements from the list 'lst'."," Finds the number of ways coins can sum to n cents given denominations in lst. Returns 1 if n is 0, returns 0 if lst is empty or n<0, otherwise recursively finds ways to make n by including/excluding the first coin in lst.
+
+""""""
+Finds the number of ways coins can sum to n cents given denominations in lst. Returns 1 if n is 0, returns 0 if lst is empty or n<0, otherwise recursively finds ways to make n by including/excluding the first coin in lst.
+
+Args:
+  n (int): the target sum in cents
+  lst (list): list of coin denominations
+
+Returns:
+  int: the number of ways to make change for n cents using coins in lst
 """""""
 ,"def sum_nested(lst): 
     if len(lst) == 0:
@@ -108,34 +105,29 @@ print(sum_nested([]) == 0.0)
 print(sum_nested([1, 2, 3]) == 6.0)
 print(sum_nested([1, 2, 3, 4, 5]) == 15.0)
 print(sum_nested([""aa"", [-3, -4.5], 'abc', [5, 'abc', [-4, 0.5]]]) == 17.0)
-print(sum_nested([1, 2, 3, 4, 5, [1, 2, 3, 4, 5, [1, 2, 3, 4, 5, [1, 2, 3, 4, 5]]]]) == 60.0)",Return the sum for nested structures .,"Recursively compute the sum of all elements in a nested list of numbers (list of numbers, lists of numbers, etc...)
+print(sum_nested([1, 2, 3, 4, 5, [1, 2, 3, 4, 5, [1, 2, 3, 4, 5, [1, 2, 3, 4, 5]]]]) == 60.0)",Return the sum for nested structures .,"Iteratively compute the absolute sum of all elements in a nested list of integers, strings (converted to floats), or other nested lists.
 
 Args:
-    lst (list): a nested list of numbers
+    lst (list): a list of integers, strings, or other lists.
 
 Returns:
-    float: the sum of all elements in the list","
-```
-    Recursively compute the sum of all elements in a nested list after converting any string elements to floats.
+    float: the absolute sum of all elements in the list.","
+    Recursively calculates the sum of all elements in a nested list. 
+    If an element is a string, it converts it to a float before summing. 
+    If an element is a list, it recursively calculates the sum of the nested list. 
 
     Args:
-    lst (list): a nested list containing integers, floats, and/or strings that can be converted to floats.
+    lst (list): a nested list containing integers and/or strings.
 
     Returns:
-    float: the sum of all elements in the nested list.
-
-    Note:
-    - If a string element cannot be converted to float, it will be treated as 0.
-    - Positive integers and floats are added as is, while negative numbers are converted to positive before adding.
-```
-"," """"""Sum the absolute value of nested lists/strings recursively.
+    float: the sum of all elements in the nested list."," '''Iteratively compute the absolute nested sum of elements in a nested list.
     
-Args:
-  lst (list): A nested list that can contain either lists or strings.
-  
-Returns: 
-  float: The sum of absolute values of all elements in the nested structure.
-"""""""
+    Args: 
+    lst (list): a nested list that can contain integers, strings, or lists.
+    
+    Returns:
+    float: the absolute nested sum of all elements in the nested list.
+    '''"
 ,"def str_decomp(target, word_bank): 
     if target == ''"":
         return 1
@@ -156,22 +148,30 @@ Returns:
 int: the number of ways to decompose target.","print(str_decomp(""abcdef"", [""ab"", ""abc"", ""cd"", ""def"", ""abcd""]) == 1)
 print(str_decomp('purple', [""purp"", ""p"", ""ur"", ""purpl"", 'le']) == 2)
 print(str_decomp('aaaaaaaaaz', [""a"", ""aa"", ""aaa"", ""aaaa"", ""aaaaa""]) == 0)
-print(str_decomp('aabbcc', [""a"", ""ab"", ""b"", ""bc"", ""c"", ""abc"", ""abcd""]) == 4)",Gets the total number of words in a string .,"Iteratively compute the number of ways to decompose a target string using words from a given word bank.
-    The target string can be decomposed if it can be broken down into a sequence of words from the word bank.
-    
-    Args:
-    target (str): the target string to decompose.
-    word_bank (list): a list of words that can be used to decompose the target string.
-    
-    Returns:
-    int: the number of ways to decompose the target string using words from the word bank.","Iteratively decompose a target string into words from a word bank.
+print(str_decomp('aabbcc', [""a"", ""ab"", ""b"", ""bc"", ""c"", ""abc"", ""abcd""]) == 4)",Gets the total number of words in a string .,"Iteratively compute the number of ways a target string can be decomposed into a sequence of words from a given word bank.
 
 Args:
-    target (str): The target string to decompose.
-    word_bank (list): A list of words to use for decomposition.
+target (str): the target string.
+word_bank (list[str]): a list of words that can be used to decompose the target string.
 
 Returns:
-    int: The total count of ways the target string can be decomposed using words from the word bank."," """"""Iteratively decompose a target string into words from a word bank by recursively calling the function on remaining substrings to count the number of possible decompositions."""""""
+int: the number of ways to decompose the target string using the words from the word bank.","
+Recursively decomposes a target string using words from a word bank and returns the total count of valid decompositions.
+
+Args:
+    target (str): The target string to be decomposed.
+    word_bank (list): A list of words that can be used for decomposition.
+
+Returns:
+    int: The total count of valid decompositions of the target string using words from the word bank."," """"""Iteratively compute the total number of ways to decompose a target string into words from a word bank by breaking it into substrings starting with words in the word bank.
+
+Args:
+    target (str): The string to decompose.
+    word_bank (list): List of words that can be used in the decomposition.
+    
+Returns:
+    int: Total number of ways the target string can be decomposed into words from the word bank.
+"""""""
 ,"def n_choose_k(n, k): 
     if k < 0 or k > n:
         return 0
@@ -193,32 +193,32 @@ print(n_choose_k(9, 8) == 9)
 print(n_choose_k(10, 3) == 120)
 print(n_choose_k(4, 0) == 1)
 print(n_choose_k(3,9) == 0)
-print(n_choose_k(29, -3) == 0)",Return the number of k - columns and k - > value .,"Compute the value of n choose k, where n and k are positive integers and n choose k is the number of ways to choose k elements from a set of n distinct elements.
+print(n_choose_k(29, -3) == 0)",Return the number of k - columns and k - > value .,"Calculate the binomial coefficient of n and k, denoted as n choose k.
 
     Args:
-    n (int): the number of elements in the set.
+    n (int): the total number of elements.
     k (int): the number of elements to choose.
 
     Returns:
-    int: the value of n choose k.","
-solution = 
-    Calculate the number of ways to choose k elements from a set of n elements using the formula for binomial coefficients (n choose k).
-    
-    Args:
-    n (int): The total number of elements in the set.
-    k (int): The number of elements to choose from the set.
-    
-    Returns:
-    int: The number of ways to choose k elements from a set of n elements."," '''
-Computes the binomial coefficient ""n choose k"", i.e. the number of ways to choose k unordered outcomes from n possibilities, with repetition not allowed.
+    int: the binomial coefficient of n and k.","
+Calculate the number of ways to choose k elements from a set of n elements.
 
 Args:
-    n (int): Number of possible outcomes.
-    k (int): Number of outcomes to choose.
+    n (int): Total number of elements in the set.
+    k (int): Number of elements to choose.
 
-Returns: 
-    int: The binomial coefficient n choose k.
-'''"
+Returns:
+    int: The number of ways to choose k elements from a set of n elements."," Compute binomial coefficients (also called the binomial coefficients), defined as the number of possible combinations of n things taken k at a time, without repetition and order.
+
+    Args:
+      n (int): Total number of things.
+      k (int): Number of things taken at a time.
+      
+    Returns: 
+      int: The binomial coefficient of n over k.
+
+    Raises:
+      ValueError: If k is negative or greater than n."
 ,"def dfs_level_order(tree, index=0):
     if index >= len(tree) or tree[index] is None:
         return """"
@@ -239,30 +239,30 @@ index (int): The starting index in the array (default: 0).
 
 Returns:
 str : string containing the visited nodes in DFS order, separated by commas.","print(dfs_level_order([1, 2, 3, 4, 5, None, None]) == ""1,2,4,5,3"")
-print(dfs_level_order([1, 2, None, None, 5]) == ""1,2,5"")",Returns an index in a nice tree .,"Depth-first search traversal of a tree in level order.
+print(dfs_level_order([1, 2, None, None, 5]) == ""1,2,5"")",Returns an index in a nice tree .,"Iteratively compute the Depth First Search (DFS) of a binary tree, performing level-order traversal.
 
-Args:
-    tree (list): a list representation of a binary tree where each element is either None or an integer.
-    index (int, optional): the current index in the list representation of the tree. Defaults to 0.
+    Args:
+    tree (list): a binary tree represented as a list.
+    index (int, optional): the index of the root of the tree. Defaults to 0.
 
-Returns:
-    str: a string representation of the tree in level order.","
-Iteratively perform a depth-first search traversal of a binary tree in level order and return a string representation of the visited nodes. 
-
-Args:
-    tree (list): A list representing a binary tree where None indicates a missing node and any other value represents a node.
-    index (int): The index of the current node being visited in the tree. Defaults to 0.
-
-Returns:
-    str: A string representation of the nodes visited in level order."," """"""Iteratively traverse a tree in depth-first, level-order fashion to return a comma separated string of node values.
-    
-    Args: 
-    tree (list): A tree represented as a nested list structure.
-    index (int, optional): The index of the node to start traversing from. Defaults to 0 (the root node).
-    
     Returns:
-    str: A comma separated string of all node values in the tree visited level-order.
-"""""""
+    str: a string representing the DFS level-order traversal of the tree.","Perform Depth-First Search (DFS) traversal on a binary tree in level order traversal fashion.
+
+Args:
+    tree (list): A list representing a binary tree where each index corresponds to a node in the tree. None values indicate that a node is absent.
+    index (int): Optional. The index of the current node being visited in the binary tree. Defaults to 0.
+
+Returns:
+    str: A string representing the elements of the binary tree visited using DFS level order traversal."," def dfs_level_order(tree, index=0):
+    """"""Perform a depth-first traversal of a tree and return the levels order of the tree nodes as a string.
+    
+    Args:
+        tree (list): Tree represented as a list where each element is a node and index 0 is the root. None represents empty child nodes.
+        index (int, optional): Index of the current node being traversed. Defaults to 0 (root).
+        
+    Returns: 
+        str: Depth-first traversal of the tree in the form of comma separated node values.
+    """""""
 ,"def half_sum_subset(lst):     
     n = sum(lst) / 2
     lst_aux = []
@@ -290,29 +290,26 @@ Returns:
 list: a subset of lst that sums to half the sum of lst, if there's no such subset, returns None.","print(sum(half_sum_subset([3, 2, 1])) == sum([3, 2, 1]) / 2)
 print(sum(half_sum_subset([3, 2, 4, 2, 2, 1])) == sum(([3, 2, 4, 2, 2, 1])) / 2)
 print(half_sum_subset([1, 1, 1]) == None)
-print(half_sum_subset([1, 1, 1, 1]) == [1, 1])",returns the half of the n_sum_set that is located at the time of first n_iter,"Find a subset of a given list of integers that sums up to half of the initial list's sum.
-    
-    Args:
-    lst (list): a list of integers.
-    
-    Returns:
-    list: a subset of the initial list that sums up to half of the initial list's sum, or `None` if there is no such subset.","
-Iteratively compute the subset of a list of integers whose elements add up to half of the total sum of the original list.
+print(half_sum_subset([1, 1, 1, 1]) == [1, 1])",returns the half of the n_sum_set that is located at the time of first n_iter,"Compute the sum of all elements in a list of integers after multiplying each element by its index in the list.
 
 Args:
-lst (list): a list of integers.
+    lst (list): a list of integers.
 
 Returns:
-list: a subset of the original list whose elements add up to half of the total sum of the original list."," """"""Return a list containing subsets of given list that can sum up to half of total sum of original list.
-
-The function takes a list of integers as input and returns a list containing subsets of elements from input list that can sum up to half of total sum of original list. It uses backtracking approach to recursively search for all possible subsets that satisfy given condition.
+    int: the sum of all elements in the list after preforming the multipication of the elements by their indices.","
+Find a subset of the given list whose elements sum up to half of the total sum of the list.
 
 Args:
-  lst (list): A list of integers. 
+lst (list): A list of integers.
 
+Returns:
+list: A subset of the input list whose elements sum up to half of the total sum of the list, or None if no such subset exists."," Finds a subset of a given list that sums up to half the total sum of all elements in the list. If no such subset exists, returns None.
+
+Args:
+    lst (list): The list of numbers to find a half-sum subset from.
+    
 Returns: 
-  list: A list containing subsets from original list that sums up to half of total sum or None if no such subset exists.
-"""""""
+    list: A sublist of lst that sums up to half the total sum of lst. If no such subset exists, returns None."
 ,"def partition_to_subsets(n, k):     
     mat = [[-1 for i in range(k + 1) ] for j in range(n + 1) ]
     def partition_to_subsets_mem(n, k, mem):
@@ -336,35 +333,30 @@ Returns:
 int: the number of ways to partition n items into k subsets.","print(partition_to_subsets(4, 2) == 7)
 print(partition_to_subsets(5, 2) == 15)
 print(partition_to_subsets(4, 3) == 6)
-print(partition_to_subsets(7, 1) == 1)",Converts a list of partition sets to a list of subsets,"Count the number of ways to partition a set of size n into k subsets using dynamic programming.
+print(partition_to_subsets(7, 1) == 1)",Converts a list of partition sets to a list of subsets,"Iteratively compute the possible number of partitions for n objects into k subsets.
     
     Args:
-    n (int): the size of the set.
+    n (int): the number of objects.
     k (int): the number of subsets.
     
     Returns:
-    int: the number of ways to partition the set.","
-    This function calculates the number of ways to partition a set of n elements into k non-empty subsets using memoization for optimal performance.
-
-    Args:
-    n (int): The total number of elements in the set.
-    k (int): The number of non-empty subsets to partition the set into.
-
-    Returns:
-    int: The number of ways to partition the set into k non-empty subsets.
-
-    Note:
-    This function uses memoization to store intermediate results and avoid redundant calculations for improved efficiency."," """"""Iteratively compute the number of ways to partition a set of n indistinguishable items into k nonempty subsets.
+    int: the number of possible partitions for n objects into k subsets.","Calculate the number of ways to partition a set of n elements into k non-empty subsets.
 
 Args:
-   n (int): Total number of items.
-   k (int): Number of subsets.
-   
-Returns: 
-   int: The number of ways to partition the set of n items into k subsets.
+n (int): The total number of elements in the set.
+k (int): The number of subsets to partition the set into.
 
-This function uses memoization to efficiently compute and store the results, reducing redundant recursive calls. It fills a 2D matrix where row i represents the total items n and column j represents the number of subsets k.
-"""""""
+Returns:
+int: The number of ways to partition the set into k non-empty subsets."," Iteratively compute the number of ways to partition a set of n distinct objects into k nonempty unlabeled subsets.
+    
+    The function uses bottom up memoization to solve the problem through recursive dynamic programming. It tabulates the solutions to subproblems in a 2D matrix mem where mem[n][k] stores the number of ways to partition a set of size n into k subsets.
+    
+    Args:
+    n (int): size of the set
+    k (int): number of subsets
+    
+    Returns: 
+    int: number of ways to partition the set of size n into k subsets"
 ,"def is_dag(graph): 
     visited = set()
     exploring = set()
@@ -398,29 +390,30 @@ print(is_dag([[1, 2], [1], []] ) == True)
 print(is_dag([[1], [2, 3], [1]]) == False)
 print(is_dag([[], [2], [1]]) == False)
 print(is_dag([[0]]) == True)
-print(is_dag([[]]) == True)",Determines if a graph is a DAG .,"Detect cycles in a directed graph using depth-first search.
+print(is_dag([[]]) == True)",Determines if a graph is a DAG .,"Iteratively check if the given graph is a directed acyclic graph (DAG) using depth-first search (DFS).
 
 Args:
-    graph (dict): a dictionary representing the graph, where keys are nodes and values are lists of neighbors.
+    graph (dict): a dictionary representing the graph, where the keys are the nodes and the values are the list of neighbors of each node.
 
 Returns:
-    bool: True if the graph has a cycle, False otherwise.","
-    Check if the given graph is a Directed Acyclic Graph (DAG).
+    bool: True if the graph is a DAG, False otherwise.","
+    Check if a given directed graph is a Directed Acyclic Graph (DAG).
 
     Args:
-    graph (dict): A dictionary representing the graph where keys are nodes and values are lists of neighbors for each node.
+    graph (dict): A dictionary representing the directed graph. Each key in the dictionary represents a node, and the corresponding value is a list of neighbors for that node.
 
     Returns:
-    bool: True if the graph is a Directed Acyclic Graph, False otherwise."," """"""Check if a graph is a Directed Acyclic Graph (DAG).
-
-A graph is considered a DAG if there is no cycle in the graph when traversing edges in a directed manner. This function performs a depth-first search (DFS) on the graph starting from each node to check for cycles. 
+    bool: True if the graph is a DAG, False otherwise."," """"""Checks if the given graph is a directed acyclic graph (DAG). 
 
 Args:
-  graph (list of lists): Adjacency list representation of a graph.
+  graph (dict): A graph represented as a dictionary with nodes as keys and list of neighbors as values.
 
 Returns: 
-  bool: True if the graph is a DAG, False otherwise.
-"""""""
+  bool: True if the given graph is a DAG, False otherwise.
+
+The function performs a depth-first search traversal on the graph. It marks each node as ""visiting"" while being explored and ""visited"" after completely explored. If a back-edge from an ancestor to a descendant is found, it returns False. It returns True if DFS completes on whole graph without finding any back-edge.
+""""""
+"
 ,"def foo(num, x = 0):
     if num < 10:
         return num, x
@@ -437,21 +430,30 @@ A tuple containing two elements:
     - The number of multipications by 2/3.","print(foo(9) == (9,0))
 print(foo(12) == (8, 1))
 print(foo(15))
-print(foo(15) == (6.666666666666666, 2))",ISO - 8601 random integer,"Recursively compute the sum of the first 2/3 of the digits of a number.
-    
-    Args:
-    num (int): a positive integer.
-    x (int, optional): the number of times the function has been called. Defaults to 0.
-    
-    Returns:
-    tuple: a tuple containing the number and the number of times the function has been called.","Iteratively calculate the number of times a given number, num, can be multiplied by 2/3 until it is less than 10, while keeping track of the number of iterations in x.
+print(foo(15) == (6.666666666666666, 2))",ISO - 8601 random integer,"Recursively compute the Fibonacci sequence, returning the result along with the number of times the function has been called.
 
 Args:
-num (int): The initial number to be processed.
-x (int, optional): The number of iterations. Defaults to 0.
+    num (int): an integer representing the index of the Fibonacci number to compute.
+    x (int): an integer representing the number of times the function has been called.
 
 Returns:
-tuple: A tuple containing the final number less than 10 and the total number of iterations performed."," """"""Recursively compute the function foo. If num is less than 10, return num and x. Otherwise, call foo recursively with num multiplied by 2/3 and x incremented by 1."""""""
+    tuple(int, int): the Fibonacci number at the specified index and the number of times the function has been called.","
+    Recursively calculates the given number and a count until the number is less than 10.
+    
+    Args:
+    num (int): An integer number to be processed.
+    x (int, optional): A count to keep track of how many times the number was multiplied by (2/3). Defaults to 0.
+    
+    Returns:
+    tuple: A tuple containing the final number (less than 10) and the count of multiplications performed."," """"""Iteratively call the function recursively by decreasing the initial num parameter by 1/3 each time, while incrementing the x parameter by 1 each recursive call.
+
+Args:
+  num (int): an integer parameter to the function. 
+  x (int): a secondary integer parameter initialized to 0.
+  
+Returns: 
+  tuple: if num is less than 10, return a tuple of (num, x). Otherwise recursively call the function.
+"""""""
 Basic,"def diff_sparse_matrices(lst): 
     res_dict = lst[0]
     for dict in lst[1:]:
@@ -470,26 +472,28 @@ lst (list): a list of dictionaries representing sparse matrices.
 Returns:
 dict: a dictionary representing the difference between the sparse matrices in lst.","print(diff_sparse_matrices([{(1, 3): 2, (2, 7): 1}, {(1, 3): 6}]) == {(1, 3):-4,(2,7):1})
 print(diff_sparse_matrices([{(1, 3): 2, (2, 7): 1}, {(1, 3): 2}]) == {(1, 3):0,(2,7):1})
-print(diff_sparse_matrices([{(1, 3): 2, (2, 7): 1}, {(1, 3): 6, (9,10): 7}, {(2,7): 0.5, (4,2): 10}]) == {(1, 3): -4, (2, 7): 0.5, (9, 10):-7, (4,2):-10})",Diff a list of matrices,"Compute the difference between multiple sparse matrices represented as dictionaries.
+print(diff_sparse_matrices([{(1, 3): 2, (2, 7): 1}, {(1, 3): 6, (9,10): 7}, {(2,7): 0.5, (4,2): 10}]) == {(1, 3): -4, (2, 7): 0.5, (9, 10):-7, (4,2):-10})",Diff a list of matrices,"Compute the difference of two or more sparse matrices.
+A sparse matrix is represented by a dictionary where the keys are the coordinates of the non-zero elements and the values are the values of the non-zero elements.
+The difference of two sparse matrices is a sparse matrix where the keys are the coordinates of the non-zero elements in either of the input matrices and the values are the difference of the values of the corresponding non-zero elements in the input matrices.
 
+Args:
+    lst (list): a list of sparse matrices.
+
+Returns:
+    dict: a sparse matrix representing the difference of the input sparse matrices.","
+    Calculate the difference between sparse matrices represented as dictionaries.
+    
     Args:
-        lst (list): a list of dictionaries representing sparse matrices. Each dictionary has keys as indices and values as nonzero values.
-
+    lst (list): A list of dictionaries representing sparse matrices.
+    
     Returns:
-        dict: a dictionary representing the difference between the input matrices.","    Compute the difference between multiple sparse matrices represented as dictionaries.
-
-    Args:
-    lst (list): A list of dictionaries representing sparse matrices. Each dictionary contains integer keys (matrix indices) and corresponding integer values.
-
-    Returns:
-    dict: A dictionary representing the resulting sparse matrix after subtracting all input matrices from the first matrix in the list."," """"""Diff two sparse matrices represented as dictionaries 
-
-    Args: 
-        lst (list): a list of sparse matrices dictionaries 
-
-    Returns:
-        dict: the difference of the sparse matrices
-"""""""
+    dict: A dictionary representing the difference of the input sparse matrices."," Compute the difference between the first sparse matrix and the succeeding sparse matrices element-wise as dicts.
+    
+Args:  
+  lst (list): a list containing sparse matrices represented as dicts.
+  
+Returns:  
+  dict: a dict representing the element-wise difference between the first matrix and succeeding matrices in lst."
 ,"def longest_subsequence_length(lst):     
     n = len(lst)
     if n == 0: return 0
@@ -515,28 +519,32 @@ print(longest_subsequence_length([1, -4, 7, -5,]) == 3)
 print(longest_subsequence_length([]) == 0)
 print(longest_subsequence_length([-4]) == 1)
 print(longest_subsequence_length([1,-4, 2, 9, -8, 10, -6]) == 4)
-print(longest_subsequence_length([1, 3, 5, 4, 2]) == 3)",Length of the longest sub - sequence .,"Computes the length of the longest increasing and longest decreasing subsequences in a list of integers.
-
+print(longest_subsequence_length([1, 3, 5, 4, 2]) == 3)",Length of the longest sub - sequence .,"Compute the longest length of the longest increasing or decreasing subsequence in a given list.
+    
     Args:
     lst (list): a list of integers.
     
     Returns:
-    int: the length of the longest subsequence.","
-Determines the length of the longest subsequence that can be both increasing and decreasing within a given list.
-
-    Args:
-    lst (list): A list of integers.
-
-    Returns:
-    int: The length of the longest subsequence that can be both increasing and decreasing within the given list."," """"""Finds the length of the longest increasing subsequence
-and longest decreasing subsequence in a list.
+    int: the longest length of the longest subsequence.","
+Calculate the length of the longest subsequence in a list that is either increasing or decreasing.
 
 Args:
-  lst (list): a list of integers 
+lst (list): A list of integers representing the input sequence.
 
 Returns:
-  int: the length of the longest (increasing or decreasing) subsequence 
-"""""""
+int: The length of the longest subsequence that is either increasing or decreasing in the input list."," Returns the length of the longest increasing subsequence and the longest decreasing subsequence in a list of numbers.
+
+A subsequence is a sequence that can be derived from another sequence by deleting some or no elements without changing the order of the remaining elements.
+
+The algorithm computes the LIS (longest increasing subsequence) lengths and LDS (longest decreasing subsequence) lengths separately using dynamic programming. It iterates through the list, and at each element i, updates the LIS/LDS lengths based on the previous smallest/greatest element that is smaller/larger than the current element. 
+
+The final result is the maximum of the maximum LIS length and the maximum LDS length.
+
+Args:
+    lst (list): a list of numbers.
+    
+Returns: 
+    int: the length of the longest (increasing or decreasing) subsequence."
 ,"def find_median(nums): 
     nums_lst = list(nums)
     n = len(nums)
@@ -558,33 +566,35 @@ float: the median of the numbers in the set.","print(find_median({1, 2, 3, 4, 5}
 print(find_median({5, 4, 3, 2, 1}) == 3)
 print(find_median({1, -4, 7, -5}) == -1.5)
 print(find_median({7}) == 7)
-print(find_median({1, 2, -4, -7}) == -1.5)",Find the number of mobile characters for each row in the table .,"Find the median of a list of numbers.
-    
-    Args:
-    nums (list): a list of integers.
-    
-    Returns:
-    int or float: the median of the list.","
-    Calculate the median of a list of numbers.
+print(find_median({1, 2, -4, -7}) == -1.5)",Find the number of mobile characters for each row in the table .,"""""""Finds the median of a list of numbers.
 
-    Args:
-    nums (iterable): A list of numbers.
+Args:
+    nums (iterable): an iterable of numbers.
 
-    Returns:
-    float: The median of the input list of numbers. If the length of the list is odd, returns the middle element. If the length is even, returns the average of the two middle elements."," Calculates the median of a list of numbers.
+Returns:
+    float: the median of the list of numbers.
+""""""","
+Calculate the median of a list of numbers.
 
-    The median is the middle number in a list of numbers. If there is an even number of numbers, it is the average of the two middle numbers.
+Args:
+    nums (list): A list of numbers.
 
-    This function first finds the number of elements smaller than each element by iterating through the list. It then uses this information to find the index of the middle element(s).
+Returns:
+    float: The median value of the input list. If the length of the list is odd, returns the middle value. If the length of the list is even, returns the average of the two middle values."," """"""Computes the median of the numbers in the given nums array.
 
-    For an odd number of elements, it returns the element at the middle index. 
-    For an even number, it returns the average of the two middle elements.
+The median is the middle value of a dataset that has been sorted. To find the median:
+1. Convert nums to a list and get its length 
+2. Initialize an array to store the count of smaller elements for each index
+3. Iterate through nums and increment the count for each element that is smaller
+4. If length is odd, the median is the center element after sorting
+   If length is even, the median is the average of the two center elements after sorting
 
-    Args:
-        nums (list): a list of numbers
-    
-    Returns: 
-        float: the median of the numbers"
+Args:
+  nums (list): array of numbers to find the median of
+  
+Returns: 
+  int or float: the median of nums
+"""""""
 ,"def find_primary_factors(n): 
     factors = []
     k = 2
@@ -608,28 +618,29 @@ list: a list of the primary factors of n.","print(find_primary_factors(105) == [
 print(find_primary_factors(100) == [2, 2, 5, 5])
 print(find_primary_factors(1) == [])
 print(find_primary_factors(7) == [7])
-print(find_primary_factors(12) == [2, 2, 3])",Find all the primary factor .,"Iteratively find the prime factors of a given integer.
-    
-    Args:
-    n (int): the integer to factorize.
-    
-    Returns:
-    list: a list of the prime factors of the input integer.","Iteratively find the primary factors of a given number.
+print(find_primary_factors(12) == [2, 2, 3])",Find all the primary factor .,"Iteratively find all the prime factors of a given integer.
 
     Args:
-    n (int): The number to find the primary factors for.
+    n (int): an integer.
 
     Returns:
-    list: A list of the primary factors of the given number.
-"," '''Find all the prime factors of a positive integer n.
+    list[int]: a sorted list of all the prime factors of the given integer.","Iteratively find and return the primary factors of a given number.
 
 Args:
-    n (int): Positive integer
+    n (int): The number for which to find the primary factors.
 
-Returns: 
-    list: List containing the prime factors of n.
+Returns:
+    list: A list of integers representing the primary factors of the input number."," """"""Find all primary factors of a positive integer n. 
 
-'''"
+    Args:
+    n (int): A positive integer.
+    
+    Returns: 
+    factors (list): A list containing all the primary factors of n.
+    
+    This function returns all prime factors of a positive integer n. It starts with k = 2 and checks if k is a factor of n. If so, it divides n by k and saves k in the factors list. It then increments k and repeats the process until k * k > n, at which point the remaining n must be the last factor.
+""""""
+"
 ,"def graphs_intersection(g1, g2): 
     res_dict = {}
     for node in g1:
@@ -649,29 +660,30 @@ g2 (dict): a dictionary representing a graph.
 Returns:
 dict: a dictionary representing the intersection of the two graphs.","print(graphs_intersection({1: [2, 3], 2: [1, 3, 4], 3: [1, 2], 4: [2]} , {1: [3, 4], 2: [3, 5], 3: [1, 2], 4: [1], 5: [2]}) == {1: [3], 2: [3], 3: [1, 2]})
 print(graphs_intersection({1: [2, 3], 2: [1, 3, 4], 3: [1, 2], 4: [2]} , {1: [2, 3, 5], 2: [1, 3], 3: [1, 2], 4: [5], 5: [1, 4]}) == {1: [2, 3], 2: [1, 3], 3: [1, 2]})
-print(graphs_intersection({1: [2, 3], 2: [1, 3, 4], 3: [1, 2], 4: [2]} , {1: [2, 3, 4], 2: [1, 3, 4], 3: [1, 2, 4], 4: [1, 2, 3]}) == {1: [2, 3], 2: [1, 3, 4], 3: [1, 2], 4: [2]})",Find the intersection between two graphs .,"Iteratively compute the intersection of two graphs. the intersection of two graphs is a graph that contains the nodes and edges that are present in both graphs.
-    
-    Args:
-    g1 (dict): the first graph, represented as a dictionary of nodes and their adjacent nodes.
-    g2 (dict): the second graph, represented as a dictionary of nodes and their adjacent nodes.
-    
-    Returns:
-    dict: a dictionary representing the intersection of the two graphs.","
-    Find the intersection of two graphs by comparing their nodes and adjacent nodes.
-
-    Args:
-    g1 (dict): A graph represented as a dictionary where keys are nodes and values are lists of adjacent nodes.
-    g2 (dict): Another graph represented as a dictionary where keys are nodes and values are lists of adjacent nodes.
-
-    Returns:
-    dict: A dictionary containing nodes from the intersection of g1 and g2 as keys, and lists of common adjacent nodes as values."," """"""Iteratively compute the intersection graph of two input graphs by finding common adjacent nodes between all nodes in each graph. 
+print(graphs_intersection({1: [2, 3], 2: [1, 3, 4], 3: [1, 2], 4: [2]} , {1: [2, 3, 4], 2: [1, 3, 4], 3: [1, 2, 4], 4: [1, 2, 3]}) == {1: [2, 3], 2: [1, 3, 4], 3: [1, 2], 4: [2]})",Find the intersection between two graphs .,"Computes the intersection between two undirected graphs.
+The intersection is a graph with all the nodes that are in both graphs and all the edges that are in both graphs.
 
 Args:
-  g1 (dict): The first input graph as a dictionary with nodes as keys and lists of neighbors as values.  
-  g2 (dict): The second input graph with the same format as g1.
+    g1 (dict): The first graph, represented as a dictionary of nodes to lists of adjacent nodes.
+    g2 (dict): The second graph, represented as a dictionary of nodes to lists of adjacent nodes.
 
+Returns:
+    dict: The intersection of the two graphs, represented as a dictionary of nodes to lists of adjacent nodes.","
+    Calculate the intersection of two graphs represented as dictionaries.
+    
+    Args:
+    g1 (dict): A dictionary representing a graph where keys are nodes and values are lists of adjacent nodes.
+    g2 (dict): A dictionary representing a graph where keys are nodes and values are lists of adjacent nodes.
+    
+    Returns:
+    dict: A dictionary representing the intersection of the two input graphs, where keys are common nodes and values are lists of common adjacent nodes."," """"""Iteratively compute the intersection of two graphs given in the form of dictionaries g1 and g2. g1 and g2 should map each node to its list of adjacent nodes. The intersection graph is returned as a dictionary mapping each shared node between g1 and g2 to their common adjacent nodes.
+
+Args:
+  g1 (dict): A graph given as a dictionary mapping each node to its list of adjacent nodes 
+  g2 (dict): A graph given as a dictionary mapping each node to its list of adjacent nodes
+  
 Returns: 
-  dict: A dictionary where keys are nodes present in both input graphs and values are lists of common neighboring nodes between the two graphs.
+  dict: A dictionary representing the intersection graph between g1 and g2 mapping each shared node to their common adjacent nodes.
 """""""
 ,"import itertools
 
@@ -691,28 +703,29 @@ Returns:
 set: all subsets of lst that sums up to target.","print(subset_sum([1, 1, 3, 4], 5) == {(1, 4), (1, 1, 3)})
 print(subset_sum([1, 2, 3, 4, 5], 10) == {(1, 2, 3, 4), (1, 4, 5), (2, 3, 5)})
 print(subset_sum([1, 2, 3, 4, 5], 0) == {()})
-print(subset_sum([1, 1, 2, 2, 3, 3], 6) == {(1, 1, 2, 2), (1, 2, 3), (3, 3)})",Calculates the sum for a sub - selection of target by finding the sum of each of the 2 - tuples for the purpose of finding a subset from its original DROP subsets .,"Iteratively compute all possible subsets of a list of integers that sum up to a given target value.
-    
+print(subset_sum([1, 1, 2, 2, 3, 3], 6) == {(1, 1, 2, 2), (1, 2, 3), (3, 3)})",Calculates the sum for a sub - selection of target by finding the sum of each of the 2 - tuples for the purpose of finding a subset from its original DROP subsets .,"Iteratively find all subsets of a list that sum to a given target value.
+
     Args:
     lst (list): a list of integers.
     target (int): the target sum value.
     
     Returns:
-    set: a set of all subsets that sum up to the target value.","Iteratively find all subsets of a given list whose elements sum up to a specified target value.
-
-Args:
-    lst (list): A list of integers from which subsets are to be generated.
-    target (int): The target sum value that the subsets should add up to.
-
-Returns:
-    set: A set containing all subsets of the input list that sum up to the target value."," """"""Return the powerset of a list of integers that sums to the target.
+    set: a set of all subsets that sum to the target value.","
+    Calculate all the subsets of a given list whose elements sum up to the target value.
     
     Args:
-        lst (list): a list of integers
-        target (int): the target sum
-        
+    lst (list): A list of integers from which subsets will be created.
+    target (int): The target sum value that subsets should add up to.
+    
     Returns:
-        set: the powerset subsets of lst that sums to target
+    set: A set containing all the subsets of the input list that sum up to the target value."," """"""Iteratively generate all subsets of a given list of integers that sum to a target value.
+
+Args:
+  lst (list): a list of integers. 
+  target (int): the target sum.
+
+Returns: 
+  set: a set of tuples containing subsets of lst that sum to target.
 """""""
 ,"def sum_mult_str(expression):
     lst = expression.split(sep = ""'"")
@@ -737,29 +750,25 @@ print(sum_mult_str(""'a'*'0'"") == """")
 print(sum_mult_str(""'3a'*'2'"") == ""3a3a"")
 print(sum_mult_str(""'12'+'aa'*'2'"") == ""12aa12aa"")
 print(sum_mult_str(""'a'*'2'+'b'*'2'"") == ""aabaab"")
-print(sum_mult_str(""'a'+'b'*'2'+'c'*'2'"") == ""ababcababc"")",Return the sum_mult_str for the given list of evals .,"Iteratively compute the result of mathematical expressions that contain a string of numbers, sums and multiplications.
-The expressions must be in the format: ""number + number * number + number * number""
-The function iterates over the list of numbers and applies the mathematical operations to the string.
-
-Args:
-    expression (str): a string that contains a mathematical expression.
-
-Returns:
-    str: the result of the mathematical expression.","Iteratively compute the result of a mathematical expression represented as a string containing numbers and operators. The operators can be either '+' for addition or '*' for multiplication. The expression should be in the format 'number operator number operator ...'.
-
+print(sum_mult_str(""'a'+'b'*'2'+'c'*'2'"") == ""ababcababc"")",Return the sum_mult_str for the given list of evals .,"Iteratively compute the sum of all elements in a string of numbers and operators after multiplying each number by its index in the string.
+    
     Args:
-    expression (str): A string representing a mathematical expression.
-
+    expression (str): a string of numbers and operators.
+    
     Returns:
-    str: The result of evaluating the mathematical expression after applying the operations sequentially."," """"""Sum and concatenate the elements of a string expression by evaluating the operators between the elements.
-
-The input expression is split on apostrophes to extract the elements. The first and last elements are removed as they contain the enclosing quotes. The remaining elements are iterated through stepping by 2 to pair each operator with the subsequent element. If the operator is +, the current text is concatenated with the element. If the operator is a digit, the element is converted to an integer and multiplied with the current text. 
+    str: the sum of all elements in the string after preforming the multipication of the numbers by their indices.","Iteratively compute the result of a mathematical expression provided in a string format, where integers are either added or multiplied based on the operators present in the string.
 
 Args:
-    expression (str): A string expression containing elements separated by operators.
+expression (str): A string representing a mathematical expression where integers are combined using '+' for addition and '*' for multiplication.
 
 Returns:
-    str: The result of evaluating the operators on the elements and concatenating/multiplying the text.
+str: The result of evaluating the expression after performing the required addition and multiplication operations."," """"""Iteratively evaluates a mathematical expression in a string by splitting it on quotes, removing the enclosing quotes, and evaluating either addition or multiplication based on the operator found between the numbers.
+
+Args:  
+expression (str): a string containing a mathematical expression with numbers separated by '+' or '*' and enclosed in single quotes.
+
+Returns:  
+str: the result of evaluating the mathematical expression as a string.
 """""""
 ,"def str_rep(s, k): 
     lst = [s[:k]]
@@ -778,31 +787,29 @@ Returns:
 bool: True if s contains a substring of length k that appears more than once, False otherwise.","print(str_rep(""abcabc"", 3) == True)
 print(str_rep(""aab2bab22"", 3) == True)
 print(str_rep("""", 1) == False)
-print(str_rep(""a"", 1) == False)",Whether the str_rep is a valid string . Return True if the check was successful False otherwise .,"Iteratively check if any substring of length `k` repeats in the given string `s`.
-    
+print(str_rep(""a"", 1) == False)",Whether the str_rep is a valid string . Return True if the check was successful False otherwise .,"Iteratively determine if a substring of length `k` repeats in a string `s`.
+
     Args:
-    s (str): the input string.
+    s (str): a string.
     k (int): the length of the substring to check for repetition.
     
     Returns:
-    bool: True if any substring of length `k` repeats in the string, False otherwise.","
-```
-Check if there is a repeating substring of length k in the given string s.
+    bool: True if the substring of length `k` repeats in the string `s`, False otherwise.","
+Check if a substring of length k is repeated in the input string s.
 
 Args:
     s (str): The input string.
-    k (int): The length of the substring to be checked for repetition.
+    k (int): The length of the substring to check for repetition.
 
 Returns:
-    bool: True if there is a repeating substring of length k, False otherwise.
-```"," """"""Checks if a substring of length k repeats in s.
+    bool: True if a repeated substring of length k is found in s, False otherwise."," """"""Iteratively check if a substring of length k repeats anywhere in the given string s. 
+    
+Args: 
+s (str): The input string to check.
+k (int): The length of the substring.
 
-Args:
-  s (str): The string to check.
-  k (int): The length of the substring.
-  
 Returns: 
-  bool: True if a substring of length k repeats in s, False otherwise.
+bool: True if a substring of length k repeats anywhere else in s, False otherwise.
 """""""
 ,"def sort_two_sorted_lists(lst): 
     new_lst = []
@@ -836,30 +843,31 @@ lst (list): a list of integers who follows the above pattern.
 Returns:
 list: a sorted list of integers.","print(sort_two_sorted_lists([7, 6, 11, 4, 12, 0, 20, -10]) == sorted([7, 6, 11, 4, 12, 0, 20, -10]))
 print(sort_two_sorted_lists([-3, 1, -1, -2]) == sorted([-3, 1, -1, -2]))
-print(sort_two_sorted_lists([]) == None)",Sorts lists in a list removing rows that are unique .,"Iteratively merge two sorted lists of integers into a single sorted list.
-    
-    Args:
-    lst (list): a list of two sorted lists of integers.
-    
-    Returns:
-    list: a single sorted list of integers.","
-    Sort two sorted lists of integers into a new list by alternating elements from each list in ascending order.
+print(sort_two_sorted_lists([]) == None)",Sorts lists in a list removing rows that are unique .,"Merges two sorted lists of integers into a sorted list, in-place.
+
+    The function takes a list of integers that contains two sorted lists and merges them into a single sorted list. The list is modified in-place, and the sorted list is returned.
 
     Args:
-    lst (list): A list of integers containing two sorted sublists.
+    lst (list): a list containing two sorted lists of integers.
 
     Returns:
-    list: A new list containing all elements from the input lists sorted in ascending order.
+    list: the merged sorted list.","
+Sort and merge two sorted lists into a single sorted list.
 
-    Example:
-    sort_two_sorted_lists([1, 3, 5, 7, 9], [2, 4, 6, 8, 10]) -> [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"," """"""Sort two sorted lists into one sorted list in-place by alternating between taking elements from each sorted list.
-
-Args: 
-    lst (list): A list where every even index element and odd index element is a sorted sublist. 
+Args:
+lst (list): A list of integers that is already sorted in ascending order.
 
 Returns:
-    list: The passed in list sorted by alternating between taking the next element from each original sorted sublist.
-"""""""
+list: A new sorted list containing all elements from the input list while maintaining the sorted order."," Sorts two sorted lists by iterating through the lists and alternating between appending elements from  each list to the resulting list.
+
+""    Merges two sorted lists of integers into a single sorted list by alternating selections from each list. If both lists contain equal elements, they are appended consecutively to the result.
+
+    Args:
+        lst (list): A list containing two sorted lists of integers.
+    
+    Returns:
+        list: A single sorted list containing the merged elements of the two input lists.
+"""
 ,"def prefix_suffix_match(lst, k): 
     res_lst = []
     for i in range(len(lst)): 
@@ -881,29 +889,29 @@ Returns:
 list: a list of tuples of indices (i, j) that satisfy the condition above.","print(prefix_suffix_match([""aaa"", ""cba"", ""baa""], 2) == [(0, 2), (2, 1)])
 print(prefix_suffix_match([""abc"", ""def""], 1) == [])
 print(prefix_suffix_match([""aa"", ""aa""], 1) == [(0, 1), (1, 0)])
-print(prefix_suffix_match([""abc"", ""bc"", ""c""], 1) == [(2, 0), (2, 1)])",Apply the prefix suffix to the given list of suffixes .,"Iteratively search for elements in a list of strings that share a common prefix and suffix of a specified length.
-
-    Args:
-    lst (list): a list of strings.
-    k (int): the length of the common prefix and suffix.
-    
-    Returns:
-    list: a list of tuples containing indices of the matching strings in the list.","Iterate through a list and find pairs of indices where the prefix of one element matches the suffix of another element for a given length k.
+print(prefix_suffix_match([""abc"", ""bc"", ""c""], 1) == [(2, 0), (2, 1)])",Apply the prefix suffix to the given list of suffixes .,"Iteratively find all pairs of indices (i, j) such that the first k characters of the string at index i are the same as the last k characters of the string at index j.
 
 Args:
-- lst (list): A list of strings.
-- k (int): The length of the prefix and suffix to compare.
+    lst (list): a list of strings.
+    k (int): the number of characters to compare.
 
 Returns:
-list of tuples: A list containing pairs of indices (i, j) where the prefix of lst[i] matches the suffix of lst[j] for the given length k."," """"""Find all pairs of indices from a list where the first k characters of the element at one index are equal to the last k characters of the element at the other index.
-    
-Args:
-  lst (list): A list of strings
-  k (int): The length of the prefix/suffix to compare
+    list: a list of tuples representing the indices of the matching pairs.","Return a list of tuples containing the indices of elements in the input list that have a prefix of length 'k' in one element matching the suffix of length 'k' in another element.
 
-Returns: 
-  list: A list of tuples where each tuple is a pair of indices from the input list where the corresponding elements have a matching prefix/suffix of length k.
-"""""""
+Args:
+    lst (list): A list of strings.
+    k (int): An integer representing the length of the prefix and suffix to check for matches.
+
+Returns:
+    list: A list of tuples, where each tuple contains the indices of two elements in the input list that have a matching prefix and suffix of length 'k'."," """"""Iteratively check for prefix and suffix matches between all elements in a list. 
+           
+            Args: 
+            lst (list): a list of strings.
+            k (int): length of prefix/suffix to match.
+            
+            Returns: 
+            list: a list of tuple pairs of indices where a prefix/suffix match was found between the corresponding elements.
+            """""""
 ,"def rotate_matrix_clockwise(mat):
     n = len(mat)
     for i in range(n//2):
@@ -923,28 +931,25 @@ mat (list): a square matrix.
 Returns:
 list: the rotated matrix.","print(rotate_matrix_clockwise([[1, 2], [3, 4]]) == [[3, 1], [4, 2]])
 print(rotate_matrix_clockwise([[1, 2, 3], [4, 5, 6], [7, 8, 9]]) == [[7, 4, 1], [8, 5, 2], [9, 6, 3]])
-print(rotate_matrix_clockwise([1]) == [1])",Rotate clockwise degrees between columns of a matrix .,"Rotate a given square matrix clockwise by 90 degrees.
+print(rotate_matrix_clockwise([1]) == [1])",Rotate clockwise degrees between columns of a matrix .,"Iteratively rotate a square matrix clockwise by 90 degrees.
+    
+    Args:
+    mat (list[list[int]]): a square matrix of integers.
+    
+    Returns:
+    list[list[int]]: the rotated matrix.","Rotate a given square matrix clockwise by 90 degrees.
 
 Args:
-    mat (list): a square matrix to be rotated clockwise.
+    mat (list of lists): A square matrix to be rotated clockwise.
 
 Returns:
-    list: the rotated matrix.","Rotate a given square matrix by 90 degrees clockwise.
+    list of lists: The input matrix rotated by 90 degrees clockwise."," Rotates the matrix clockwise by 90 degrees.
 
-Args:
-    mat (list of list): A square matrix to be rotated.
-
-Returns:
-    list of list: The input matrix rotated by 90 degrees clockwise."," '''Rotates a square matrix clockwise by 90 degrees in-place.
-
-Args:
-  mat (list of list): a square 2D matrix represented as a list of lists.
-
-Returns: 
-  None: rotates the matrix in-place without returning anything.
-
-Rotates the matrix clockwise in-place by swapping elements across the main diagonal. The elements are swapped in cycles of 4 by saving the top-left element in a temporary variable and shuffling the remaining elements to the top-left position sequentially. Once the cycle is complete the temp element is put back in the bottom-right position thereby completing the clockwise rotation.
-'''"
+    Args:
+    mat (list[list]): a square matrix represented as a 2D list.
+    
+    Returns:
+    list[list]: the rotated matrix with the elements rotated clockwise by 90 degrees."
 ,"def cyclic_shift(lst, direction, steps): 
     if len(lst) == 0:
         return lst
@@ -972,32 +977,35 @@ print(cyclic_shift([1, 2, 3, 4, 5], 'R', 2) == [4, 5, 1, 2, 3])
 print(cyclic_shift([1, 2, 3, 4, 5], 'L', -2) == [4, 5, 1, 2, 3])
 print(cyclic_shift([], 'R', -2) == []) 
 print(cyclic_shift([1, 2, 3], 'R', 0) == [1, 2, 3])  
-print(cyclic_shift([1, 2, 3, 4, 5], 'L', 7) == [3, 4, 5, 1, 2]) ",Returns the correct cyclic shift for a list of 1 - dimensional cyclic moves .,"Iteratively cyclically shift a list of integers by a given number of steps in a given direction.
+print(cyclic_shift([1, 2, 3, 4, 5], 'L', 7) == [3, 4, 5, 1, 2]) ",Returns the correct cyclic shift for a list of 1 - dimensional cyclic moves .,"Iteratively cyclic shift a list of elements by a given number of steps in a given direction.
     
     Args:
-    lst (list): a list of integers.
-    direction (str): the direction of the shift, either 'L' for left or 'R' for right.
-    steps (int): the number of steps to shift the list.
+    lst (list): a list of elements.
+    direction (str): the direction of the cyclic shift. Must be either 'L' (left) or 'R' (right).
+    steps (int): the number of steps to cyclic shift the list.
     
     Returns:
-    list: the cyclically shifted list of integers.","Iteratively shift the elements in a list in a cyclic manner based on the specified direction and number of steps.
+    list: the cyclic shifted list.","Perform a cyclic shift on a list in the specified direction and number of steps.
 
 Args:
-    lst (list): A list of elements to be cyclically shifted.
-    direction (str): The direction of the shift, either 'L' for left or 'R' for right.
-    steps (int): The number of steps for the cyclic shift. Positive steps shift the elements forward, negative steps shift the elements backward.
+- lst (list): The list to shift.
+- direction (str): The direction of the shift ('L' for left or 'R' for right).
+- steps (int): The number of steps to shift the list.
 
 Returns:
-    list: The list after performing the cyclic shift based on the given direction and number of steps."," """"""Shift elements in the given list by the given number of steps circularly in the given direction ('L' for left and 'R' for right).
+list: The list after applying the cyclic shift based on the direction and steps provided."," Definitely. Here is the docstring for the cyclic_shift function following google conventions:
+
+'''
+Cyclically rotate a list by shifting its elements in a circular direction by a specified number of steps.
 
 Args:
-  lst (list): A list of elements to shift circularly. 
-  direction (str): Direction of shift, either 'L' or 'R'.
-  steps (int): Number of places each element should be moved.
+  lst (list): The list to rotate. 
+  direction (str): The direction of rotation, either 'L' for left or 'R' for right.
+  steps (int): The number of list elements to shift. Positive numbers shift to the right/left, negative numbers to the left/right.
 
-Returns: 
-  list: List with elements shifted circularly by the given number of steps in the given direction.
-"""""""
+Returns:
+  list: The list with elements cyclically shifted by the specified number of steps in the given direction.
+'''"
 ,"def encode_string(s): 
     curr, count = None, 0
     res = """"
@@ -1021,28 +1029,26 @@ s (str): a string of chars.
 Returns:
 str : an encoding of the input string based by the format of {num of repititions of char c}[{c}].","print(encode_string(""abbcdbaaa"") == ""1[a]2[b]1[c]1[d]1[b]3[a]"")
 print(encode_string(""aaaaa"") == ""5[a]"")
-print(encode_string("""") == """")",Encodes a list of strings into a user - friendly string .,"Encode a string using run-length encoding.
+print(encode_string("""") == """")",Encodes a list of strings into a user - friendly string .,"Iteratively encode a string by counting consecutive characters.
 
     Args:
     s (str): the string to encode.
 
     Returns:
-    str: the run-length encoded string.","Iterate through a given string and encode it based on the consecutive repeating characters.
+    str: the encoded string.","
+Encode a given string by grouping consecutive characters and their counts within square brackets.
 
 Args:
     s (str): The input string to be encoded.
 
 Returns:
-    str: The encoded string where each consecutive sequence of repeated characters is replaced with a format of ""count[character]""."," """"""Encode a string by counting repeated characters.
-
-The function groups consecutive repeating characters of the input string and encode
-it in the format ""count[character]"".
+    str: The encoded string where consecutive characters are followed by their count within square brackets."," """"""Encode a string by grouping consecutive and repeated characters into a sub-string containing a count value and the character itself.
 
 Args:
    s (str): The input string to encode.
    
 Returns: 
-   str: The encoded string with consecutive repeating character counts.
+   str: The encoded string with consecutive duplicate characters compressed into substring format count[char].
 """""""
 ,"def list_sums(lst): 
     for i in range(1,len(lst)):
@@ -1061,25 +1067,26 @@ print(a == [1,3,6,10,15])
 list_sums(a)
 print(a == [1, 4, 10, 20, 35])
 print(list_sums([b]) == None)
-print(b == [1])",List the sums for the columns in the list .,"Iteratively compute the cumulative sum of the elements of a list.
-
+print(b == [1])",List the sums for the columns in the list .,"Iteratively compute the prefix sums of a list of integers.
+    
     Args:
     lst (list): a list of integers.
     
     Returns:
-    list: a list of integers, with cumulative sums.","Iteratively compute the cumulative sum of a list of integers by adding each element to the sum of all previous elements in the list.
+    list: the list of prefix sums.","
+Iteratively calculate the sum of elements in a given list by adding each element to the previous element in the list. 
 
 Args:
-    lst (list): A list of integers.
+    lst (list): A list of numbers.
 
 Returns:
-    None: The function modifies the input list in place without returning a new list."," """"""Iteratively add each element in a list to the preceding element.
+    None: The function modifies the input list in-place."," """"""Iteratively sum contiguous elements of a list by adding each element to the next.
 
 Args:
-  lst (list): a list of integers
-
-Returns:
-  None
+  lst (list): a list of integers.
+  
+Returns: 
+  lst: the input list with each element summed to the next.
 """""""
 ,"def convert_base(num, base): 
     if base > 9 or base < 1 or num < 0:
@@ -1105,21 +1112,33 @@ print(convert_base(9,9) == ""10"")
 print(convert_base(15, 1) == ""1""*15)
 print(convert_base(80, 5) == ""310"")
 print(convert_base(10, -3) == None)
-print(convert_base(-1, 2) == None)",Convert a base 10 number to another base,"Convert a decimal number to a different base.
+print(convert_base(-1, 2) == None)",Convert a base 10 number to another base,"Converts an integer num to its representation in a given base.
     
     Args:
-    num (int): the decimal number.
+    num (int): the integer to be converted.
     base (int): the base to convert to.
     
     Returns:
-    str: the number converted to the new base.","Iteratively convert a number from base 10 to a specified base.
-
-    Args:
-    num (int): The number to be converted.
-    base (int): The base to convert the number to. Should be between 2 and 9, inclusive.
+    str: the representation of num in base base.
     
-    Returns:
-    str: The converted number as a string in the specified base. Returns None if the base is not within the valid range or if the number is negative."," """"""Iteratively convert a positive integer to another base between 2 to 36. Higher bases are represented using letters like A-Z. Returns None if the number or base is invalid."""""""
+    Raises:
+    ValueError: if base is not between 1 and 9 (inclusive) or if num is negative.","Converts a given number from decimal to a specified base.
+
+Args:
+    num (int): The number to be converted.
+    base (int): The base to convert the number to.
+
+Returns:
+    str: The number converted to the specified base as a string. If the base is not valid or the number is negative, returns None."," """"""
+Convert a positive integer between 0 and 2^31-1 to another numerical base.
+
+Args:
+    num (int): a positive integer less than 2^31 to convert.
+    base (int): an integer between 1 and 36 representing the new base to convert to.
+
+Returns:
+    str: the number represented in the new base as a string, or None if any of the arguments are invalid.
+"""""""
 ,"def max_div_seq(n, k): 
     lst = []
     cnt = 0
@@ -1145,21 +1164,30 @@ int: the length of the longest sequence of digits in n that are divisible by k."
 print(max_div_seq(124568633, 2) == 3)
 print(max_div_seq(123456, 1) == 6)
 print(max_div_seq(3, 2) == 0)
-print(max_div_seq(6, 2) == 1)",Find the maximum number of balls given by sern .,"    Find the maximum length of the sub-sequence of digits that are divisible by k.
-
-    Args:
-    n (int): the input integer.
-    k (int): the divisor.
-
-    Returns:
-    int: the maximum length of the sub-sequence of digits that are divisible by k.","Iteratively compute the maximum count of consecutive digits in a number that are divisible by a given divisor.
+print(max_div_seq(6, 2) == 1)",Find the maximum number of balls given by sern .,"Iteratively compute the maximum length of a sequence of digits in a non-negative integer that are divisible by a given number.
 
 Args:
-n (int): The input number for which the maximum count of consecutive digits divisible by k needs to be found.
-k (int): The divisor to check divisibility of digits.
+    n (int): a non-negative integer.
+    k (int): a positive integer.
 
 Returns:
-int: The maximum count of consecutive digits in the input number that are divisible by the given divisor."," """"""Return the maximum count of consecutive digits in the given number n that are divisible by k."""""""
+    int: the maximum length of a sequence of digits in n that are divisible by k.","
+    Calculate the maximum count of consecutive digits in a given number that are divisible by a specified divisor.
+    
+    Args:
+    n (int): The input number.
+    k (int): The divisor to check divisibility against.
+    
+    Returns:
+    int: The maximum count of consecutive digits in the number that are divisible by the divisor."," """"""Iteratively compute the maximum count of consecutive digits in the given number n that are divisible by k when taken modulo k.
+
+Args:
+  n (int): the number to iterate through
+  k (int): the divisor
+
+Returns: 
+  int: the maximum count of consecutive digits in n that are divisible by k when taken modulo k
+"""""""
 ,"def find_dup(lst): 
     ptr1 = ptr2 = lst[0]
     while True:
@@ -1180,27 +1208,38 @@ lst (list): a list of integers that contains n + 1 integers in the range [1, n].
 Returns:
 int: the duplicate number.","print(find_dup([1, 1, 2, 3]) == 1)
 print(find_dup([1, 4, 3, 2, 2]) == 2)
-print(find_dup([1, 1]) == 1)",Find the best pointer to the begin of a list .,"Finds the starting point of the cycle in a circular linked list.
-
+print(find_dup([1, 1]) == 1)",Find the best pointer to the begin of a list .,"Finds the duplicate in a list of integers.
+    
+    The function uses Floyd's Tortoise and Hare algorithm to find the duplicate in the list.
+    It uses two pointers, ptr1 and ptr2, that move through the list at different speeds.
+    ptr1 moves one step at a time, while ptr2 moves two steps at a time.
+    If there is a duplicate in the list, then ptr1 and ptr2 will eventually meet at the duplicate.
+    Once ptr1 and ptr2 meet, the function moves ptr1 back to the beginning of the list and moves both ptr1 and ptr2 one step at a time.
+    The point at which ptr1 and ptr2 meet again is the duplicate.
+    
     Args:
-    lst (list): a list of integers representing a circular linked list, where each element is the index of the next element in the list.
-
+    lst (list): a list of integers.
+    
     Returns:
-    int: the index of the element that is the starting point of the cycle.","Iteratively find and return the duplicate element in a list using Floyd's Tortoise and Hare algorithm.
+    int: the duplicate in the list.
+    
+    Raises:
+    ValueError: if the list is empty.","
+Find and return the duplicate element in a list that contains integers. 
 
 Args:
-- lst (list): A list containing integers where each element is within the range of the list length.
+lst (list): A list of integers where one element is duplicated.
 
 Returns:
-- int: The duplicate element found in the list."," """"""Find the location of the node where the loop originates in a circularly linked list.
+int: The duplicate integer element found in the list."," """"""Find the node at which the cycle starts in a LinkedList that contains a cycle. 
 
-The function uses the Floyd's Cycle-Finding Algorithm (also known as the turtle and hare algorithm) to find the node where the loop originates. It works by having two pointers that traverse the list at different speeds. One travels at a normal pace of one node at a time while the other travels two nodes at a time. If there is a loop, the fast pointer is guaranteed to overtake the slow pointer at some point. 
+Uses Floyd's Cycle-Finding Algorithm (Tortoise and Hare) to detect the cycle and then uses another slow/fast pointer approach to find the node at which the cycle begins.
 
-Args:
-    lst (list): The circularly linked list.
-
+Args: 
+  lst (list): A list containing a cyclic LinkedList.
+  
 Returns: 
-    int: The index of the node where the loop originates.
+  int: The index of the node where the cycle begins.
 """""""
 ,"def lcm(a, b): 
     def gcd(x, y):
@@ -1217,21 +1256,35 @@ b (int): a positive integer.
 
 Returns:
 int: the least common multiple of a and b.","print(lcm(3, 5) == 15)
-print(lcm(4, 6) == 12)",Return the smallest length of a non - negative integer .,"Compute the lowest common multiple of two integers.
-       
-Args:
-    a (int): An integer.
-    b (int): An integer.
-        
-Returns:
-    int: The lowest common multiple of a and b.","Iteratively compute the least common multiple (LCM) of two integers.
+print(lcm(4, 6) == 12)",Return the smallest length of a non - negative integer .,"Compute the Lowest Common Multiple of two integers.
+
+The Lowest Common Multiple (LCM) is the smallest positive integer that is divisible by both integers.
 
 Args:
     a (int): The first integer.
     b (int): The second integer.
 
 Returns:
-    int: The least common multiple of the two input integers."," """"""Iteratively compute the least common multiple (LCM) of two positive integers by dividing their product by their greatest common divisor (GCD)."""""""
+    int: The LCM of the two integers.","Return the least common multiple of two integers a and b using the Euclidean algorithm to calculate the greatest common divisor. 
+
+Args:
+    a (int): The first integer.
+    b (int): The second integer.
+
+Returns:
+    int: The least common multiple of a and b."," '''
+    Compute the least common multiple (LCM) of two positive integers a and b.
+
+    Args:
+        a (int): First positive integer for LCM calculation.
+        b (int): Second positive integer for LCM calculation.
+
+    Returns:
+        int: The LCM of a and b.
+
+    The LCM is calculated by finding the greatest common divisor (GCD) of a and b 
+    using the Euclidean algorithm, then dividing their product by the GCD.
+'''"
 ,"def f19(): 
     result = None
     for number in range(1000, 10000):
@@ -1250,15 +1303,11 @@ Returns:
 Returns:
 int: the number if found, None otherwise. ","print(f19() == 2235)
 
-",Find the first number of digits and return it as a string .,"Iteratively find a number between 1000 and 10000 whose product of digits is between 55 and 65.
-
+",Find the first number of digits and return it as a string .,"Iteratively find a number between 1000 and 10000 that is divisible by 15 and the product of its digits is between 55 and 65 (inclusive).
+    
     Returns:
-    int: the number between 1000 and 10000 whose product of digits is between 55 and 65.","
-solution =
-    Find and return the first four-digit number where the product of its digits is between 55 and 65.
-
-Returns:
-    int: The first four-digit number meeting the criteria, or None if none is found."," """"""Find the first number between 1000 and 10000 that is divisible by 15, has digits that multiply to a value between 55 and 65 (inclusive), and return that number. Return None if no such number exists."""""""
+    int: the number between 1000 and 10000 that satisfies the conditions, or None if no such number exists.","Iterates through numbers in the range of 1000 to 9999 (inclusive), finds the first number that is divisible by 15, computes the product of its digits, and returns the number if the product falls between 55 and 65 (exclusive). If no such number is found, None is returned."," """""" Find the first number between 1000 and 10000 that is divisible by 15 whose digits product is between 55 to 65 (both inclusive) """"""
+"
 ,"def f20():
     num_str = str(14563743)
     for i in range(len(num_str)):
@@ -1272,15 +1321,15 @@ Returns:
 
 Returns:
 int: the number if found, None otherwise.","print(f20() == 14674)
-",Finds the frequency of the first num_strub_str .,"Iteratively search for a number that is divisible by 22 from all possible combinations of 4 digits from a given 8 digit number.
+",Finds the frequency of the first num_strub_str .,"Iteratively check if there is a sub-string of a given number that is divisible by 22.
 
-    Args:
-    None
+Returns:
+    int: a sub-string of the given number that is divisible by 22.
+    None: if no such sub-string exists.","
+Find and return the first number in the given number (14563743) such that removing any three digits will result in a number divisible by 22.
 
-    Returns:
-    int: a number that is divisible by 22 or None if no such number exists.","
-solution = 
-    Find the first number formed by removing exactly three digits from the input number '14563743', such that the remaining number is divisible by 22. Returns the number if such a number exists, otherwise returns None."," """"""Iteratively compute the permutations of the digits in a given number represented as a string and check if the number obtained by rearranging the digits is divisible by 22, returning the number if found."""""""
+Returns:
+int: The first number found that meets the condition or None if no such number is found."," """"""Iteratively compute and return a new number by rearranging digits of the input number 14563743 such that the new number is divisible by 22."""""""
 Numpy,"import numpy as np
 
 def convolve_1d(signal, kernel): 
@@ -1304,29 +1353,29 @@ NumPy array: A new array containing the convolution result. The length of the re
 is (len(signal) + len(kernel) - 1).","signal = np.array([1, 2, 3, 4, 5])
 kernel = np.array([0.2, 0.5, 0.2])
 convolved_signal = convolve_1d(signal, kernel)
-print(convolved_signal)",Raises an exception if the kernel is not normalized enough to be plotted . Returns the result of the convolve1d is only important .,"Performs a 1D convolution between a signal and a kernel.
+print(convolved_signal)",Raises an exception if the kernel is not normalized enough to be plotted . Returns the result of the convolve1d is only important .,"Perform 1D convolution of a signal with a kernel.
 
     Args:
-    signal (np.ndarray): The input signal.
-    kernel (np.ndarray): The convolution kernel.
+    signal (np.array): The input signal.
+    kernel (np.array): The convolution kernel.
 
     Returns:
-    np.ndarray: The result of the convolution.","Perform a 1-dimensional convolution operation on a signal using a given kernel.
+    np.array: The result of the convolution.","Convolve a 1-dimensional signal with a given kernel using numpy.
 
     Args:
-    signal (array_like): The input signal to convolve.
-    kernel (array_like): The kernel to convolve with the signal.
-    
+    signal (array-like): The input signal to convolve.
+    kernel (array-like): The kernel to convolve with the signal.
+
     Returns:
-    ndarray: The result of convolving the signal with the kernel, resulting in a new array."," """"""Convolve a 1D signal with a kernel.
+    array: The result of convolving the signal with the kernel."," '''Convolve two 1D signals.
 
 Args:
-  signal: ndarray, the 1D signal to convolve 
-  kernel: ndarray, the 1D kernel  
-
+    signal (np.ndarray): 1D input signal array. 
+    kernel (np.ndarray): 1D kernel array.
+    
 Returns: 
-  ndarray: the convolved signal (length of signal + length of kernel - 1)
-"""""""
+    np.ndarray: Convolved signal of same size as convolving signal and kernel.
+'''"
 ,"def mask_n(im, n, idx): 
     size = (im.max() - im.min()) / n 
     mask_greater = im >= (im.min() + size * idx) 
@@ -1343,35 +1392,33 @@ idx (int) : determines the part of the image to be masked.
 Returns:
 NumPy array: A new array containing the mask defined by the input args.","im = np.array([[3,5,9],[8,1,2],[7,6,4]]) 
 print(np.all(mask_n(im, 3, 0) == np.array([[True, False, False], [False, True, True], [False, False, False]])))
-print(np.all(mask_n(im, 3, 1) == np.array([[False, True, False], [False, False, False], [False, True, True]])))",Mask the given integer n - by - 1 .,"Iteratively mask a given image into n masks based on quantile values.
+print(np.all(mask_n(im, 3, 1) == np.array([[False, True, False], [False, False, False], [False, True, True]])))",Mask the given integer n - by - 1 .,"Iteratively mask regions of an image based on a range of pixel values.
 
-Args:
-    im (numpy.ndarray): the input image.
+    Args:
+    im (np.array): the input image.
     n (int): the number of masks to create.
     idx (int): the index of the mask to create.
 
-Returns:
-    numpy.ndarray: a mask where the values in the input image that are in the idx-th quantile are set to True, and the rest are set to False.","Iteratively create a boolean mask for a given image array based on a specified range index.
+    Returns:
+    np.array: a mask of the specified region.","
+Mask elements in an image within a specified range based on given index.
 
 Args:
-im (numpy.ndarray): Input image array.
-n (int): Number of partitions to divide the intensity range into.
-idx (int): Index of the range partition to create a mask for.
+im (numpy.ndarray): Input image as a NumPy array.
+n (int): Number of divisions for the range calculation.
+idx (int): Index of the range to mask elements.
 
 Returns:
-numpy.ndarray: A boolean mask indicating the pixels within the specified intensity range partition."," """"""Iteratively compute and return a mask for values in the input image that fall within a given index bin out of n total bins.
-    
-The input image is divided into n bins of equal size based on its minimum and maximum values. 
-The returned mask will be True for pixels whose values fall within the given index bin boundary.
-    
+numpy.ndarray: Masked elements in the image within the specified range based on the given index."," '''Iteratively compute the masked region of an image using the given mask index idx. The image is divided into n equally spaced regions based on its min and max values. Returns a mask for values falling in the region idx.
+
 Args:
-    im (numpy.ndarray): Input image array.
-    n (int): Number of bins to divide the image into. 
-    idx (int): Index of bin to create mask for, between 0 and n-1.
-    
+  im (numpy.ndarray): Input image array.
+  n (int): Number of regions to divide the image into. 
+  idx (int): Index of region to mask.
+
 Returns: 
-    numpy.ndarray: Binary mask array of same shape as input image with True values falling within bin boundaries.
-"""""""
+  numpy.ndarray: Binary mask array identifying values in the region idx.
+'''"
 ,"def entropy(mat): 
     mat_values = mat.flatten() 
     bin_prob = np.bincount(mat_values) / (mat_values.shape[0]) 
@@ -1387,30 +1434,26 @@ Returns:
 float : The entropy value of the input matrix.","mat1 = np.array([[3,5,3],[8,1,1],[7,7,7]]) 
 mat2 = np.array([[0, 1], [1, 0]])
 print(entropy(mat1) == 2.197159723424149)
-print(entropy(mat2) == 1)",Calculates the entropy for a group of data .,"    Computes the entropy of a given matrix.
+print(entropy(mat2) == 1)",Calculates the entropy for a group of data .,"Compute the entropy of a matrix
     
     Args:
-    mat (numpy.ndarray): the matrix whose entropy is to be computed.
+    mat (np.array): a matrix of integers.
     
     Returns:
-    float: the entropy of the matrix.","Calculate the entropy of a given matrix based on its values distribution.
-
-    Args:
-    mat (numpy.ndarray): Input matrix.
-    
-    Returns:
-    float: Entropy value of the input matrix."," """"""Compute the entropy of values in a matrix.
-
-The entropy is calculated by taking the bincount of flattened matrix values to get
-the probability of each value. These probabilities are multiplied by the log base 2 and 
-summed.
+    float: the entropy of the matrix.","
+Calculate the entropy of a given matrix.
 
 Args:
-  mat (np.ndarray): A 2D numpy array of values
-  
+    mat (numpy.ndarray): Input matrix.
+
+Returns:
+    float: Entropy value calculated based on the input matrix."," Calculate the entropy of the values in the matrix by first flattening it into a 1D array, then taking the normalized bin count probabilities and calculating the Shannon entropy (using logarithms base-2).
+
+Args: 
+  mat (numpy.ndarray): The input matrix.
+
 Returns: 
-  float: The entropy of values in the matrix
-"""""""
+  float: The Shannon entropy of the values in the matrix."
 ,"def squeeze_vertical(im, factor): 
     h, w = im.shape 
     new_h = h // factor 
@@ -1428,32 +1471,31 @@ factor (int) : The factor by which to squeeze the image vertically. factor is a 
 Returns:
 NumPy array : A new 2D NumPy array representing the vertically squeezed image.","print(np.all(squeeze_vertical(np.array([[1, 2], [3, 4], [5, 6], [7, 8]]), 2) == np.array([[2, 3], [6, 7]])))
 print(np.all(squeeze_vertical(np.array([[1, 2], [3, 4], [5, 6], [7, 8]]), 4) == np.array([[4, 5]])))
-print(np.all(squeeze_vertical(np.array([[1, 2], [3, 4], [5, 6], [7, 8]]), 1) == np.array([[1, 2], [3, 4], [5, 6], [7, 8]])))",Reduce the image using a human - readable version .,"Vertically squeeze an image by a factor.
+print(np.all(squeeze_vertical(np.array([[1, 2], [3, 4], [5, 6], [7, 8]]), 1) == np.array([[1, 2], [3, 4], [5, 6], [7, 8]])))",Reduce the image using a human - readable version .,"Squeezes an image vertically by a factor.
 
-    Args:
-    im (ndarray): the input image.
-    factor (int): the factor by which to squeeze the image.
-
-    Returns:
-    ndarray: the squeezed image.","
-    Calculate the vertical squeeze of an image by averaging pixel values within a specified factor.
-
-    Args:
-        im (numpy.ndarray): Input image as a 2D numpy array.
-        factor (int): Factor by which to vertically squeeze the image.
-
-    Returns:
-        numpy.ndarray: Vertically squeezed image as a 2D numpy array.","  """"""
-Vertically squeeze an image by taking the mean over non-overlapping blocks of size factor.
-
-The image is divided into blocks of size factor x w. The mean of each block is computed to form pixels in the squeezed image.
+The function takes an image and a factor as input. It then creates a new image with a height that is the original height divided by the factor. The width of the new image is the same as the original image. The function then iterates over the rows of the new image and sets each row to the mean of the corresponding rows in the original image.
 
 Args:
-  im (ndarray): Input image to squeeze vertically. 
-  factor (int): Size of blocks to take the mean over. 
+    im (np.ndarray): The input image.
+    factor (int): The factor by which to squeeze the image vertically.
 
-Returns: 
-  ndarray: Vertically squeezed version of the input image. 
+Returns:
+    np.ndarray: The squeezed image.","
+    Calculate the vertical squeeze of an image by averaging pixel values over a specified factor.
+    
+    Args:
+    im (numpy.ndarray): Input image as a NumPy array.
+    factor (int): Factor by which to vertically squeeze the image.
+    
+    Returns:
+    numpy.ndarray: Vertically squeezed image as a NumPy array."," """"""Squeeze vertically a 2D image by averaging blocks of pixels along the height axis.
+
+    Args:
+        im (ndarray): Input 2D image array.
+        factor (int): Factor by which to squeeze the height of the image.
+
+    Returns:
+        ndarray: Vertically squeezed output image with shape (h // factor, w).
 """""""
 ,"def denoise(im):  
     def denoise_pixel(im, x, y, dx, dy):
@@ -1477,29 +1519,33 @@ im (NumPy array) : A 2D NumPy array representing the image.
 
 Returns:
 NumPy array : A new 2D NumPy array representing the denoised image.","im = np.array([[15, 110, 64, 150], [231, 150, 98, 160], [77, 230, 2, 0], [100, 81, 189, 91]])
-print(np.all(denoise(im) == np.array([[130, 104, 130, 124], [130, 98, 130, 98], [125, 100, 124, 98], [90.5, 90.5, 91, 91]])))",Denoise using non - uniform - watershed algorithm,"Denoise an image using a median filter.
-
-The denoising algorithm works by iterating over all pixels in the image and replacing the value of each pixel with the median of the values of its neighbors. The neighbors of a pixel are defined as the pixels that are within a certain distance (dx and dy) of the pixel in both the horizontal and vertical directions.
+print(np.all(denoise(im) == np.array([[130, 104, 130, 124], [130, 98, 130, 98], [125, 100, 124, 98], [90.5, 90.5, 91, 91]])))",Denoise using non - uniform - watershed algorithm,"Iteratively denoise each pixel in an image using a median filter with a specified neighborhood size.
 
 Args:
-    im (numpy.ndarray): The image to denoise.
+    im (numpy.array): the input image to be denoised.
 
 Returns:
-    numpy.ndarray: The denoised image.","Iteratively denoise an image by computing the median of neighboring pixels.
+    numpy.array: the denoised image.","Denoise the input image by computing the median of non-zero neighboring pixels for each pixel in the image.
+
+    Args:
+    im (ndarray): Input image as a 2D numpy array.
+
+    Returns:
+    ndarray: Denoised image as a 2D numpy array."," """"""Iteratively denoise an image by considering pixel neighborhoods.
+
+Iterates over each pixel of the input image `im` and estimates its denoised value by considering the neighborhood defined by `dx` and `dy`. The neighborhood is the region between `[x-dx, x+dx]`, `[y-dy, y+dy]`. Pixels outside this range are clipped to stay within the image bounds. 
+
+The median of all neighborhood pixel values greater than zero is returned. If no neighborhood pixels are greater than zero, the original pixel value is returned. 
+
+The denoised image is returned.
 
 Args:
-    im (numpy.ndarray): Input image as a 2D numpy array.
+    im (np.ndarray): Input noisy image.
+    dx (int): Half-width of neighborhood window in x-direction. 
+    dy (int): Half-width of neighborhood window in y-direction.
 
-Returns:
-    numpy.ndarray: Denoised image after computing the median of neighboring pixels."," """""" Denoise an image by median filtering. 
-
-For each pixel in the input image, look at a box centered around that pixel and of size 2*dx+1 by 2*dy+1. Compute the median of all pixels in that box, and replace the value of the input image at that pixel with the median value. This filters out outliers and reduces noise while preserving edges.
-
-Args:
-  im (numpy.ndarray): Input grayscale image. 
-
-Returns:
-  numpy.ndarray: Denoised version of the input image.
+Returns: 
+    np.ndarray: Denoised image of same shape as input.
 """""""
 Pandas,"import pandas as pd
 
@@ -1525,33 +1571,21 @@ pandas DataFrame : A new dataframe with four columns: 'Product', 'YearMonth' (re
               120, 130, 140, 150, 160]
 })
 monthly_sales_analysis = calculate_monthly_sales(data)
-print(monthly_sales_analysis)",Extract data from a pandas . DataFrame and convert it to a dataframe .,"Compute monthly sales and average monthly sales for each product.
+print(monthly_sales_analysis)",Extract data from a pandas . DataFrame and convert it to a dataframe .,"Iteratively compute the sum of all elements in a list of integers after multiplying each element by its index in the list.
 
 Args:
-    data (pandas.DataFrame): a DataFrame with columns 'Date', 'Product' and 'Sales'.
+    lst (list): a list of integers.
 
 Returns:
-    pandas.DataFrame: a DataFrame with columns 'Product', 'YearMonth', 'Sales', and 'AverageMonthlySales'.","
-    Calculate the monthly sales and average monthly sales for each product based on the input data.
-    
+    int: the sum of all elements in the list after preforming the multipication of the elements by their indices.","Calculate the monthly sales and average monthly sales for each product based on the input data.
+
     Args:
-        data (pd.DataFrame): A pandas DataFrame containing columns 'Date', 'Product', and 'Sales'.
-        
+    data (pandas DataFrame): a DataFrame containing columns 'Date', 'Product', and 'Sales'.
+
     Returns:
-        pd.DataFrame: A DataFrame with columns 'Product', 'YearMonth', 'Sales', and 'AverageMonthlySales', showing the monthly sales and average monthly sales for each product."," """"""Calculate monthly sales from a dataframe of transactional data.  
+    pandas DataFrame: a DataFrame with columns 'Product', 'YearMonth', 'Sales', and 'AverageMonthlySales', where 'Sales' represent the total monthly sales and 'AverageMonthlySales' represent the average monthly sales for each product."," Calculate monthly sales metrics from a dataframe containing date-indexed sales data by grouping and aggregating to compute sums and averages at monthly granularity.
 
-The input dataframe is expected to have at least the columns 'Date' and 'Sales'.
-The 'Date' column will be converted to a datetime and a 'YearMonth' period column added.
-The data will then be grouped by 'Product' and 'YearMonth' to calculate the total monthly sales.
-It will also calculate the average monthly sales for each product.
-Finally, it merges the monthly sales with the average monthly sales to return the result.
-
-Args:
-  data (DataFrame): A dataframe containing transactional data with at minimum the columns 'Date' and 'Sales'.
-  
-Returns: 
-  DataFrame: A dataframe with the monthly sales totals and product average monthly sales.
-"""""""
+Returns a dataframe containing the monthly totals and average monthly sales for each product."
 ,"def recommendations(movies, movies_genres, genres, search_title):
     matching_title = movies[movies['title'].str.contains(search_title, case=False, na=False)].iloc[0]
     matching_title_genres = movies_genres[movies_genres['movie_id'] == matching_title['id']]['genre_id'].tolist()
@@ -1589,34 +1623,32 @@ genres = pd.DataFrame({
     'genre_name': ['Sci-Fi', 'Adventure', 'Thriller']
 })
 search_title = 'Inception'
-print(recommendations(movies, movies_genres, genres, search_title))",Extracts genres from a search_gens_key .,"Generate recommendations based on movie genres, ratings, and runtimes.
+print(recommendations(movies, movies_genres, genres, search_title))",Extracts genres from a search_gens_key .,"""""""Iteratively compute the sum of all elements in a list of integers after multiplying each element by its index in the list.
+    
+    Args:
+    lst (list): a list of integers.
+    
+    Returns:
+    int: the sum of all elements in the list after preforming the multipication of the elements by their indices.
+    """"""","    Generate movie recommendations based on a search title and genre similarities.
 
     Args:
-    movies (DataFrame): DataFrame of all movies.
-    movies_genres (DataFrame): DataFrame of movie genres.
-    genres (DataFrame): DataFrame of genres.
-    search_title (str): The title of the movie to base recommendations on.
+    movies (DataFrame): A DataFrame containing information about movies, including columns like 'id', 'title', 'rate', and 'runtime'.
+    movies_genres (DataFrame): A DataFrame mapping movie IDs to genre IDs.
+    genres (list): A list of available genre IDs.
+    search_title (str): The title to search for in the movies DataFrame.
 
     Returns:
-    DataFrame: A DataFrame of 10 recommended movies.","    Generate movie recommendations based on a given movie title and its genres.
-
-    Args:
-    movies (DataFrame): A DataFrame containing information about movies, including columns 'id', 'title', 'rate', and 'runtime'.
-    movies_genres (DataFrame): A DataFrame mapping movies to genres, with columns 'movie_id' and 'genre_id'.
-    genres (list): A list of genre ids.
-    search_title (str): The title of the movie to base recommendations on.
-
-    Returns:
-    DataFrame: A DataFrame of recommended movies based on the input title and its genres, satisfying criteria on rate, runtime, and genre similarity."," """"""Iteratively filters movies recommendations based on a search title by finding matching genres and films within the same genres that have similar ratings and runtimes. 
+    DataFrame: A DataFrame containing up to 10 movie recommendations based on genre similarities, rating proximity, and runtime proximity to the movie with a matching title."," """"""Iteratively compute recommendations for a movie based on the title searched. It finds the matching title, gets its genres, finds other movies with those genres, and filters them based on similar ratings and runtimes. It returns the top 10 recommended movies.
 
 Args:
-    movies (DataFrame): contains movie data
-    movies_genres (DataFrame): many-to-many mapping of movies to genres  
-    genres (DataFrame): contains genre data
-    search_title (str): title to search for recommendations
+- movies (DataFrame): movies data  
+- movies_genres (DataFrame): movies_genres mapping data
+- genres (DataFrame): genres data  
+- search_title (str): title to search recommendations for
 
 Returns: 
-    DataFrame: top 10 recommended movies matching the filtering criteria
+DataFrame: top 10 recommended movies
 """""""
 ,"def top_hours_worked_departments(employees, departments, works_on): 
     employees_project_hours = works_on.groupby('employee_id')['hours_worked'].sum().reset_index()
@@ -1650,24 +1682,24 @@ works_on = pd.DataFrame({
     'project_id': [1, 1, 2, 3, 2],
     'hours_worked': [120, 150, 200, 80, 100]
 })
-print(top_hours_worked_departments(employees, departments, works_on))",Generates a total hours that have been ordered by the selected hours .,"Compute the top departments with the most hours worked by their employees.
+print(top_hours_worked_departments(employees, departments, works_on))",Generates a total hours that have been ordered by the selected hours .,"Compute the top 5 departments with the most total hours worked.
 
-    Args:
-    employees (pandas.DataFrame): A dataframe containing employee information, including their employee_id, name, and department_id.
-    departments (pandas.DataFrame): A dataframe containing department information, including their department_id and name.
-    works_on (pandas.DataFrame): A dataframe containing information about hours worked by employees on projects, including employee_id, hours_worked, and project_id.
+Args:
+    employees (pandas.DataFrame): A DataFrame containing employee information, including their employee ID, name, and department ID.
+    departments (pandas.DataFrame): A DataFrame containing department information, including their department ID and name.
+    works_on (pandas.DataFrame): A DataFrame containing work log information, including the employee ID, project ID, and hours worked.
 
-    Returns:
-    pandas.DataFrame: A dataframe containing the top 5 departments with the most total hours worked by their employees, sorted in descending order. The dataframe includes the department name and total hours worked.","
-    Extract the top 5 departments with the highest total hours worked by employees on projects.
+Returns:
+    pandas.DataFrame: A DataFrame containing the top 5 departments with the most total hours worked, sorted in descending order.","
+Calculate and return the top 5 departments with the highest total project hours worked by employees.
 
-    Args:
-    employees (DataFrame): A DataFrame containing information about employees, including 'employee_id', 'name', and 'department_id'.
-    departments (DataFrame): A DataFrame containing information about departments, including 'department_id' and 'name'.
-    works_on (DataFrame): A DataFrame containing information about hours worked by employees on projects, including 'employee_id' and 'hours_worked'.
+Args:
+    employees (DataFrame): DataFrame containing employee information including 'employee_id', 'name', and 'department_id'.
+    departments (DataFrame): DataFrame containing department information including 'department_id' and 'name'.
+    works_on (DataFrame): DataFrame containing project information including 'employee_id' and 'hours_worked'.
 
-    Returns:
-    DataFrame: A DataFrame with the top 5 departments and their total hours worked by employees on projects, sorted in descending order of total hours."," """"""Return the top 5 departments by total hours worked across all projects by employees of that department."""""""
+Returns:
+    DataFrame: A DataFrame with the top 5 departments sorted by total project hours in descending order, including columns 'department_name' and 'total_hours'."," """"""Iteratively computes which departments worked the most total hours based on data in employees, departments, and works_on tables. Returns a DataFrame with the top 5 departments ranked by total hours worked."""""""
 ,"def huge_population_countries(countries, borders):
     merged = borders.merge(countries, how='left', left_on='country2', right_on='name')
     merged = merged.rename(columns={'name': 'country_name_2', 'population': 'population_2'})
@@ -1693,25 +1725,28 @@ borders = pd.DataFrame({
     'country1': ['A', 'A', 'B', 'B', 'C', 'C', 'D', 'E'],
     'country2': ['B', 'C', 'C', 'D', 'D', 'E', 'E', 'A']
 })
-print(huge_population_countries(countries, borders))",Compute a flat count of all digits that are compatible with ISA .,"Find countries which have a population higher than the sum of their bordering countries' population.
-
-This function computes the sum of the population of all the bordering countries for each country, and then it filters out the countries that have a population higher than the sum of the population of their bordering countries.
-It uses 2 merges to combine dataframes and a groupby to sum the population of bordering countries.
+print(huge_population_countries(countries, borders))",Compute a flat count of all digits that are compatible with ISA .,"Iteratively compute the sum of all elements in a list of integers after multiplying each element by its index in the list.
 
 Args:
-    countries (DataFrame): a dataframe with the countries' names and population.
-    borders (DataFrame): a dataframe with the borders between countries.
+    lst (list): a list of integers.
 
 Returns:
-    DataFrame: a dataframe with the countries that have a population higher than the sum of their bordering countries' population.","
-    Merge two dataframes containing country information and their populations based on shared borders, calculate the sum of populations of neighboring countries for each country, and filter out countries with populations larger than the total population of their neighboring countries.
+    int: the sum of all elements in the list after preforming the multipication of the elements by their indices.","    Merge countries and borders dataframes to calculate the sum of populations of countries sharing a border.
     
     Args:
-    countries (DataFrame): a pandas DataFrame containing information about countries and their populations.
-    borders (DataFrame): a pandas DataFrame containing information about shared borders between countries.
+    countries (DataFrame): DataFrame containing information about countries, including name and population.
+    borders (DataFrame): DataFrame containing information about country borders, including which countries share a border.
     
     Returns:
-    DataFrame: a filtered DataFrame containing the names of countries, their populations, and the sum of populations of their neighboring countries."," """"""Iteratively compute the sum of huge countries based on borders data. It takes in countries and borders data, performs inner joins to get population of neighboring countries. Then groups by country name to get the sum of neighboring population and filters out countries whose population is greater than the sum of neighboring populations. It returns the name, population and neighboring population sum of the filtered countries."""""""
+    DataFrame: Subset of countries DataFrame with countries having a population larger than the sum of populations of their bordering countries."," """"""Iteratively computes the countries with the largest populations when including populations of bordering countries.
+
+Merges the countries DataFrame with borders DataFrame twice, once using 'country2' and 'name' columns and renaming returned DataFrame, and again using 'country1' and 'name' renaming returned DataFrame. 
+
+Groups the merged DataFrame by 'country1' and calculates the sum of 'population_2' for each group, resetting the index and renaming columns. 
+
+Merges the grouped/summed DataFrame with the original countries DataFrame on 'name' keeping all records from the left DataFrame. 
+
+Filters the merged DataFrame for records where the country's 'population' is greater than its 'border_population_sum', returning a DataFrame with 'name', 'population', and 'border_population_sum' columns."""""""
 ,"def countries_bordering_most_populated_in_asia(country_df, border_df): 
     asian_countries = country_df[country_df['continent'] == 'Asia']    
     max_population = asian_countries['population'].max()
@@ -1750,30 +1785,30 @@ border_data = {
 country_df = pd.DataFrame(country_data)
 border_df = pd.DataFrame(border_data)
 
-print(countries_bordering_most_populated_in_asia(country_df, border_df))",A function to populate the border_count field of the ISO hybridization .,"Finds the countries in Asia that border the most populated country or countries in Asia.
+print(countries_bordering_most_populated_in_asia(country_df, border_df))",A function to populate the border_count field of the ISO hybridization .,"Iteratively compute the countries bordering the most populated country(ies) in Asia.
 
-    Args:
-    country_df (pandas.DataFrame): A dataframe containing country-level information, including population and continent.
-    border_df (pandas.DataFrame): A dataframe containing border information between countries.
+Args:
+    country_df (pandas.DataFrame): a dataframe containing information about countries, including their name, continent, and population.
+    border_df (pandas.DataFrame): a dataframe containing information about borders between countries, including the names of the two countries involved.
 
-    Returns:
-    list: A sorted list of the countries in Asia that border the most populated country or countries in Asia.","
-```python
-    Find the countries bordering the most populated country in Asia.
+Returns:
+    list: a list of the names of the countries bordering the most populated country(ies) in Asia.","
+Return a list of countries bordering the most populated country in Asia.
 
-    Args:
-    country_df (pandas.DataFrame): a DataFrame containing information about countries, including columns 'continent', 'population', and 'name'.
-    border_df (pandas.DataFrame): a DataFrame containing information about bordering countries, including columns 'country1' and 'country2'.
+Args:
+    country_df (DataFrame): A pandas DataFrame containing information about countries, including a 'continent' column and a 'population' column.
+    border_df (DataFrame): A pandas DataFrame containing information about countries that share borders, including 'country1' and 'country2' columns.
 
-    Returns:
-    list: a sorted list of names of countries that border the most populated country in Asia.
-```"," Returns a list of the names of countries that border the most populous country in Asia according to the given country and border DataFrames.
+Returns:
+    list: A sorted list of countries that share a border with the most populated country in Asia."," """"""Iteratively compute the countries that border the most populated country in Asia using country and border DataFrames.
 
-The function finds the most populous country in Asia by filtering the country DataFrame for Asian countries, getting the maximum population, and selecting the countries that match that population. 
-
-It then initializes an empty set to store the bordering countries. For each most populous country, it finds the rows in the border DataFrame that match that country name in either the country1 or country2 columns. It extracts those country names and adds them to the set. 
-
-Finally, it removes the most populous country/countries from the set, sorts the remaining countries, and returns the list."
+Args:
+  country_df (DataFrame): DataFrame containing country info like name, population, continent. 
+  border_df (DataFrame): DataFrame containing country borders like country1, country2.
+  
+Returns: 
+  list: A sorted list of the countries that border the most populated country in Asia.
+"""""""
 Classes,"import math
 class triangle: 
     def __init__(self, a, b, ab, color) -> None:
@@ -1820,96 +1855,54 @@ print(a.get('ba') == 90)
 print(a.get('c') == 11.180339887498949)
 print(a.get('ac') == 26.565051177077994)
 print(a.get('bc') == 63.43494882292201)
-print(a.get('d'))",The class attribute is self .,"""""""
-import math
-class triangle: 
-    def __init__(self, a, b, ab, color) -> None:
-        """"""Initializes a triangle object.
+print(a.get('d'))",The class attribute is self .,"A class used to represent a triangle.
 
-        Args:
-        ----------
-        a : float 
-            length of side 'a'.
-        b : float 
-            length of side 'b'.
-        ab : float 
-            angle between sides 'a' and 'b'.
-        color : string 
-            color of the triangle.
-        """"""
-        self.d = {}
-        self.d['a'] = a
-        self.d['b'] = b
-        self.d['ab'] = ab
-        self.d['color'] = color
-        c = math.sqrt(a**2 + b**2 - 2*b*a*math.cos(math.radians(ab)))
-        self.d['c'] = c
-        self.d['bc'] = math.degrees(math.acos((b**2 + c**2 - a**2)/(2*b*c)))
-        self.d['ac'] = math.degrees(math.acos((a**2 + c**2 - b**2)/(2*a*c)))
-    def get(self, name):
-        """"""Gets the specified attribute of the triangle.
+    Attributes:
+    ----------
+    d : dict 
+        a dictionary containing the attributes of the triangle.
+        The attributes are:
+        'a': the length of side 'a'
+        'b': the length of side 'b'
+        'ab': the angle between sides 'a' and 'b'
+        'c': the length of side 'c'
+        'bc': the angle between sides 'b' and 'c'
+        'ac': the angle between sides 'a' and 'c'
+        'color': the color of the triangle
 
-        Args:
-        ----------
-        name : string 
-            the name of the attribute to get.
-
-        Returns:
-        -------
-        float 
-            the value of the specified attribute.
-        """"""
-        if len(name) == 2:
-            name = """".join(sorted(name))
-        if name not in self.d:
-            raise KeyError(f""ERROR: no triangale attribute with the name {name}."")
-        return self.d[name]
-""""""","A class representing a triangle.
+    Methods:
+    -------
+    __init__(a, b, ab, color)
+        initializes the triangle with the specified attributes.
+    get(name)
+        returns the specified attribute of the triangle.","
+A class representing a triangle.
 
 Attributes:
 ----------
-a : float
-    The length of side a of the triangle.
-b : float
-    The length of side b of the triangle.
-ab : float
-    The angle between sides a and b in degrees.
-color : str
-    The color of the triangle.
-c : float
-    The length of side c of the triangle calculated using the Law of Cosines.
-bc : float
-    The angle between sides b and c in degrees calculated using the Law of Cosines.
-ac : float
-    The angle between sides a and c in degrees calculated using the Law of Cosines.
-
+d : dict
+    A dictionary containing the triangle's attributes including sides lengths and angles.
+    
 Methods:
 -------
 __init__(a, b, ab, color)
     Initializes the triangle with the given side lengths, angle, and color.
 get(name)
-    Returns the value of the attribute specified by name. If the name has two characters, it is sorted alphabetically before lookup.
-
-Raises:
--------
-KeyError
-    If the specified name does not correspond to any triangle attribute."," """"""A class used to represent a triangle using its attributes of side lengths and interior angles.
+    Retrieves the attribute value of the triangle based on the provided name."," '''A class representation of a triangle with attributes like side length, angles etc. Attributes are stored in a dictionary.
 
 Attributes:
-- d: dict
-    A dictionary containing the triangle's attributes of side lengths (a, b, c) 
-    and interior angles (ab, bc, ac) as keys and their values.
-- color: string
-    The color of the triangle.
+-----------
+d: dict
+    A dictionary containing attributes of the triangle like side lengths, angles etc. keyed by name.
 
 Methods:
-- __init__(a, b, ab, color)
-    Initializes the triangle with side lengths a and b, interior angle ab in degrees, 
-    and color. Automatically calculates remaining attributes.
-- get(name)
-    Returns the value of the attribute specified by the two-character string name.
-    Throws a KeyError if the attribute doesn't exist.
-"""""""
+--------
+__init__(a, b, ab, color) 
+    Initializes the triangle with side lengths a, b, angle ab in degrees and color. Calculates other attributes.
+get(name)
+    Returns the attribute value corresponding to name. name can be a single character or two character string for side or angle. Raises KeyError if invalid name given.
+'''
+"
 ,"class worker:     
     def __init__(self, id, first_name, last_name, job, salary = 5000, second_name = None):
         self.id = id
@@ -1965,86 +1958,85 @@ print(jon.getJob() == ""salesman"")
 print(jon.getSalary() == 5000)
 jon.update(job = 'engineer', salary = 7000)
 print(jon.getJob() == ""engineer"")
-print(jon.getSalary() == 7000)",This method is called by the class constructor . The first_name will be the name of the class .,"""""""
-A class used to represent a worker.
-
-Attributes:
-----------
-id : int 
-    the id of the worker.
-first_name : string 
-    the first name of the worker.
-second_name : string 
-    the second name of the worker (optional).
-last_name : string 
-    the last name of the worker.
-job : string 
-    the job of the worker.
-salary : float 
-    the salary of the worker (optional, default is 5000).
-
-Methods:
--------
-__init__(id, first_name, last_name, job, salary = 5000, second_name = None)
-    initializes the Worker with an id, first name, last name, job, and optional salary and second name.
-getFullName()
-    returns the full name of the worker.
-getSalary()
-    returns the salary of the worker.
-getJob()
-    returns the job of the worker.
-update(job = None, salary = None)
-    updates the job and/or salary of the worker.
-""""""","
-    A class representing a worker.
+print(jon.getSalary() == 7000)",This method is called by the class constructor . The first_name will be the name of the class .,"A class representing a worker and its details.
 
     Attributes:
     ----------
-    id : int
+    id : int 
         the unique identifier of the worker.
-    full_name : string
+    full_name : string 
         the full name of the worker.
-    job : string
-        the job position of the worker.
-    salary : int
+    job : string 
+        the job title of the worker.
+    salary : float 
         the salary of the worker.
 
     Methods:
     -------
     __init__(id, first_name, last_name, job, salary=5000, second_name=None)
-        Initializes the worker with an id, first name, last name, job, salary, and optional second name.
+        initializes the worker with an id, first name, last name, job, an optional salary and optional second name.
     getFullName()
-        Returns the full name of the worker.
+        returns the full name of the worker.
     getSalary()
-        Returns the salary of the worker.
+        returns the salary of the worker.
     getJob()
-        Returns the job position of the worker.
+        returns the job title of the worker.
     update(job=None, salary=None)
-        Updates the job position and/or salary of the worker if specified."," """"""A class used to represent a worker.
+        updates the job title and/or salary of the worker.","
+A class representing a worker.
 
 Attributes:
------------
-id: int
-    The ID of the worker.
-full_name: string
-    The full name of the worker.
-job: string
-    The job of the worker. 
-salary: int
-    The salary of the worker.
+----------
+id : int
+    the unique identifier of the worker.
+first_name : string
+    the first name of the worker.
+last_name : string
+    the last name of the worker.
+job : string
+    the job position of the worker.
+salary : int
+    the salary of the worker.
+second_name : string, optional
+    the second name of the worker, if provided.
 
 Methods:
---------
+-------
 __init__(id, first_name, last_name, job, salary=5000, second_name=None)
-    Initializes the Worker instance with id, names, job, and optional salary and second name.
+    initializes the Worker with an id, first name, last name, job position, salary (default 5000), and optional second name.
 getFullName()
-    Returns the full name of the worker.
-getSalary() 
-    Returns the salary of the worker.
+    returns the full name of the worker.
+getSalary()
+    returns the salary of the worker.
 getJob()
-    Returns the job of the worker.  
+    returns the job position of the worker.
 update(job=None, salary=None)
-    Updates the job and/or salary if the arguments are provided.
+    updates the job position and/or salary of the worker if provided.
+"," """""" A class used to represent a worker.
+
+    Attributes:
+    ----------
+    id : int
+        a unique id for each worker
+    full_name : string
+        the full name of the worker 
+    job : string
+        the job of the worker
+    salary : float 
+        the salary of the worker
+
+    Methods:
+    -------
+    __init__(id, first_name, last_name, job, salary=5000, second_name=None) 
+        initializes the Worker with id, name, job, salary.
+    getFullName() 
+        returns the full name of the worker
+    getSalary()
+        returns the salary of the worker
+    getJob()
+        returns the job of the worker    
+    update(job=None, salary=None)
+        updates the job and/or salary of the worker
 """""""
 ,"class Binaric_arithmatic: 
 
@@ -2107,48 +2099,55 @@ one = Binaric_arithmatic(""1"")
 print(seven.inc() == ""1000"")
 print(seven.dec() == ""110"")
 print(one.inc() == ""10"")
-print(one.dec() == ""0"")",The bin number for the piston mode . Correctly computes the correctness of the bin edges .,"""""""
-A class used to represent binary arithmetic.
-
-    Attributes:
-    ----------
-    num : string 
-        the binary number.
-
-    Methods:
-    -------
-    __init__(num)
-        initializes the Binaric_arithmatic with a binary number.
-    get()
-        returns the binary number.
-    inc()
-        increments the binary number and returns the new number.
-    dec()
-        decrements the binary number and returns the new number.
-""""""","A class that performs binary arithmetic operations.
-
-    Methods:
-    -------
-    __init__(num)
-        Initializes the Binaric_arithmatic class with a binary number.
-        
-    get()
-        Returns the binary number stored in the object.
-        
-    inc()
-        Increments the binary number by 1 and returns the result.
-        
-    dec()
-        Decrements the binary number by 1 and returns the result."," """"""A class for binary arithmetic operations.
+print(one.dec() == ""0"")",The bin number for the piston mode . Correctly computes the correctness of the bin edges .,"A class used to represent binary arithmetics.
 
 Attributes:
-- num: string representing a binary number.
+----------
+num : string 
+    the binary number the object holds.
 
-Methods:  
-- get(): Returns the binary number.
-- inc(): Increments the binary number by 1.  
-- dec(): Decrements the binary number by 1.
-"""""""
+Methods:
+-------
+__init__(num)
+    initializes the Binaric_arithmatic object with the given binary number.
+get()
+    returns the binary number held by the object.
+inc()
+    increments the binary number held by the object.
+dec()
+    decrements the binary number held by the object.","A class to perform binary arithmetic operations.
+
+Attributes:
+----------
+num : str
+    the binary number to perform operations on.
+
+Methods:
+-------
+__init__(num)
+    Initializes the Binaric_arithmatic class with a binary number.
+get()
+    Returns the current binary number.
+inc()
+    Increments the binary number by 1.
+dec()
+    Decrements the binary number by 1.
+
+"," """"A class to represent binary arithmetic operations.
+
+Attributes:
+-----------
+num: string
+    the binary number being operated on.
+
+Methods:
+--------  
+get()
+    returns the binary number.
+inc()  
+    increments the binary number by 1.
+dec()
+    decrements the binary number by 1."""
 ,"class Point_2D: 
    
     def __init__(self, x, y):
@@ -2217,7 +2216,7 @@ print(a + b == Point_2D(1, 2))
 print(a - b == Point_2D(1, 0))
 print(b.angle_wrt_origin(c) == math.pi / 4)
 print(c.angle_wrt_origin(b) == 2 * math.pi - math.pi / 4)  ",The point on the 2D line which corresponds to the origin .,"""""""
-A class used to represent a 2-dimensional point in space.
+A class used to represent a 2D point.
 
 Attributes:
 ----------
@@ -2226,9 +2225,9 @@ x : float
 y : float
     the y-coordinate of the point.
 r : float
-    the distance from the point to the origin.
+    the distance from the origin to the point.
 theta : float
-    the angle (in radians) from the positive x-axis to the point.
+    the angle between the positive x-axis and the line connecting the point to the origin.
 
 Methods:
 -------
@@ -2237,72 +2236,74 @@ __init__(x, y)
 __repr__()
     returns a string representation of the point.
 __eq__(other)
-    compares the point to another point for equality.
+    returns True if the point is equal to the other point, False otherwise.
 __add__(other)
-    returns a new point that is the sum of the current point and another point.
+    returns a new point that is the sum of the point and the other point.
 __sub__(other)
-    returns a new point that is the difference of the current point and another point.
+    returns a new point that is the difference of the point and the other point.
 distance(other)
-    returns the distance between the current point and another point.
+    returns the distance between the point and the other point.
 angle_wrt_origin(other)
-    returns the angle (in radians) between the line connecting the current point and another point and the positive x-axis.
-""""""","A class representing a 2D point in Cartesian coordinates.
-
-Attributes:
-----------
-x : int or float
-    The x-coordinate of the point.
-y : int or float
-    The y-coordinate of the point.
-r : float
-    The distance of the point from the origin (0, 0).
-theta : float
-    The angle of the point with respect to the positive x-axis in radians.
-
-Methods:
--------
-__init__(x, y)
-    Initializes a Point_2D object with the given x and y coordinates.
-__repr__()
-    Returns a string representation of the Point_2D object.
-__eq__(other)
-    Checks if two Point_2D objects are equal by comparing their x and y coordinates.
-__add__(other)
-    Adds two Point_2D objects by adding their respective x and y coordinates.
-__sub__(other)
-    Subtracts two Point_2D objects by subtracting their respective x and y coordinates.
-distance(other)
-    Calculates the Euclidean distance between the current point and another point.
-angle_wrt_origin(other)
-    Calculates the angle (in radians) between the line connecting the current point and the origin and the line connecting another point and the origin."," """"""A two-dimensional point class.
+    returns the angle between the line connecting the point to the origin and the line connecting the other point to the origin.
+""""""","
+A class representing a 2D point.
 
 Attributes:
 ----------
 x : float
-   the x-coordinate of the point  
+    The x-coordinate of the point.
 y : float
-   the y-coordinate of the point
+    The y-coordinate of the point.
 r : float
-   the radial distance from the origin
-theta : float 
-   the angle wrt the x-axis 
-    
+    The distance from the point to the origin.
+theta : float
+    The angle (in radians) of the point with respect to the positive x-axis.
+
+Methods:
+-------
+__init__(x, y)
+    Initializes a 2D point with the given x and y coordinates.
+__repr__()
+    Returns a string representation of the point in the format ""Point(x, y)"".
+__eq__(other)
+    Checks if two points are equal based on their x and y coordinates.
+__add__(other)
+    Adds two points together and returns a new Point_2D object.
+__sub__(other)
+    Subtracts one point from another and returns a new Point_2D object.
+distance(other)
+    Calculates the Euclidean distance between this point and another point.
+angle_wrt_origin(other)
+    Calculates the angle (in radians) between this point and another point with respect to the positive x-axis."," """"""A class used to represent two-dimensional Cartesian points. 
+
+Attributes:
+-----------
+x : float
+    the x-coordinate of the point
+y : float 
+    the y-coordinate of the point 
+r : float
+    the radial distance from the origin
+theta : float
+    the angular coordinate of the point
+
 Methods:
 --------
-__repr__()
-   returns a string representation of the Point
-__eq__()
-   checks if two points are equal  
-__add__()
-   adds two points
-__sub__() 
-   subtracts two points  
-distance()
-   calculates distance between two points
-angle_wrt_origin()
-   calculates angle between two points wrt origin
-""""""
-"
+__init__(x, y)
+    initializes the Point_2D with coordinates x and y
+__repr__() 
+    returns a string representation of Point_2D
+__eq__(other)
+    checks if two points are equal  
+__add__(other)
+    returns the sum of two points 
+__sub__(other)
+    returns the difference of two points
+distance(other)
+    returns the distance between this point and another
+angle_wrt_origin(other) 
+    returns the angle between this point and another referenced from the origin
+"""""""
 ,"import random
 
 class Roulette: 
@@ -2380,66 +2381,67 @@ print(gambler.bet(100, ""odd""))
 print(gambler.bet(100, ""1-12""))
 print(gambler.bet(100, ""13-24""))
 print(gambler.bet(100, ""25-36""))
-print(gambler.bet(100, ""17""))",Create a random instance of the ketama compatible with the given amount .,"""""""
-A class used to simulate roulette betting.
+print(gambler.bet(100, ""17""))",Create a random instance of the ketama compatible with the given amount .,"A class used to represent a roulette game.
+
+    Attributes:
+    ----------
+    balance : float
+        the current balance of the player.
+    reds : list
+        the list of red numbers in the roulette.
+    blacks : list
+        the list of black numbers in the roulette.
+
+    Methods:
+    -------
+    __init__(initial_money)
+        initializes the Roulette with an initial balance.
+    get_balance()
+        returns the current balance of the player.
+    bet(amount, bet_type)
+        bets the specified amount on the specified bet type.
+        Bet types: ""red"", ""black"", ""even"", ""odd"", ""1-12"", ""13-24"", ""25-36"", ""number""
+        If the bet wins, the player's balance is increased by the winnings.
+        If the bet loses, the player's balance is decreased by the amount of the bet.
+        Returns the current balance of the player.","A class representing a Roulette game.
 
 Attributes:
 ----------
-balance : float 
-    the current balance of the roulette player.
-reds : list 
-    a list of integers that are red numbers on the roulette wheel.
-blacks : list 
-    a list of integers that are black numbers on the roulette wheel.
-
-Methods:
--------
-__init__(initial_money)
-    initializes the Roulette with an initial balance.
-get_balance()
-    returns the current balance of the roulette player.
-bet(amount, bet_type)
-    bets the specified amount on the specified bet type.
-""""""","A class representing a Roulette game.
-
-Attributes:
-----------
-balance : float
+balance : int 
     the current balance of the player.
-reds : list
-    list of red numbers on the Roulette wheel.
-blacks : list
-    list of black numbers on the Roulette wheel.
+reds : list 
+    a list of red numbers on the roulette wheel.
+blacks : list 
+    a list of black numbers on the roulette wheel.
 
 Methods:
 -------
 __init__(initial_money)
-    Initializes the Roulette game with the player's initial money.
+    Initializes the Roulette game with the initial money for the player.
 get_balance()
     Returns the current balance of the player.
 bet(amount, bet_type)
-    Places a bet of a specified amount on a chosen bet type and updates the balance accordingly.
-
-Note: The bet types can be ""red"" for red numbers, ""black"" for black numbers, ""even"" for even numbers, ""odd"" for odd numbers, ""1-12"" for numbers 1 to 12, ""13-24"" for numbers 13 to 24, ""25-36"" for numbers 25 to 36, or a specific number to bet on that exact number."," '''A Roulette game class used to place bets and track a player's balance. 
+    Allows the player to place a bet on the roulette wheel with a specified amount and bet type. The player's balance is updated based on the outcome of the bet."," """"""A Roulette game class with initialization and betting functionality.
 
 Attributes:
 -----------
 balance: float
-    The player's current balance.
+    The current balance of the player.
 reds: list
-    Numbers 1-36 that result in winning a red bet.  
+    Numbers from 1 to 36 that are red on a roulette wheel.  
 blacks: list  
-    Numbers 1-36 that result in winning a black bet.
+    Numbers from 1 to 36 that are black on a roulette wheel.
 
 Methods:
 --------
 __init__(initial_money):
-    Initializes the game with a starting balance.
+    Initializes the player's balance.
 get_balance():
-    Returns the player's current balance.  
+    Returns the current balance.  
 bet(amount, bet_type):
-    Places a bet of a given amount and type (red, black, etc.). Returns updated balance.
-'''"
+    Places a bet of the given amount and type (red, black, etc.). 
+    Updates the balance accordingly based on the random roll outcome.
+"""""""
 ,"class investments: 
 
     def __init__(self, name, initial_investment, avg_yearly_return, monthly_income, monthly_expenses):
@@ -2498,44 +2500,39 @@ print(jon.future_value(3) == 351560)
 print(jon.withdraw(100000) == 251560)
 print(jon.future_value(3) == 553286.3600000001)
 print(jon.withdraw(100000) == 453286.3600000001)
-print(jon.future_value(4) == 969962.5596760004)",The average amounts of the non - outer data of the class .,"""""""
-A class used to represent an investment.
+print(jon.future_value(4) == 969962.5596760004)",The average amounts of the non - outer data of the class .,"A class used to represent an investment. This class allows the user to create an investment with an initial amount, an average yearly return, a monthly income, and a monthly expense. It also allows the user to get the balance of the investment, calculate the future value of the investment, and withdraw money from the investment.
 
-    Attributes:
-    ----------
-    name : string 
-        the name of the investment.
-    initial_investment : float 
-        the initial investment amount.
-    avg_yearly_return : float 
-        the average yearly return rate of the investment in percentage.
-    monthly_income : float 
-        the monthly income generated by the investment.
-    monthly_expenses : float 
-        the monthly expenses associated with the investment.
-    balance : float 
-        the current balance of the investment.
+Attributes:
+----------
+self.balance : float
+    the current balance of the investment.
+self.avg_yearly_return : float
+    the average yearly return of the investment.
+self.monthly_income : float
+    the monthly income of the investment.
+self.monthly_expenses : float
+    the monthly expenses of the investment.
+self.name : string
+    the name of the investment.
 
-    Methods:
-    -------
-    __init__(name, initial_investment, avg_yearly_return, monthly_income, monthly_expenses)
-        initializes the Investments with a name, initial investment amount, average yearly return rate, monthly income and monthly expenses.
-    __repr__()
-        returns a string representation of the Investments object.
-    get_balance()
-        returns the current balance of the Investments.
-    future_value(years)
-        calculates and returns the future value of the Investments after the specified number of years.
-    withdraw(amount)
-        withdraws the specified amount from the Investments if funds are available.
-    
-""""""","
-A class representing an investment profile.
+Methods:
+-------
+__init__(name, initial_investment, avg_yearly_return, monthly_income, monthly_expenses)
+    initializes the investment with a name, an initial investment, an average yearly return, a monthly income, and a monthly expense.
+__repr__()
+    returns a string representation of the investment.
+get_balance()
+    returns the balance of the investment.
+future_value(years)
+    calculates the future value of the investment after a specified number of years.
+withdraw(amount)
+    withdraws the specified amount from the investment if funds are available.","
+A class representing investments.
 
 Attributes:
 ----------
 name : str
-    The name of the investment profile.
+    The name of the investment.
 balance : float
     The current balance of the investment.
 avg_yearly_return : float
@@ -2543,47 +2540,46 @@ avg_yearly_return : float
 monthly_income : float
     The monthly income generated by the investment.
 monthly_expenses : float
-    The monthly expenses incurred by the investment.
+    The monthly expenses related to the investment.
 
 Methods:
 -------
 __init__(name, initial_investment, avg_yearly_return, monthly_income, monthly_expenses)
-    Initializes the investment profile with the specified attributes.
+    Initializes the investments with the provided attributes.
 __repr__()
-    Returns a formatted string representation of the investment profile.
+    Returns a string representation of the investment.
 get_balance()
     Returns the current balance of the investment.
 future_value(years)
-    Calculates the future value of the investment after the specified number of years.
+    Calculates and returns the future balance of the investment after a specified number of years.
 withdraw(amount)
-    Withdraws the specified amount from the investment balance, if available.
-"," """"""A class used to model different investment accounts.
+    Withdraws the specified amount from the investment if sufficient funds are available."," """"""A class used to represent investment accounts.
 
 Attributes:
-- name: string
-    The name of the investment account
-- initial_investment: float
-    The starting balance of the account 
-- avg_yearly_return: float 
-    The average yearly return as a percentage (10% = 10)
-- monthly_income: float
-    Monthly recurring income added to the account  
-- monthly_expenses: float
-    Monthly recurring expenses deducted from the account
-- balance: float
-    The current balance of the account
+----------
+name : string
+   the name of the investment account 
+balance : float
+   the current balance of the account
+avg_yearly_return : float
+   the average yearly return rate as a percentage  
+monthly_income : float
+   the monthly income added to the account
+monthly_expenses : float 
+   the monthly expenses deducted from the account
 
 Methods:
-- __init__(name, initial_investment, avg_yearly_return, monthly_income, monthly_expenses)
-    Initializes the Investment instance
-- __repr__()
-    Returns a string representation of the investment  
-- get_balance()
-    Returns the current balance of the account
-- future_value(years) 
-    Calculates the future value of the account after given number of years
-- withdraw(amount)
-    Withdraws amount from the account if sufficient funds are available
+-------
+__init__(name, initial_investment, avg_yearly_return, monthly_income, monthly_expenses)
+   initializes the investment account 
+__repr__()
+   returns a string representation of the account
+get_balance()
+   returns the current balance of the account
+future_value(years) 
+   calculates the future balance over the given number of years  
+withdraw(amount)
+   withdraws the specified amount from the account if funds are available
 """""""
 ,"class Restaurant: 
 
@@ -2659,91 +2655,101 @@ r.add_chef(""Mario"")
 r.add_chef(""Luigi"")
 print(r.get_chefs() == ['Mario', 'Luigi'])
 r.remove_chef(""Mario"")
-print(r.get_chefs() == ['Luigi'])",The naming of the menu .,"""""""
+print(r.get_chefs() == ['Luigi'])",The naming of the menu .,"""""""A class used to represent a restaurant.
+
+Attributes:
+----------
+name : string 
+    the name of the restaurant.
+cuisine : string 
+    the type of cuisine served at the restaurant.
+rating : float 
+    the rating of the restaurant on a scale of 1 to 5.
+menu : dictionary
+    a dictionary of dishes and their prices.
+chefs : list
+    a list of chefs working at the restaurant.
+
+Methods:
+-------
+__init__(name, cuisine, rating)
+    initializes the Restaurant with a name, cuisine, and rating.
+__repr__()
+    returns a string representation of the Restaurant.
+add_dish(name, price)
+    adds a dish to the menu.
+remove_dish(name)
+    removes a dish from the menu.
+add_chef(chef)
+    adds a chef to the list of chefs.
+remove_chef(chef)
+    removes a chef from the list of chefs.
+get_menu()
+    returns the menu.
+get_chefs()
+    returns the list of chefs.
+""""""","
 A class representing a restaurant.
 
 Attributes:
 ----------
-name : string
+name : str
     The name of the restaurant.
-cuisine : string
-    The type of cuisine served by the restaurant.
+cuisine : str
+    The type of cuisine served at the restaurant.
 rating : float
     The rating of the restaurant out of 5.
-menu : dictionary
-    A dictionary of dishes and their prices.
+menu : dict
+    A dictionary containing dishes offered at the restaurant and their prices.
 chefs : list
     A list of chefs working at the restaurant.
 
 Methods:
 -------
 __init__(name, cuisine, rating)
-    Initializes the Restaurant with a name, cuisine, and rating.
+    Initializes a Restaurant object with a name, cuisine type, and rating.
 __repr__()
-    Returns a string representation of the Restaurant.
+    Returns a string representation of the restaurant in the format ""name (cuisine) - rating/5"".
 add_dish(name, price)
-    Adds a dish to the menu.
+    Adds a dish to the restaurant's menu with the specified price.
 remove_dish(name)
-    Removes a dish from the menu.
+    Removes a dish from the restaurant's menu if it exists.
 add_chef(chef)
-    Adds a chef to the list of chefs.
+    Adds a chef to the list of chefs working at the restaurant.
 remove_chef(chef)
-    Removes a chef from the list of chefs.
+    Removes a chef from the list of chefs working at the restaurant.
 get_menu()
-    Returns the menu.
+    Returns the menu of the restaurant as a dictionary.
 get_chefs()
-    Returns the list of chefs.
-""""""","
-    A class representing a restaurant.
-
-    Attributes:
-    ----------
-    name : str
-        the name of the restaurant.
-    cuisine : str
-        the type of cuisine served at the restaurant.
-    rating : int
-        the rating of the restaurant (out of 5).
-    menu : dict
-        a dictionary containing dishes and their prices.
-    chefs : list
-        a list of chefs working at the restaurant.
-
-    Methods:
-    -------
-    __init__(name, cuisine, rating)
-        Initializes the Restaurant with a name, cuisine, and rating.
-    __repr__()
-        Returns a string representation of the restaurant.
-    add_dish(name, price)
-        Adds a dish with its price to the restaurant's menu.
-    remove_dish(name)
-        Removes a dish from the restaurant's menu.
-    add_chef(chef)
-        Adds a chef to the list of chefs working at the restaurant.
-    remove_chef(chef)
-        Removes a chef from the list of chefs working at the restaurant.
-    get_menu()
-        Returns the menu of the restaurant.
-    get_chefs()
-        Returns the list of chefs working at the restaurant."," """"""A class representing a restaurant.
+    Returns the list of chefs working at the restaurant."," """"""A class used to represent a restaurant.
 
 Attributes:
-- name: string, name of the restaurant
-- cuisine: string, type of cuisine served 
-- rating: float, rating of the restaurant on a scale of 1 to 5
-- menu: dict, dishes served with their prices
-- chefs: list, chefs working at the restaurant
+----------
+name: string
+    the name of the restaurant.
+cuisine: string  
+    the type of cuisine the restaurant serves.
+rating: float
+    the restaurant's rating on a scale of 1 to 5.  
+menu: dictionary
+    a dictionary containing the restaurant's menu items and prices.
+chefs: list  
+    a list containing the names of chefs that work at the restaurant.
 
 Methods:
-- __init__(name, cuisine, rating): initialize the restaurant
-- __repr__(): return object representation as a string
-- add_dish(name, price): add a dish to the menu
-- remove_dish(name): remove a dish from the menu  
-- add_chef(chef): add a chef to the restaurant
-- remove_chef(chef): remove a chef from the restaurant
-- get_menu(): return the menu
-- get_chefs(): return the list of chefs
+-------   
+add_dish(name, price)
+    adds a new dish to the menu.
+remove_dish(name) 
+    removes a dish from the menu by name.
+add_chef(chef)
+    adds a chef to the list of restaurant chefs.  
+remove_chef(chef)
+    removes a chef from the list of restaurant chefs.   
+get_menu()
+    returns the restaurant's menu dictionary.
+get_chefs()
+    returns the list of chefs that work at the restaurant.
 """""""
 ,"class Polynomial: 
 
@@ -2818,33 +2824,30 @@ print(str(e) == ""0"")
 print(d.get_deg() == 4)
 print(str(a + b) == ""1 + 4x - 5x^2 + 4x^3"")
 print(str(c + d) == ""-13 + 8x^3 + 5x^4"")
-print(b + e == b)",The class method that gets passed into the class,"""""""A class used to represent a polynomial.
+print(b + e == b)",The class method that gets passed into the class,"A class used to represent a polynomial.
 
     Attributes:
     ----------
-    coeffs : list of floats
-        the coefficients of the polynomial, in order from lowest to highest degree.
+    coeffs : list
+        a list of the coefficients of the polynomial in order of increasing degree.
 
     Methods:
     -------
     __init__(coeffs)
-        initializes the Polynomial with the given coefficients.
+        initializes the Polynomial with a list of coefficients.
     __repr__()
         returns a string representation of the polynomial.
     get_deg()
         returns the degree of the polynomial.
     __add__(other)
-        returns a new Polynomial that is the sum of this polynomial and the given polynomial.
+        returns a new Polynomial that is the sum of this polynomial and the other polynomial.
     __eq__(other)
-        returns True if this polynomial is equal to the given polynomial, False otherwise.
-    
-""""""","
-A class used to represent a polynomial.
+        returns True if this polynomial is equal to the other polynomial, False otherwise.","A class used to represent a polynomial.
 
 Attributes:
 ----------
 coeffs : list
-    a list of coefficients representing the polynomial terms.
+    A list of coefficients representing the polynomial terms.
 
 Methods:
 -------
@@ -2855,28 +2858,28 @@ __repr__()
 get_deg()
     Returns the degree of the polynomial.
 __add__(other)
-    Adds two polynomials together and returns a new Polynomial object.
+    Adds two polynomials together.
 __eq__(other)
-    Compares two polynomials for equality based on their coefficients."," """"""A class that represents a polynomial with coefficients as a list.
+    Checks if two polynomials are equal based on their coefficients."," """"""A class used to represent a polynomial.
 
 Attributes:
-- coeffs: list
-    The coefficients of the polynomial.
-    Coefficients are stored from highest to lowest degree term.
+----------
+coeffs: list
+   coefficients of polynomial terms in descending order.
 
 Methods:
-- __init__(coeffs): 
-    Initializes the polynomial with the given list of coefficients.
-- __repr__():
-    Returns a string representation of the polynomial.
-- get_deg():
-    Returns the degree of the polynomial (length of coeffs - 1).  
-- __add__(other): 
-    Returns a new Polynomial object that is the sum of self and other.
-- __eq__(other):
-    Returns True if self and other have the same coefficients, False otherwise.
-""""""
-"
+-------
+__init__(coeffs)
+   initializes the Polynomial with coefficients.   
+__repr__()
+   string representation of the polynomial.
+get_deg() 
+   returns the degree of the polynomial.
+__add__(other)
+   adds two polynomials term by term.  
+__eq__(other)
+   checks if two polynomials are equal.
+"""""""
 ,"class TodoList: 
 
     def __init__(self):
@@ -2942,69 +2945,63 @@ print(str(lst) == ""[V] Buy groceries\n[X] go to school\n[X] do HW"")
 lst.remove_task(""do HW"")
 print(str(lst) == ""[V] Buy groceries\n[X] go to school"")
 print(lst.list_tasks(completed=True) == [""Buy groceries""])
-print(lst.list_tasks(completed=False) == [""go to school""])",This function is called when the task is in a non - main .,"""""""
-A class used to represent a list of tasks.
+print(lst.list_tasks(completed=False) == [""go to school""])",This function is called when the task is in a non - main .,"""""""A class representing a todo list.
 
 Attributes:
-----------
-tasks : list of dicts 
-    a list of tasks, where each task is represented as a dictionary with the following keys:
-    - 'task': the task description
-    - 'completed': a boolean indicating whether the task is completed
+    tasks: A list of dictionaries representing tasks. Each dictionary has two keys: 'task' and 'completed'.
 
 Methods:
--------
-__init__()
-    initializes the TodoList with an empty list of tasks.
-__repr__()
-    returns a string representation of the tasks in the list.
-add_task(task)
-    adds a new task to the list.
-remove_task(task)
-    removes a task from the list.
-mark_completed(task)
-    marks a task as completed.
-list_tasks(completed=None)
-    returns a list of the tasks in the list, optionally filtered by completion status.
+    __init__()
+        Initializes the todo list with an empty list of tasks.
+    __repr__()
+        Returns a string representation of the todo list.
+    add_task(task)
+        Adds a new task to the todo list.
+    remove_task(task)
+        Removes a task from the todo list.
+    mark_completed(task)
+        Marks a task as completed.
+    list_tasks(completed=None)
+        Returns a list of tasks. If 'completed' is specified, only tasks with that completion status are returned.
 """"""","A class representing a todo list.
 
-    Attributes:
-    ----------
-    tasks : list
-        a list of tasks with each task being a dictionary containing 'task' and 'completed' keys.
+Attributes:
+-----------
+tasks : list
+    A list of tasks with their completion status.
 
-    Methods:
-    -------
-    __init__()
-        Initializes the TodoList with an empty list of tasks.
-    __repr__()
-        Returns a string representation of the tasks in the todo list with their completion status.
-    add_task(task)
-        Adds a new task to the todo list with a default completion status of False.
-    remove_task(task)
-        Removes a task from the todo list if it exists.
-    mark_completed(task)
-        Marks a task as completed in the todo list if it exists.
-    list_tasks(completed=None)
-        Lists all tasks in the todo list, or only completed or uncompleted tasks based on the 'completed' parameter."," """"""A to-do list class that allows adding, removing, marking as complete, and listing tasks.
+Methods:
+--------
+__init__()
+    Initializes the TodoList with an empty list of tasks.
+__repr__()
+    Returns a formatted representation of tasks with completion status.
+add_task(task)
+    Adds a new task to the todo list.
+remove_task(task)
+    Removes a task from the todo list.
+mark_completed(task)
+    Marks a task as completed.
+list_tasks(completed=None)
+    Lists all tasks or only completed/incomplete tasks based on the completion status."," """"""TodoList manages tasks using a list of dictionaries.
 
 Attributes:
 ----------
-tasks : list of dicts
-    The list of tasks in the to-do list represented as dicts with 'task' and 'completed' keys.
+tasks : list
+    a list of task dictionaries with 'task' and 'completed' keys.
 
 Methods:
 -------
 __repr__()
-    Returns a string representation of the tasks in the to-do list.
+    returns a human-readable string representation of the tasks.
 add_task(task) 
-    Adds a new task to the list.
+    adds a new task to the list.
 remove_task(task)
-    Removes a task from the list if it exists.
+    removes the first matching task from the list if found.  
 mark_completed(task)
-    Marks a task as completed if it exists.  
+    marks the first matching task as completed if found.
 list_tasks(completed=None)
-    Returns a list of either all tasks or just completed/not completed tasks.
+    returns list of tasks matching the completion status if given.
 """""""
 ,"class Recipe:
  
@@ -3093,127 +3090,98 @@ book.add_recipe(""Salad"", [""lettuce"", ""tomato"", ""cucumber""], ""Mix all in
 cheese_recipes = book.search_by_ingredient(""cheese"")
 print(cheese_recipes[0].name == ""Pasta"" and cheese_recipes[1].name == ""Pizza"" and len(cheese_recipes) == 2)
 book.remove_recipe(""Pasta"")
-print(book.list_recipes() == [""Recipe: Pizza\nIngredients: dough, tomato sauce, cheese\nInstructions: Bake dough, add sauce and cheese\n"", ""Recipe: Salad\nIngredients: lettuce, tomato, cucumber\nInstructions: Mix all ingredients\n""])",Produces a name that uses this recipe,"""""""A class used to represent a recipe.
-
-Attributes:
-----------
-name : string 
-    the name of the recipe.
-ingredients : list of strings 
-    the ingredients required for the recipe.
-instructions : list of strings 
-    the instructions for making the recipe.
-
-Methods:
--------
-__init__(name, ingredients, instructions)
-    initializes the Recipe with a name, ingredients, and instructions.
-__repr__()
-    returns a string representation of the recipe.
-
-class RecipeBook:
+print(book.list_recipes() == [""Recipe: Pizza\nIngredients: dough, tomato sauce, cheese\nInstructions: Bake dough, add sauce and cheese\n"", ""Recipe: Salad\nIngredients: lettuce, tomato, cucumber\nInstructions: Mix all ingredients\n""])",Produces a name that uses this recipe,"""""""
+class Recipe:
+    
+    A class representing a recipe.
 
     Attributes:
     ----------
-    recipes : list of Recipe 
-        the list of recipes in the recipe book.
+    name : str
+        The name of the recipe.
+    ingredients : list
+        The ingredients required for the recipe.
+    instructions : str
+        The instructions for making the recipe.
+
+    Methods:
+    -------
+    __init__(name, ingredients, instructions)
+        Initializes the Recipe with a name, ingredients, and instructions.
+    __repr__()
+        Returns a string representation of the Recipe.
+
+class RecipeBook:
+    
+    A class representing a recipe book.
+
+    Attributes:
+    ----------
+    recipes : list of Recipe
+        The recipes in the recipe book.
 
     Methods:
     -------
     __init__()
-        initializes the RecipeBook.
+        Initializes the RecipeBook with an empty list of recipes.
     __repr__()
-        returns a string representation of the recipe book.
+        Returns a string representation of the RecipeBook.
     add_recipe(name, ingredients, instructions)
-        adds a new recipe to the recipe book.
+        Adds a recipe to the recipe book.
     remove_recipe(name)
-        removes a recipe from the recipe book by name.
+        Removes a recipe from the recipe book by name.
     search_by_ingredient(ingredient)
-        returns a list of recipes that contain the specified ingredient.
+        Returns a list of recipes that contain the specified ingredient.
     list_recipes()
-        returns a list of strings representing the recipes in the recipe book.
-""""""","A class used to represent a recipe.
+        Returns a list of string representations of the recipes in the recipe book.
+""""""","
+A class used to represent a recipe.
 
 Attributes:
 ----------
-name : str
+name : string
     the name of the recipe.
 ingredients : list
-    a list of ingredients needed for the recipe.
-instructions : str
-    the instructions to prepare the recipe.
+    the list of ingredients required for the recipe.
+instructions : string
+    the cooking instructions for the recipe.
 
 Methods:
 -------
 __init__(name, ingredients, instructions)
-    initializes the Recipe with a name, ingredients, and instructions.
+    initializes the Recipe with a name, list of ingredients, and cooking instructions.
 __repr__()
     returns a formatted string representation of the Recipe.
     
-class RecipeBook:
-A class used to manage a collection of recipes.
+A class used to represent a recipe book.
 
 Attributes:
 ----------
 recipes : list
-    a list of Recipe objects.
+    a list of Recipe objects stored in the recipe book.
 
 Methods:
 -------
 __init__()
     initializes the RecipeBook with an empty list of recipes.
 __repr__()
-    returns a string representation of the RecipeBook.
+    returns a formatted string representation of all recipes in the recipe book.
 add_recipe(name, ingredients, instructions)
-    creates a new Recipe object and adds it to the RecipeBook.
+    creates a new Recipe object and adds it to the recipe book.
 remove_recipe(name)
-    removes a recipe from the RecipeBook based on the name.
+    removes a recipe from the recipe book based on the given name.
 search_by_ingredient(ingredient)
-    returns a list of recipes that contain the specified ingredient.
+    searches for recipes containing the specified ingredient.
 list_recipes()
-    returns a list of string representations of all recipes in the RecipeBook."," """"""Represents a collection of recipes.""""""
+    returns a list of formatted string representations of all recipes in the recipe book."," """"""A RecipeBook holds a collection of Recipe objects and allows adding, removing and listing recipes by name or ingredients.
 
-class RecipeBook:
+Recipes contain a name, list of ingredients, and instructions. 
 
-    """"""Initialize empty recipe book.""""""
-    
-    def __init__(self):
-        
-        """"""List of recipes.""""""
-        
-        self.recipes = []
-        
-    def __repr__(self):
-        
-        """"""String representation.""""""
-        
-        return ""\n"".join(str(recipe) for recipe in self.recipes)
+Methods:
+- add_recipe(name, ingredients, instructions) - Adds a new Recipe to the book. 
+- remove_recipe(name) - Removes the Recipe with the given name.
+- search_by_ingredient(ingredient) - Returns recipes containing the given ingredient.
+- list_recipes() - Returns a list of string representations of all recipes.
+""""""
 
-    def add_recipe(self, name, ingredients, instructions):
-        
-        """"""Add a recipe to the book.""""""
-        
-        new_recipe = Recipe(name, ingredients, instructions)
-        self.recipes.append(new_recipe)
-
-    def remove_recipe(self, name):
-       
-        """"""Remove a recipe from the book.""""""
-        
-        for recipe in self.recipes:
-            if recipe.name == name:
-                self.recipes.remove(recipe)
-                return True
-        return False
-
-    def search_by_ingredient(self, ingredient):
-        
-        """"""Search for recipes containing an ingredient.""""""
-        
-        return [recipe for recipe in self.recipes if ingredient in recipe.ingredients]
-
-    def list_recipes(self):
-        
-        """"""List all recipes.""""""
-        
-        return [str(recipe) for recipe in self.recipes]"
+"
