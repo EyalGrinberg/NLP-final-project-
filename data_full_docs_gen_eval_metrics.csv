@@ -6,7 +6,7 @@ Recursion,"def sum_even(lst):
             total += sum_even(item)
         elif index % 2 == 0:
             total += item
-    return total","Recursively compute the sum of all the even elements in a nested list of integers.
+    return total","Recursively compute the sum of all the elements in even indices in a nested list of integers.
 
 Args:
 lst (list): a nested list of integers.
@@ -34,7 +34,7 @@ int: The sum of all even-indexed elements in the list, including elements in nes
 
 Iteratively calculates the total by iterating through the list and its sublists. If an item is itself a list, recursively calls sum_even on that sublist. Otherwise, adds the item to the total if its index in the parent list is even. 
 
-Returns the total sum of all even indexed elements.",0.2448979591836735,0.0851063829787234,0.2448979591836735,0.03603111140377371,0.8695652173913043,0.6567164179104478,0.8695652173913043,0.6180336340042432,0.7631578947368423,0.48648648648648646,0.7105263157894738,0.31529170342405316,0.5454545454545454,0.2268041237113402,0.4242424242424242,0.19332406613461586
+Returns the total sum of all even indexed elements.",0.23529411764705882,0.0816326530612245,0.23529411764705882,0.031234574179368178,0.8450704225352113,0.6376811594202898,0.8169014084507042,0.5721829334585771,0.7692307692307692,0.47368421052631576,0.6666666666666667,0.2889252564332004,0.5346534653465346,0.22222222222222224,0.39603960396039606,0.17869810140624987
 ,"def find_num_changes(n, lst): 
     if n == 0:
         return 1
