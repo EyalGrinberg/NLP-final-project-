@@ -6,7 +6,7 @@ Recursion,"def sum_even(lst):
             total += sum_even(item)
         elif index % 2 == 0:
             total += item
-    return total","Recursively compute the sum of all the even elements in a nested list of integers.
+    return total","Recursively compute the sum of all the elements in even indices in a nested list of integers.
 
 Args:
 lst (list): a nested list of integers.
