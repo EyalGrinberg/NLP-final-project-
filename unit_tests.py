@@ -62,37 +62,29 @@ def find_num_changes(n, lst):
 
     return result""",
 """def half_sum_subset(lst):
-    n = sum(lst) / 2
-    lst_aux = []
-    def find_lst(s, n, lst_aux, n_init):
-        if n == 0:
-            return lst_aux
-        if sum(lst_aux) == n_init:
-            return lst_aux
-        if n < 0 :
+    total = sum(lst)
+    if total % 2 != 0:
+        return None
+    target = total // 2
+    def find_subset(idx, curr):
+        if curr == target:
+            return []
+        if idx >= len(lst) or curr > target:
             return None
-        if len(s) == 0:
-            return None
-        first = s.pop(0)
-        lst_aux.append(first)
-        with_first = find_lst(s, n - first, lst_aux, n_init)
-        lst_aux = lst_aux[:-1]
-        wo_first = find_lst(s, n, lst_aux, n_init)
-        return wo_first or with_first
-    return find_lst(lst, n, lst_aux, n)""",
-"""def partition_to_subsets(n, k):
-    mat = [[-1 for i in range(k + 1) ] for j in range(n + 1) ]
-    def partition_to_subsets_mem(n, k, mem):
-        if k == 0:
-            if n == 0:
-                return 1
-            return 0
-        if k == 1 or k == n:
-            return 1
-        if mem[n][k] == -1:
-            mem[n][k] = partition_to_subsets_mem(n - 1, k - 1, mem) + (k * partition_to_subsets_mem(n - 1, k, mem))
-        return mem[n][k]
-    return partition_to_subsets_mem(n, k, mat)
+        w_curr = find_subset(idx + 1, curr + lst[idx])
+        if w_curr is not None:
+            return [lst[idx]] + w_curr
+        wo_current = find_subset(idx + 1, curr)
+        if wo_current is not None:
+            return wo_current
+        return None
+    return find_subset(0, 0)""",
+"""def str_dist(x, y): 
+    if len(x) == 0 or len(y) == 0: 
+        return max(len(x), len(y)) 
+    if x[-1] == y[-1]: 
+        return str_dist(x[: -1], y[: -1]) 
+    return min(str_dist(x, y[: -1]), str_dist(x[: -1], y), str_dist(x[: -1], y[: -1])) + 1
     """,
 """def is_dag(graph):
     visited = set()
@@ -190,6 +182,7 @@ class BaseTestCase(unittest.TestCase):
 
 class TestFunction1(BaseTestCase):
     sum_even = imported_functions[0]
+    
     def test_empty_list(self):
         self.assertEqual(sum_even([]), 0)
     
@@ -381,45 +374,67 @@ class TestFunction6(BaseTestCase):
         self.assertEqual(dfs_level_order(tree), "1,2,4,8,9,5,10,11,3,6,12,13,7,14,15")
 
 class TestFunction7(BaseTestCase):
-    # NEED TO FIX
     half_sum_subset = imported_functions[6]
+        
+    def test_empty_list(self):
+        self.assertEqual(half_sum_subset([]), [])
 
-    def empty_test(self):
-        self.assertIsNone(None)
-    # def test_empty_list(self):
-    #     self.assertIsNone(half_sum_subset([]))
-
-    # def test_single_item_list(self):
-    #     self.assertIsNone(half_sum_subset([1]))
+    def test_single_item_list(self):
+        self.assertIsNone(half_sum_subset([1]))
     
-    # def test_two_items_no_half_sum(self):
-    #     self.assertIsNone(half_sum_subset([1, 2]))
+    def test_two_items_no_half_sum(self):
+        self.assertIsNone(half_sum_subset([1, 2]))
     
-    # def test_two_items_with_half_sum(self):
-    #     self.assertEqual(half_sum_subset([2, 2]), [2])
+    def test_two_items_with_half_sum(self):
+        self.assertEqual(half_sum_subset([2, 2]), [2])
     
-    # def test_multiple_items_no_half_sum(self):
-    #     self.assertIsNone(half_sum_subset([1, 2, 3]))
+    def test_multiple_items_no_half_sum(self):
+        self.assertIn(sorted(half_sum_subset([1, 2, 3])), [[1, 2], [3]])
     
-    # def test_multiple_items_with_half_sum(self):
-    #     self.assertEqual(sorted(half_sum_subset([1, 2, 3, 4])), [1, 4])
+    def test_multiple_items_with_half_sum(self):
+        self.assertIn(sorted(half_sum_subset([1, 2, 3, 4])), [[1, 4], [2, 3]])
     
-    # def test_list_with_zero(self):
-    #     self.assertEqual(half_sum_subset([0, 1, 2, 3, 4]), [0, 1, 4])
+    def test_list_with_zero(self):
+        self.assertIn(sorted(half_sum_subset([0, 1, 2, 3])), [[1, 2], [3], [0, 1, 2], [0, 3]])
     
-    # def test_with_negatives_no_half_sum(self):
-    #     self.assertIsNone(half_sum_subset([-1, -2, 3, 6]))
+    def test_with_negatives(self):
+        self.assertIn(sorted(half_sum_subset([-1, -2, 3, 6])), [[-2, -1, 6], [3]])
+        
+    def test_with_even_total_sum_but_no_half_sum(self):
+        self.assertIsNone(half_sum_subset([1, 3, 5, 13]))
     
-    # def test_large_list(self):
-    #     self.assertEqual(half_sum_subset([3, 1, 4, 2, 2]), [3, 4])
+    def test_large_list(self):
+        self.assertIn(sorted(half_sum_subset([3, 1, 4, 2, 2])), [[1, 2, 3], [2, 4]])
 
 
 class TestFunction8(BaseTestCase):
-    # NEED TO TALK
-    partition_to_subsets = imported_functions[7]
+    str_dist = imported_functions[7]
 
-    def empty_test(self):
-        self.assertIsNone(None)
+    def test_empty_strings(self):
+        self.assertEqual(str_dist("", ""), 0)
+
+    def test_empty_first_string(self):
+        self.assertEqual(str_dist("", "abc"), 3)
+
+    def test_empty_second_string(self):
+        self.assertEqual(str_dist("abc", ""), 3)
+
+    def test_equal_strings(self):
+        self.assertEqual(str_dist("abc", "abc"), 0)
+
+    def test_one_char_insert(self):
+        self.assertEqual(str_dist("a", "ab"), 1)
+
+    def test_one_char_delete(self):
+        self.assertEqual(str_dist("ab", "a"), 1)
+
+    def test_one_char_replace(self):
+        self.assertEqual(str_dist("a", "b"), 1)
+
+    def test_multiple_operations(self):
+        self.assertEqual(str_dist("kitten", "sitting"), 3)
+        self.assertEqual(str_dist("flaw", "lawn"), 2)
+        self.assertEqual(str_dist("intention", "execution"), 5)
 
 class TestFunction9(BaseTestCase):
     is_dag = imported_functions[8]
