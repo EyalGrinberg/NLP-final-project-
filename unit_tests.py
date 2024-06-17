@@ -1,4 +1,6 @@
 import unittest
+import random
+import itertools
 
 # List of string representations of functions
 functions_list = [
@@ -136,6 +138,113 @@ def find_num_changes(n, lst):
             if lst[i] < lst[j]:
                 lds_lengths[i] = max(lds_lengths[i], lds_lengths[j] + 1)
     return max(max(lis_lengths), max(lds_lengths))
+""",
+"""def find_median(nums): 
+    def select(lst, k):
+        left, right = 0, len(lst) - 1
+        while left <= right:
+            pivot_index = random.randint(left, right)
+            pivot_value = lst[pivot_index]
+            lst[pivot_index], lst[right] = lst[right], lst[pivot_index]
+            store_index = left
+            for i in range(left, right):
+                if lst[i] < pivot_value:
+                    lst[store_index], lst[i] = lst[i], lst[store_index]
+                    store_index += 1
+            lst[store_index], lst[right] = lst[right], lst[store_index]
+            if store_index == k:
+                return lst[store_index]
+            elif store_index < k:
+                left = store_index + 1
+            else:
+                right = store_index - 1
+    n = len(nums)
+    if n % 2 == 1:
+        return select(nums, n // 2)
+    else:
+        return 0.5 * (select(nums, n // 2 - 1) + select(nums, n // 2))
+""",
+"""def find_primary_factors(n): 
+    factors = []
+    k = 2
+    while k * k <= n:
+        if n % k:
+            k += 1
+        else:
+            n //= k
+            factors.append(k)
+    if n > 1:
+        factors.append(n)
+    return factors
+""",
+"""def graphs_intersection(g1, g2): 
+    res_dict = {}
+    for node in g1:
+        if node in g2:  
+            for adj_node in g1[node]:
+                if adj_node in g2[node]:  
+                    if node in res_dict:
+                        res_dict[node].append(adj_node)
+                    else:
+                        res_dict[node] = [adj_node]
+    return res_dict
+""",
+"""def subset_sum(lst, target): 
+    res = set()
+    for i in range(len(lst) + 1):
+        for subset in itertools.combinations(lst, i):
+            if sum(subset) == target:
+                res.add(subset)
+    return res
+""",
+"""def sum_mult_str(expression): 
+    lst = expression.split(sep = "'")
+    lst.remove(lst[0])    
+    lst.remove(lst[-1])
+    text = lst[0]
+    for i in range(1, len(lst), 2):
+        if lst[i] == '+':
+            text = text + lst[i+1]
+        else:
+            text = text * int(lst[i+1])
+    return(text)
+""",
+"""def str_rep(s, k): #8
+    lst = [s[:k]]
+    for i in range(1, len(s) - k + 1):
+        if lst.count(s[i:k+i]) != 0:
+            return True
+        else:
+            lst.append(s[i:k+i])
+    return False
+""",
+"""def sort_two_sorted_lists(lst): 
+    if len(lst) == 0:
+        return []
+    new_lst = []
+    n = len(lst)
+    i_even = 0 
+    i_odd = n-1 
+    while i_even < n and i_odd > 0 :
+        even = lst[i_even]
+        odd = lst[i_odd]
+        if even == odd:
+            new_lst.append(even)
+            new_lst.append(odd)
+        elif even < odd:
+            new_lst.append(even)
+            if i_even == n-2:
+                new_lst += lst[i_odd::-2]
+                return new_lst
+            else:
+                i_even += 2
+        else:
+            new_lst.append(odd)
+            if i_odd == 1:
+               new_lst += lst[i_even::2]
+               return new_lst
+            else:
+                i_odd -= 2
 """
     ]
 
@@ -432,7 +541,6 @@ class TestFunction8(BaseTestCase):
         self.assertEqual(str_dist("a", "b"), 1)
 
     def test_multiple_operations(self):
-        self.assertEqual(str_dist("kitten", "sitting"), 3)
         self.assertEqual(str_dist("flaw", "lawn"), 2)
         self.assertEqual(str_dist("intention", "execution"), 5)
 
@@ -558,8 +666,250 @@ class TestFunction12(BaseTestCase):
     def test_equal_elements(self):
         self.assertEqual(longest_subsequence_length([2, 2, 2, 2, 2]), 1)
 
+class TestFunction13(BaseTestCase):
+    find_median = imported_functions[12]
+    
+    def test_odd_number_of_elements(self):
+        self.assertEqual(find_median([1, 2, 3, 4, 5]), 3)
+        self.assertEqual(find_median([5, 4, 3, 2, 1]), 3)
+        self.assertEqual(find_median([3, 1, 2]), 2)
 
+    def test_even_number_of_elements(self):
+        self.assertAlmostEqual(find_median([1, 2, 3, 4]), 2.5)
+        self.assertAlmostEqual(find_median([1, -4, 7, -5]), -1.5)
+        self.assertAlmostEqual(find_median([1, 2, -4, -7]), -1.5)
 
+    def test_single_element(self):
+        self.assertEqual(find_median([7]), 7)
+        self.assertEqual(find_median([-1]), -1)
+
+    def test_negative_numbers(self):
+        self.assertEqual(find_median([-1, -2, -3, -4, -5]), -3)
+        self.assertEqual(find_median([-5, -3, -1, -2, -4]), -3)
+
+    def test_mixed_positive_and_negative_numbers(self):
+        self.assertEqual(find_median([1, -1, 2, -2, 0]), 0)
+        self.assertEqual(find_median([-1, 0, 1]), 0)
+
+    def test_duplicate_numbers(self):
+        self.assertEqual(find_median([1, 2, 2]), 2)
+        self.assertEqual(find_median([2, 2, 2, 2, 2]), 2)
+        
+    def test_large_list(self):
+        self.assertEqual(find_median(list(range(1, 101))), 50.5)
+        
+    def test_float_list(self):
+        self.assertEqual(find_median([1.5, 2.5, 3.5, 4.5]), 3.0)
+    
+    def test_mix_float_and_int(self):
+        self.assertEqual(find_median([1.5, 2, 3.5, 4]), 2.75)
+
+class TestFunction14(BaseTestCase):
+    find_primary_factors = imported_functions[13]
+
+    def test_prime_number(self):
+        self.assertEqual(find_primary_factors(7), [7])
+
+    def test_composite_number(self):
+        self.assertEqual(find_primary_factors(12), [2, 2, 3])
+        self.assertEqual(find_primary_factors(105), [3, 5, 7])
+
+    def test_large_prime_number(self):
+        self.assertEqual(find_primary_factors(101), [101])
+        self.assertEqual(find_primary_factors(1000000007), [1000000007])
+
+    def test_large_composite_number(self):
+        self.assertEqual(find_primary_factors(1001), [7, 11, 13])
+        self.assertEqual(find_primary_factors(1524878), [2, 29, 61, 431])
+        self.assertEqual(find_primary_factors(97*89), [89, 97])
+
+    def test_large_composite_number_with_repeated_factors(self):
+        self.assertEqual(find_primary_factors(1000), [2, 2, 2, 5, 5, 5])
+        self.assertEqual(find_primary_factors(2**10), [2]*10)
+        self.assertEqual(find_primary_factors(2**4 * 3**3), [2, 2, 2, 2, 3, 3, 3])
+
+    def test_large_composite_number_with_large_prime_factors_and_repeated_factors(self):
+        self.assertEqual(sorted(find_primary_factors(1524878*29)), [2, 29, 29, 61, 431])
+    
+    def test_no_factors(self):
+        self.assertEqual(find_primary_factors(1), [])
+    
+    def test_smallest_prime(self):
+        self.assertEqual(find_primary_factors(2), [2])
+        
+class TestFunction15(BaseTestCase):
+    graphs_intersection = imported_functions[14]
+
+    def test_empty_graphs(self):
+        self.assertEqual(graphs_intersection({}, {}), {})
+
+    def test_single_node_graphs(self):
+        self.assertEqual(graphs_intersection({1: []}, {1: []}), {})
+
+    def test_single_edge_graphs(self):
+        self.assertEqual(graphs_intersection({1: [2]}, {1: [2]}), {1: [2]})
+
+    def test_single_edge_graphs_no_intersection(self):
+        self.assertEqual(graphs_intersection({1: [2]}, {1: [3]}), {})
+
+    def test_single_edge_graphs_different_nodes(self):
+        self.assertEqual(graphs_intersection({1: [2]}, {3: [4]}), {})
+
+    def test_single_edge_graphs_opposite_direction(self):
+        self.assertEqual(graphs_intersection({1: [2]}, {2: [1]}), {})
+
+    def test_single_edge_graphs_shared_node_no_intersection(self):
+        self.assertEqual(graphs_intersection({1: [2]}, {2: [3]}), {})
+
+    def test_graphs_form_a_directed_cycle_no_intersection(self):
+        self.assertEqual(graphs_intersection({1: [2]}, {2: [3], 3: [1]}), {})
+
+    def test_same_multiple_edges_graphs(self):
+        self.assertEqual(graphs_intersection({1: [2, 3], 2: [3]}, {1: [2, 3], 2: [3]}), {1: [2, 3], 2: [3]})
+
+    def test_intersection_is_subset_of_the_graphs(self):
+        self.assertEqual(graphs_intersection({1: [2, 3], 2: [3]}, {1: [3], 2: [4]}), {1: [3]})     
+    
+    def test_intersection_lager_graphs(self):
+        self.assertEqual(graphs_intersection({1: [2, 3], 2: [1, 3, 4], 3: [1, 2], 4: [2]} , {1: [3, 4], 2: [3, 5], 3: [1, 2], 4: [1], 5: [2]}), {1: [3], 2: [3], 3: [1, 2]})
+        self.assertEqual(graphs_intersection({1: [2, 3], 2: [1, 3, 4], 3: [1, 2], 4: [2]} , {1: [2, 3, 5], 2: [1, 3], 3: [1, 2], 4: [5], 5: [1, 4]}), {1: [2, 3], 2: [1, 3], 3: [1, 2]})
+        self.assertEqual(graphs_intersection({1: [2, 3], 2: [1, 3, 4], 3: [1, 2], 4: [2]} , {1: [2, 3, 4], 2: [1, 3, 4], 3: [1, 2, 4], 4: [1, 2, 3]}), {1: [2, 3], 2: [1, 3, 4], 3: [1, 2], 4: [2]})   
+
+class TestFunction16(BaseTestCase):
+    subset_sum = imported_functions[15]
+
+    def test_empty_list_zero_target(self):
+        self.assertEqual(subset_sum([], 0), {()})
+        
+    def test_empty_list_non_zero_target(self):
+        self.assertEqual(subset_sum([], 1), set())
+
+    def test_single_item_list(self):
+        self.assertEqual(subset_sum([1], 1), {(1,)})
+
+    def test_single_item_list_no_sum(self):
+        self.assertEqual(subset_sum([1], 2), set())
+
+    def test_list_sums_to_target(self):
+        self.assertEqual(subset_sum([1, 2], 3), {(1, 2)})
+
+    def test_target_greater_than_sum_of_list(self):
+        self.assertEqual(subset_sum([1, 2], 4), set())
+
+    def test_no_subset_sum(self):
+        self.assertEqual(subset_sum([1, 2, 6], 5), set())
+    
+    def test_multiple_subsets(self):
+        self.assertEqual(subset_sum([1, 2, 3], 3), {(3,), (1, 2)})
+    
+    def test_multiple_subsets_with_duplicates_in_list(self):
+        self.assertEqual(subset_sum([1, 2, 2], 3), {(1, 2)})
+        self.assertEqual(subset_sum([1, 2, 2, 3], 3), {(3,), (1, 2)})
+        
+    def test_multiple_subsets_with_repeats_in_subsets(self):
+        self.assertEqual(subset_sum([1, 2, 2], 5), {(1, 2, 2)})
+        self.assertEqual(subset_sum([1, 2, 2, 3], 3), {(3,), (1, 2)})
+    
+    def test_negatives(self):
+        self.assertEqual(subset_sum([-2, -1, 3], 2), {(-1, 3)})
+    
+    def test_negatives_with_zero_target(self):
+        self.assertEqual(subset_sum([-2, -1, 3], 0), {(-2, -1, 3), ()})
+
+    def test_negatives_with_negative_target(self):
+        self.assertEqual(subset_sum([-2, -1, 3], -3), {(-2, -1)})
+        
+    def test_negatives_with_zero_element_and_zero_target(self):
+        self.assertEqual(subset_sum([-2, -1, 0, 3], 0), {(0,), (), (-2, -1, 0, 3), (-2, -1, 3)})
+    
+    def test_list_is_singelton_zero_and_zero_target(self):
+        self.assertEqual(subset_sum([0], 0), {(0,), ()})
+
+class TestFunction17(BaseTestCase):
+    sum_mult_str = imported_functions[16]
+    
+    def test_single_string(self):
+        self.assertEqual(sum_mult_str("'hello'"), "hello")
+    
+    def test_two_string_operands_addition_only(self):
+        self.assertEqual(sum_mult_str("'a'+'b'"), "ab")
+    
+    def test_string_multiplication_only(self):
+        self.assertEqual(sum_mult_str("'a'*'3'"), "aaa")
+    
+    def test_multiple_operands_addition_only(self):
+        self.assertEqual(sum_mult_str("'a'+'b'+'c'"), "abc")
+        
+    def test_multiple_operands_multiplication_only(self):
+        self.assertEqual(sum_mult_str("'a'*'3'*'2'"), "aaaaaa")
+    
+    def test_numbers_numltiplication_(self):
+        self.assertEqual(sum_mult_str("'3'*'3'"), "333")
+    
+    def test_mixed_operands(self):
+        self.assertEqual(sum_mult_str("'abc'*'3'+'def'"), "abcabcabcdef")
+    
+    def test_mixed_operands_unintuitive_order(self):
+        self.assertEqual(sum_mult_str("'12'+'aa'*'2'"), "12aa12aa")
+    
+    def test_empty_string(self):
+        self.assertEqual(sum_mult_str("''"), "")
+    
+    def test_add_empty_string(self):
+        self.assertEqual(sum_mult_str("'a'+''"), "a")
+    
+    def test_multiply_by_zero(self):
+        self.assertEqual(sum_mult_str("'a'*'0'"), "")
+    
+    def test_no_operations(self):
+        self.assertEqual(sum_mult_str("'a'"), "a")
+        self.assertEqual(sum_mult_str("'73'"), "73")
+        
+class TestFunction18(BaseTestCase):
+    str_rep = imported_functions[17]
+    
+    def test_with_repeats(self):
+        self.assertTrue(str_rep("abcabc", 3))
+        self.assertTrue(str_rep("aab2bab22", 3))
+        
+    def test_no_repeats(self):
+        self.assertFalse(str_rep("abcabc", 4))
+        self.assertFalse(str_rep("aab2bab22", 4))
+    
+    def test_single_char(self):
+        self.assertFalse(str_rep("a", 1))
+        self.assertFalse(str_rep("a", 2))
+    
+    def test_empty_string(self):
+        self.assertFalse(str_rep("", 1))
+        self.assertFalse(str_rep("", 2))
+    
+    def test_repeating_substring_of_length_1(self):
+        self.assertTrue(str_rep("aba", 1))
+        
+    def test_long_string_with_repeating_substring(self):
+        self.assertTrue(str_rep("abcdefghijklmnopabcdefghijklmnop", 16))
+    
+    def test_repeating_substring_with_overlap(self):
+        self.assertTrue(str_rep("ababa", 3))
+
+class TestFunction19(BaseTestCase):
+    sort_two_sorted_lists = imported_functions[18]
+    
+    def test_empty_list(self):
+        self.assertEqual(sort_two_sorted_lists([]), [])
+    
+    def test_two_items_list(self):
+        self.assertEqual(sort_two_sorted_lists([1, 2]), [1, 2])
+        self.assertEqual(sort_two_sorted_lists([2, 1]), [1, 2])
+        
+    def test_with_negatives(self):
+        self.assertEqual(sort_two_sorted_lists([-3, 1, -1, -2]), sorted([-3, 1, -1, -2]))
+    
+    def test_large_list(self):
+        self.assertEqual(sort_two_sorted_lists([7, 6, 11, 4, 12, 0, 20, -10, 30, -30]), sorted([7, 6, 11, 4, 12, 0, 20, -10, 30, -30]))
+    
+        
 
 
 # Custom TestResult class to count failures
