@@ -1,6 +1,7 @@
 import unittest
 import random
 import itertools
+import numpy as np
 
 # List of string representations of functions
 functions_list = [
@@ -372,6 +373,23 @@ def find_num_changes(n, lst):
                 if new_number % 22 == 0:
                     return new_number
     return None
+""",
+"""def convolve_1d(signal, kernel): 
+    signal_len = len(signal)
+    kernel_len = len(kernel)
+    result_len = signal_len + kernel_len - 1
+    result = np.zeros(result_len)
+    padded_signal = np.pad(signal, (kernel_len - 1, kernel_len - 1), mode='constant')
+    flipped_kernel = np.flip(kernel)
+    for i in range(result_len):
+        result[i] = np.sum(padded_signal[i:i + kernel_len] * flipped_kernel)
+    return result
+""",
+"""def mask_n(im, n, idx): 
+    size = (im.max() - im.min()) / n 
+    mask_greater = im >= (im.min() + size * idx) 
+    mask_lower = im <= (im.min() + size * (idx + 1)) 
+    return mask_greater * mask_lower 
 """
     ]
 
@@ -1386,8 +1404,64 @@ class TestFunction30(BaseTestCase):
             self.assertIn(digit, num_str)
         self.assertEqual(len(result_str) + 3, len(num_str))
     
+class TestFunction31(BaseTestCase):
+    convolve_1d = imported_functions[30]
     
+    def test_basic_convolution(self):
+        signal = np.array([1, 2, 3, 4, 5])
+        kernel = np.array([0.2, 0.5, 0.2])
+        expected_result = np.array([0.2, 0.9, 1.8, 2.7, 3.6, 3.3, 1.0])
+        convolved_signal = convolve_1d(signal, kernel)
+        self.assertTrue(np.allclose(convolved_signal, expected_result))
+
+    def test_zero_kernel(self):
+        signal = np.array([1, 2, 3, 4, 5])
+        kernel = np.array([0])
+        expected_result = np.zeros(len(signal))
+        convolved_signal = convolve_1d(signal, kernel)
+        self.assertTrue(np.allclose(convolved_signal, expected_result))
+
+    def test_identity_kernel(self):
+        signal = np.array([1, 2, 3, 4, 5])
+        kernel = np.array([1])
+        expected_result = np.array([1, 2, 3, 4, 5])
+        convolved_signal = convolve_1d(signal, kernel)
+        self.assertTrue(np.allclose(convolved_signal, expected_result))
+
+    def test_unity_signal(self):
+        signal = np.ones(5)
+        kernel = np.array([0.2, 0.5, 0.2])
+        expected_result = np.array([0.2, 0.7, 0.9, 0.9, 0.9, 0.7, 0.2])
+        convolved_signal = convolve_1d(signal, kernel)
+        self.assertTrue(np.allclose(convolved_signal, expected_result))    
     
+class TestFunction32(BaseTestCase):
+    mask_n = imported_functions[31]
+    
+    def test_idx_zero(self):
+        im = np.array([[3, 5, 9], [8, 1, 2], [7, 6, 4]])
+        expected_mask = np.array([[True, False, False], [False, True, True], [False, False, False]])
+        self.assertTrue(np.all(mask_n(im, 3, 0) == expected_mask))
+
+    def test_idx_one(self):
+        im = np.array([[3, 5, 9], [8, 1, 2], [7, 6, 4]])
+        expected_mask = np.array([[False, True, False], [False, False, False], [False, True, True]])
+        self.assertTrue(np.all(mask_n(im, 3, 1) == expected_mask))
+        
+    def test_n_equals_1(self):
+        im = np.array([[3, 5, 9], [8, 1, 2], [7, 6, 4]])
+        expected_mask = np.array([[False, False, True], [False, False, False], [False, False, False]])
+        self.assertTrue(np.all(mask_n(im, 1, 1) == expected_mask))
+    
+    def test_same_pixels_image(self):
+        im = np.ones((3, 3))
+        expected_mask = np.array([[True, True, True], [True, True, True], [True, True, True]])
+        self.assertTrue(np.all(mask_n(im, 3, 1) == expected_mask))
+        
+    def test_large_differece_between_pixels(self):
+        im = np.array([[1, 100, 1], [100, 1, 100], [1, 100, 1]])
+        expected_mask = np.array([[False, False, False], [False, False, False], [False, False, False]])
+        self.assertTrue(np.all(mask_n(im, 3, 1) == expected_mask))
     
     
 # Custom TestResult class to count failures
