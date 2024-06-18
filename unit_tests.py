@@ -295,6 +295,83 @@ def find_num_changes(n, lst):
     if count > 0:
         res += f"{str(count)}[{curr}]"
     return res
+""",
+"""def list_sums(lst): 
+    for i in range(1,len(lst)):
+        lst[i] += lst[i-1]
+""",
+"""def convert_base(num, base): 
+    if base > 9 or base < 1 or num < 0:
+        return None 
+    if num == 0:
+        if base == 1:
+            return ""
+        return "0"
+    res = ""
+    if base == 1:
+        return "1"*num
+    while num > 0:
+        remainder = num % base
+        res = str(remainder) + res
+        num //= base
+    return res  
+""",
+"""def max_div_seq(n, k): 
+    lst = []
+    cnt = 0
+    while n > 0:
+        if (n % 10) % k == 0:
+            cnt += 1
+            if n < 10:
+                lst.append(cnt)
+        else:
+            lst.append(cnt)
+            cnt = 0
+        n = n // 10
+    return max(lst)
+""",
+"""def find_dup(lst): 
+    ptr1 = ptr2 = lst[0]
+    while True:
+        ptr1 = lst[ptr1]
+        ptr2 = lst[lst[ptr2]]
+        if ptr1 == ptr2:
+            break
+    ptr1 = lst[0]
+    while ptr1 != ptr2:
+        ptr1 = lst[ptr1]
+        ptr2 = lst[ptr2]
+    return ptr1
+""",
+"""def lcm(a, b): 
+    def gcd(x, y):
+        while y:
+            x, y = y, x % y
+        return x
+    return a * b // gcd(a, b)
+""",
+"""def f19(): 
+    result = None
+    for number in range(1000, 10000):
+        if number % 15 == 0:
+            digits = [int(digit) for digit in str(number)]
+            product_of_digits = 1
+            for digit in digits:
+                product_of_digits *= digit
+            if 55 < product_of_digits < 65:
+                result = number
+                break
+    return result
+""",
+"""def f20(): 
+    num_str = str(14563743)
+    for i in range(len(num_str)):
+        for j in range(i+1, len(num_str)):
+            for k in range(j+1, len(num_str)):
+                new_number = int(num_str[:i] + num_str[i+1:j] + num_str[j+1:k] + num_str[k+1:])
+                if new_number % 22 == 0:
+                    return new_number
+    return None
 """
     ]
 
@@ -1103,6 +1180,211 @@ class TestFunction23(BaseTestCase):
         self.assertEqual(encode_string(" "), "1[ ]")
         self.assertEqual(encode_string("#"), "1[#]")    
 
+class TestFunction24(BaseTestCase):
+    list_sums = imported_functions[23]
+    
+    def test_empty_list(self):
+        self.assertIsNone(list_sums([]))
+    
+    def test_single_item_list(self):
+        single_item_list = [1] 
+        list_sums(single_item_list)
+        self.assertEqual(single_item_list, [1])
+        
+    def test_multiple_item_list(self):
+        multiple_item_list = [1, 2, 3, 4, 5]
+        list_sums(multiple_item_list)
+        self.assertEqual(multiple_item_list, [1, 3, 6, 10, 15])
+    
+    def test_list_with_negative_numbers(self):
+        negative_numbers_list = [1, -2, 3, -4, 5]
+        list_sums(negative_numbers_list)
+        self.assertEqual(negative_numbers_list, [1, -1, 2, -2, 3])
+    
+    def test_list_with_zeros(self):
+        zeros_list = [0, 0, 0, 0, 0]
+        list_sums(zeros_list)
+        self.assertEqual(zeros_list, [0, 0, 0, 0, 0])
+        
+    def test_list_with_repeated_numbers(self):
+        repeated_numbers_list = [1, 1, 1, 1, 1]
+        list_sums(repeated_numbers_list)
+        self.assertEqual(repeated_numbers_list, [1, 2, 3, 4, 5])
+    
+    def test_list_with_floats(self):
+        floats_list = [1.5, 2.5, 3.5, 4.5, 5.5]
+        list_sums(floats_list)
+        self.assertEqual(floats_list, [1.5, 4.0, 7.5, 12.0, 17.5])
+        
+    def test_multiple_calls(self):
+        multiple_calls_list = [1, 2, 3, 4, 5]
+        list_sums(multiple_calls_list)
+        list_sums(multiple_calls_list)
+        self.assertEqual(multiple_calls_list, [1, 4, 10, 20, 35])
+    
+class TestFunction25(BaseTestCase):
+    convert_base = imported_functions[24]
+    
+    def test_base_2(self):
+        self.assertEqual(convert_base(10, 2), "1010")
+        self.assertEqual(convert_base(15, 2), "1111")
+        self.assertEqual(convert_base(255, 2), "11111111")
+
+    def test_base_8(self):
+        self.assertEqual(convert_base(10, 8), "12")
+        self.assertEqual(convert_base(15, 8), "17")
+        self.assertEqual(convert_base(255, 8), "377")    
+    
+    def test_unaric_base(self):
+        self.assertEqual(convert_base(10, 1), "1" * 10)
+        self.assertEqual(convert_base(15, 1), "1" * 15)
+        
+    def test_base_5(self):
+        self.assertEqual(convert_base(80, 5), "310")
+        
+    def test_zero(self):
+        self.assertEqual(convert_base(0, 2), "0")
+        self.assertEqual(convert_base(0, 8), "0")
+        self.assertEqual(convert_base(0, 5), "0")
+    
+    def test_zero_unaric_base(self):
+        self.assertEqual(convert_base(0, 1), "")
+        
+    def test_negative_number(self):
+        self.assertIsNone(convert_base(-10, 2))
+    
+    def test_negative_base(self):
+        self.assertIsNone(convert_base(10, -2))
+        
+    def test_base_out_of_range(self):
+        self.assertIsNone(convert_base(10, 37))
+        self.assertIsNone(convert_base(10, 10))
+        self.assertIsNone(convert_base(10, 0))
+        
+    def test_large_number(self):
+        self.assertEqual(convert_base(1024, 2), "10000000000")
+        self.assertEqual(convert_base(1024, 8), "2000")
+        self.assertEqual(convert_base(1024, 5), "13044")
+    
+class TestFunction26(BaseTestCase):
+    max_div_seq = imported_functions[25]
+    
+    def test_div_seq_length_1(self):
+        self.assertEqual(max_div_seq(123456, 3), 1)
+        self.assertEqual(max_div_seq(123456, 5), 1)
+    
+    def test_n_is_single_digit_and_divisable_by_k(self):
+        self.assertEqual(max_div_seq(6, 2), 1)
+    
+    def test_n_is_single_digit_and_not_divisable_by_k(self):
+        self.assertEqual(max_div_seq(7, 2), 0)
+    
+    def test_dev_seq_greater_than_1(self):
+        self.assertEqual(max_div_seq(124568633, 2), 3)
+    
+    def test_k_equals_1(self):
+        self.assertEqual(max_div_seq(124568633, 1), 9)
+        
+    def test_no_digits_divisible_by_k(self):
+        self.assertEqual(max_div_seq(123456, 7), 0)
+    
+class TestFunction27(BaseTestCase):
+    find_dup = imported_functions[26]
+    
+    def test_large_input(self):
+        self.assertEqual(find_dup(list(range(1, 10001)) + [5000]), 5000)
+
+    def test_duplicate_at_end(self):
+        self.assertEqual(find_dup([1, 3, 4, 2, 5, 5]), 5)
+    
+    def test_duplicate_at_start(self):
+        self.assertEqual(find_dup([1, 1, 2, 3, 4, 5]), 1)
+    
+    def test_duplicate_in_middle(self):
+        self.assertEqual(find_dup([1, 2, 3, 4, 3, 5, 6]), 3)
+    
+    def test_two_elements(self):
+        self.assertEqual(find_dup([1, 1]), 1)
+    
+class TestFunction28(BaseTestCase):
+    lcm = imported_functions[27]
+    
+    def test_basic_cases(self):
+        self.assertEqual(lcm(3, 5), 15)
+        self.assertEqual(lcm(4, 6), 12)
+
+    def test_one_is_multiple_of_other(self):
+        self.assertEqual(lcm(6, 3), 6)
+        self.assertEqual(lcm(10, 5), 10)
+    
+    def test_prime_numbers(self):
+        self.assertEqual(lcm(7, 11), 7 *11)
+        self.assertEqual(lcm(13, 17), 13 * 17)
+
+    def test_large_numbers_and_lcm_is_not_their_product(self):
+        self.assertEqual(lcm(123456, 789012), 8117355456)
+
+    def test_one_is_one(self):
+        self.assertEqual(lcm(1, 99), 99)
+        self.assertEqual(lcm(1, 1), 1)
+    
+    def test_equal_numbers(self):
+        self.assertEqual(lcm(8, 8), 8)
+
+    def test_coprime_numbers(self):
+        self.assertEqual(lcm(9, 14), 9 * 14)
+        self.assertEqual(lcm(15, 22), 15 * 22)
+    
+    def test_numbers_with_common_factors(self):
+        self.assertEqual(lcm(18, 24), 72)
+        self.assertEqual(lcm(40, 60), 120)
+    
+class TestFunction29(BaseTestCase):
+    f19 = imported_functions[28]
+    
+    def test_smallest_valid_number(self):
+        self.assertEqual(f19(), 2235)
+    
+    def test_product_of_digits_within_range(self):
+        result = f19()
+        digits = [int(digit) for digit in str(result)]
+        product_of_digits = 1
+        for digit in digits:
+            product_of_digits *= digit
+        self.assertTrue(56 <= product_of_digits <= 64)
+    
+    def test_divisibility_by_15(self):
+        result = f19()
+        self.assertEqual(result % 15, 0)
+    
+    def test_is_four_digits(self):
+        result = f19()
+        self.assertTrue(1000 <= result <= 9999)    
+    
+class TestFunction30(BaseTestCase):
+    f20 = imported_functions[29]
+    
+    def test_expected_output(self):
+        self.assertEqual(f20(), 14674)
+
+    def test_divisibility_by_22(self):
+        result = f20()
+        self.assertIsNotNone(result)
+        self.assertEqual(result % 22, 0)
+
+    def test_length_of_result(self):
+        result = f20()
+        self.assertIsNotNone(result)
+        self.assertEqual(len(str(result)), len(str(14563743)) - 3)
+
+    def test_result_is_from_original_digits(self):
+        result = f20()
+        self.assertIsNotNone(result)
+        result_str = str(result)
+        num_str = str(14563743)
+        for digit in result_str:
+            self.assertIn(digit, num_str)
+        self.assertEqual(len(result_str) + 3, len(num_str))
     
     
     
