@@ -390,6 +390,20 @@ def find_num_changes(n, lst):
     mask_greater = im >= (im.min() + size * idx) 
     mask_lower = im <= (im.min() + size * (idx + 1)) 
     return mask_greater * mask_lower 
+""",
+"""def entropy(mat):
+    mat_values = mat.flatten() 
+    bin_prob = np.bincount(mat_values) / (mat_values.shape[0]) 
+    bin_prob = bin_prob[bin_prob != 0] 
+    return (-bin_prob * np.log2(bin_prob)).sum() 
+""",
+"""def squeeze_vertical(im, factor):
+    h, w = im.shape 
+    new_h = h // factor 
+    res = np.zeros((new_h, w), dtype=float) 
+    for i in range(new_h): 
+        res[i, :] = im[i * factor: (i + 1) * factor, :].mean(axis=0) 
+    return res
 """
     ]
 
@@ -1463,7 +1477,96 @@ class TestFunction32(BaseTestCase):
         expected_mask = np.array([[False, False, False], [False, False, False], [False, False, False]])
         self.assertTrue(np.all(mask_n(im, 3, 1) == expected_mask))
     
+class TestFunction33(BaseTestCase):
+    entropy = imported_functions[32]
+
+    def test_single_value_matrix(self):
+        mat = np.array([[5]])
+        self.assertAlmostEqual(entropy(mat), 0.0)
+
+    def test_all_same_values(self):
+        mat = np.array([[1, 1], [1, 1]])
+        self.assertAlmostEqual(entropy(mat), 0.0)
+
+    def test_uniform_distribution(self):
+        mat = np.array([[1, 2], [2, 1]])
+        self.assertAlmostEqual(entropy(mat), 1.0)
+
+    def test_non_uniform_distribution(self):
+        mat = np.array([[3, 5, 3], [8, 1, 1], [7, 7, 7]])
+        self.assertAlmostEqual(entropy(mat), 2.197159723424149)
+
+    def test_small_matrix(self):
+        mat = np.array([[0, 1], [1, 0]])
+        self.assertAlmostEqual(entropy(mat), 1.0)
+
+    def test_unique_values(self):
+        mat = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+        # Entropy for a matrix with all unique values should be log2(9)
+        self.assertAlmostEqual(entropy(mat), np.log2(9))
+
+    def test_matrix_with_zeros(self):
+        mat = np.array([[0, 0, 0], [1, 1, 1]])
+        # Probability: 3/6 for 0 and 3/6 for 1
+        expected_entropy = -(0.5 * np.log2(0.5) + 0.5 * np.log2(0.5))
+        self.assertAlmostEqual(entropy(mat), expected_entropy)
+
+    def test_large_matrix(self):
+        mat = np.array([
+            [1, 2, 3, 4, 5],
+            [5, 4, 3, 2, 1],
+            [1, 1, 3, 4, 5],
+            [5, 4, 3, 2, 1],
+            [9, 9, 9, 9, 9]
+        ])
+        expected_entropy = -(3 * (0.16 * np.log2(0.16)) + 0.12 * np.log2(0.12)  + 2*(0.2 * np.log2(0.2)))
+        self.assertAlmostEqual(entropy(mat), expected_entropy)
+
+class TestFunction34(unittest.TestCase):
+    squeeze_vertical = imported_functions[33]
+
+    def test_squeeze_vertical_basic(self):
+        im = np.array([[1, 2], [3, 4], [5, 6], [7, 8]])
+        factor = 2
+        expected = np.array([[2, 3], [6, 7]])
+        result = squeeze_vertical(im, factor)
+        np.testing.assert_array_equal(result, expected)
     
+    def test_squeeze_vertical_whole_image(self):
+        im = np.array([[1, 2], [3, 4], [5, 6], [7, 8]])
+        factor = 4
+        expected = np.array([[4, 5]])
+        result = squeeze_vertical(im, factor)
+        np.testing.assert_array_equal(result, expected)
+    
+    def test_squeeze_vertical_no_squeeze(self):
+        im = np.array([[1, 2], [3, 4], [5, 6], [7, 8]])
+        factor = 1
+        expected = im
+        result = squeeze_vertical(im, factor)
+        np.testing.assert_array_equal(result, expected)
+    
+    def test_squeeze_vertical_different_image(self):
+        im = np.array([[10, 20, 30], [40, 50, 60], [70, 80, 90], [100, 110, 120]])
+        factor = 2
+        expected = np.array([[25, 35, 45], [85, 95, 105]])
+        result = squeeze_vertical(im, factor)
+        np.testing.assert_array_equal(result, expected)
+    
+    def test_squeeze_vertical_5x5(self):
+        im = np.array([
+            [1, 2, 3, 4, 5],
+            [5, 4, 3, 2, 1],
+            [1, 2, 3, 4, 5],
+            [5, 4, 3, 2, 1],
+            [9, 9, 9, 9, 9]
+        ])
+        factor = 5
+        expected = np.array([[4.2, 4.2, 4.2, 4.2, 4.2]])
+        result = squeeze_vertical(im, factor)
+        np.testing.assert_array_almost_equal(result, expected)
+
+
 # Custom TestResult class to count failures
 class CustomTestResult(unittest.TestResult):
     def __init__(self, *args, **kwargs):
