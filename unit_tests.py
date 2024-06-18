@@ -245,6 +245,56 @@ def find_num_changes(n, lst):
                return new_lst
             else:
                 i_odd -= 2
+""",
+"""def prefix_suffix_match(lst, k): 
+    res_lst = []
+    for i in range(len(lst)): 
+        for j in range(len(lst)): 
+            if i == j: 
+                continue
+            if k > len(lst[i]) or k > len(lst[j]):
+                continue
+            elif lst[i][:k] == lst[j][-k:]: 
+                    res_lst.append((i,j))
+    return res_lst
+
+""",
+"""def rotate_matrix_clockwise(mat): 
+    n = len(mat)
+    for i in range(n//2):
+        for j in range(i, n-i-1):
+            temp = mat[i][j]
+            mat[i][j] = mat[n-j-1][i]
+            mat[n-j-1][i] = mat[n-i-1][n-j-1]
+            mat[n-i-1][n-j-1] = mat[j][n-i-1]
+            mat[j][n-i-1] = temp
+    return mat
+""",
+"""def cyclic_shift(lst, direction, steps): 
+    if len(lst) == 0:
+        return lst
+    if (direction == 'L' and steps > 0) or (direction == 'R' and steps < 0):
+        for i in range(max(steps, -steps) % len(lst)):
+            lst.append(lst.pop(0))
+    elif (direction == 'R' and steps > 0) or (direction == 'L' and steps < 0):
+        for i in range(max(steps, -steps) % len(lst)):
+            lst.insert(0, lst.pop())
+    return lst
+""",
+"""def encode_string(s): 
+    curr, count = None, 0
+    res = ""
+    for c in s:
+        if c == curr:
+            count += 1
+        else:
+            if count > 0:
+                res += f"{str(count)}[{curr}]"
+            curr = c
+            count = 1
+    if count > 0:
+        res += f"{str(count)}[{curr}]"
+    return res
 """
     ]
 
@@ -909,9 +959,155 @@ class TestFunction19(BaseTestCase):
     def test_large_list(self):
         self.assertEqual(sort_two_sorted_lists([7, 6, 11, 4, 12, 0, 20, -10, 30, -30]), sorted([7, 6, 11, 4, 12, 0, 20, -10, 30, -30]))
     
+class TestFunction20(BaseTestCase):
+    prefix_suffix_match = imported_functions[19]
+    
+    def test_empty_list(self):
+        self.assertEqual(prefix_suffix_match([], 1), [])
+        self.assertEqual(prefix_suffix_match([], 6), [])
         
+    def test_single_item_list(self):
+        self.assertEqual(prefix_suffix_match(["abc"], 1), [])
+        self.assertEqual(prefix_suffix_match(["abc"], 3), [])
+    
+    def test_no_matches(self):
+        self.assertEqual(prefix_suffix_match(["abc", "def"], 1), [])
+        self.assertEqual(prefix_suffix_match(["abc", "def"], 3), [])
+    
+    def test_single_match(self):
+        self.assertEqual(prefix_suffix_match(["abc", "cde"], 1), [(1, 0)])
+    
+    def test_symetric_match(self):
+        self.assertEqual(prefix_suffix_match(["aa", "aa"], 1), [(0, 1), (1, 0)])
+        self.assertEqual(prefix_suffix_match(["aa", "aa"], 2), [(0, 1), (1, 0)])
+        
+    def test_multiple_matches(self):
+        self.assertEqual(prefix_suffix_match(["aaa", "cba", "baa"], 2), [(0, 2), (2, 1)])
+        self.assertEqual(prefix_suffix_match(["abc", "bc", "c"], 1), [(2, 0), (2, 1)])
 
+    def test_empty_string_no_match(self):
+        self.assertEqual(prefix_suffix_match(["", "abc"], 1), [])
+        
+    def test_mix_empty_string_match(self):
+        self.assertEqual(prefix_suffix_match(["", "abc", "", "cba"], 1), [(1, 3), (3, 1)])
+        
+    def test_k_greater_than_string_length(self):
+        self.assertEqual(prefix_suffix_match(["abc", "abc"], 4), [])
 
+    def test_special_characters(self):
+        self.assertEqual(prefix_suffix_match(["ab#c", "#cde"], 2), [(1, 0)])
+        self.assertEqual(prefix_suffix_match(["a!c", "b!c"], 2), [])
+
+    def test_strings_with_spaces(self):
+        self.assertEqual(prefix_suffix_match(["abc ", " cde"], 1), [(1, 0)])
+        self.assertEqual(prefix_suffix_match(["abc ", "c de"], 2), [(1, 0)])
+    
+    def test_all_identical_strings(self):
+        self.assertEqual(prefix_suffix_match(["aaa", "aaa", "aaa"], 2), [(0, 1), (0, 2), (1, 0), (1, 2), (2, 0), (2, 1)])
+        
+    def test_case_sensitivity(self): 
+        self.assertEqual(prefix_suffix_match(["Ab", "Ba"], 1), [])
+    
+class TestFunction21(BaseTestCase):
+    rotate_matrix_clockwise = imported_functions[20]
+    
+    def test_empty_matrix(self):
+        self.assertEqual(rotate_matrix_clockwise([]), [])
+    
+    def test_single_item_matrix(self):
+        self.assertEqual(rotate_matrix_clockwise([[1]]), [[1]])
+        
+    def test_two_by_two_matrix(self):
+        self.assertEqual(rotate_matrix_clockwise([[1, 2], [3, 4]]), [[3, 1], [4, 2]])
+    
+    def test_three_by_three_matrix(self):
+        self.assertEqual(rotate_matrix_clockwise([[1, 2, 3], [4, 5, 6], [7, 8, 9]]), [[7, 4, 1], [8, 5, 2], [9, 6, 3]])
+    
+    def test_four_by_four_matrix(self):
+        self.assertEqual(rotate_matrix_clockwise([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]), 
+                         [[13, 9, 5, 1], [14, 10, 6, 2], [15, 11, 7, 3], [16, 12, 8, 4]])
+    
+    def test_matrix_with_negative_numbers(self):
+        self.assertEqual(rotate_matrix_clockwise([[1, -2, 3], [-4, 5, -6], [7, -8, 9]]), [[7, -4, 1], [-8, 5, -2], [9, -6, 3]])
+    
+class TestFunction22(BaseTestCase):
+    cyclic_shift = imported_functions[21]
+    
+    def test_empty_list(self):
+        self.assertEqual(cyclic_shift([], 'R', 2), [])    
+        
+    def test_single_item_list(self):
+        self.assertEqual(cyclic_shift([1], 'R', 1), [1])
+        self.assertEqual(cyclic_shift([1], 'L', 1), [1])
+        
+    def test_two_item_list(self):
+        self.assertEqual(cyclic_shift([1, 2], 'R', 1), [2, 1])
+        self.assertEqual(cyclic_shift([1, 2], 'L', 1), [2, 1])
+        self.assertEqual(cyclic_shift([1, 2], 'R', 2), [1, 2])
+        self.assertEqual(cyclic_shift([1, 2], 'L', 2), [1, 2])
+        
+    def test_three_item_list(self):
+        self.assertEqual(cyclic_shift([1, 2, 3], 'R', 1), [3, 1, 2])
+        self.assertEqual(cyclic_shift([1, 2, 3], 'L', 1), [2, 3, 1])
+    
+    def test_shift_larger_than_length_of_list(self):
+        self.assertEqual(cyclic_shift([1, 2, 3], 'R', 4), [3, 1, 2])
+        self.assertEqual(cyclic_shift([1, 2, 3], 'L', 4), [2, 3, 1])
+        
+    def test_shift_negative(self):
+        self.assertEqual(cyclic_shift([1, 2, 3], 'R', -1), [2, 3, 1])
+        self.assertEqual(cyclic_shift([1, 2, 3], 'L', -1), [3, 1, 2])
+          
+    def test_shift_negative_larger_than_length_of_list(self):
+        self.assertEqual(cyclic_shift([1, 2, 3], 'L', -4), [3, 1, 2])
+        self.assertEqual(cyclic_shift([1, 2, 3], 'R', -4), [2, 3, 1])
+    
+    def test_shift_zero(self):
+        self.assertEqual(cyclic_shift([1, 2, 3], 'R', 0), [1, 2, 3])
+        self.assertEqual(cyclic_shift([1, 2, 3], 'L', 0), [1, 2, 3])
+    
+    def test_shift_equal_to_length_of_list(self):
+        self.assertEqual(cyclic_shift([1, 2, 3], 'R', 3), [1, 2, 3])
+        self.assertEqual(cyclic_shift([1, 2, 3], 'L', 3), [1, 2, 3])
+        
+class TestFunction23(BaseTestCase):
+    encode_string = imported_functions[22]         
+    
+    def test_empty_string(self):
+        self.assertEqual(encode_string(""), "")
+        
+    def test_string_no_repetitions(self):
+        self.assertEqual(encode_string("abc"), "1[a]1[b]1[c]")
+    
+    def test_string_with_repetitions(self):
+        self.assertEqual(encode_string("aabbcc"), "2[a]2[b]2[c]")
+        self.assertEqual(encode_string("aaa"), "3[a]")
+        self.assertEqual(encode_string("abbcdbaaa"), "1[a]2[b]1[c]1[d]1[b]3[a]")
+    
+    def test_string_with_numbers(self):
+        self.assertEqual(encode_string("a222bb"), "1[a]3[2]2[b]")
+    
+    def test_string_with_special_characters(self):
+        self.assertEqual(encode_string("a##b$"), "1[a]2[#]1[b]1[$]")
+    
+    def test_string_with_spaces(self):
+        self.assertEqual(encode_string("a   b c"), "1[a]3[ ]1[b]1[ ]1[c]")
+    
+    def test_very_long_string(self):
+        long_string = "a" * 1000 + "b" * 1000 + "c" * 1000
+        expected_result = "1000[a]1000[b]1000[c]"
+        self.assertEqual(encode_string(long_string), expected_result)
+    
+    def test_single_character_string(self):
+        self.assertEqual(encode_string("a"), "1[a]")
+        self.assertEqual(encode_string(" "), "1[ ]")
+        self.assertEqual(encode_string("#"), "1[#]")    
+
+    
+    
+    
+    
+    
 # Custom TestResult class to count failures
 class CustomTestResult(unittest.TestResult):
     def __init__(self, *args, **kwargs):
