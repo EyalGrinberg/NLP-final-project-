@@ -409,8 +409,22 @@ def find_num_changes(n, lst):
         res[i, :] = padded_im[i * factor: (i + 1) * factor, :].mean(axis=0) 
     return res
 """, 
-"""def last_numpy_fanc():
-    return None
+"""def denoise(im):
+    def denoise_pixel(im, x, y, dx, dy):
+        down = max(x - dx, 0)
+        up = min(x + dx + 1, im.shape[0])
+        left = max(y - dy, 0)
+        right = min(y + dy + 1, im.shape[1])
+        neighbors = im[down:up, left:right]
+        good_nbrs = neighbors[neighbors > 0]
+        if good_nbrs.size > 0:
+            return np.median(good_nbrs)
+        return im[x, y]
+    new_im = np.zeros(im.shape)
+    for x in range(im.shape[0]):
+        for y in range(im.shape[1]):
+            new_im[x, y] = denoise_pixel(im, x, y, 1, 1)
+    return new_im
 """,
 """def calculate_monthly_sales(data): 
     if data.empty:
@@ -1629,8 +1643,129 @@ class TestFunction34(unittest.TestCase):
         np.testing.assert_array_equal(result, expected)
 
 class TestFunction35(unittest.TestCase):
-    last_numpy_func = imported_functions[34]
-    # add last numpy func tests here
+    denoise = imported_functions[34]
+    
+    def test_denoise_basic(self):
+        im = np.array([[15, 110, 64, 150], 
+                       [231, 150, 98, 160], 
+                       [77, 230, 2, 0], 
+                       [100, 81, 189, 91]])
+        
+        expected_result = np.array([[130, 104, 130, 124], 
+                                    [130, 98, 130, 98], 
+                                    [125, 100, 124, 98], 
+                                    [90.5, 90.5, 91, 91]])
+
+        result = denoise(im)
+        
+        # Check shape
+        self.assertEqual(result.shape, expected_result.shape)
+        
+        # Check values
+        np.testing.assert_almost_equal(result, expected_result, decimal=1)
+
+    def test_denoise_all_zeros(self):
+        im = np.array([[0, 0, 0], 
+                       [0, 0, 0], 
+                       [0, 0, 0]])
+        
+        expected_result = np.array([[0, 0, 0], 
+                                    [0, 0, 0], 
+                                    [0, 0, 0]])
+
+        result = denoise(im)
+        
+        # Check shape
+        self.assertEqual(result.shape, expected_result.shape)
+        
+        # Check values
+        np.testing.assert_almost_equal(result, expected_result)
+
+    def test_denoise_single_value(self):
+        im = np.array([[100]])
+        
+        expected_result = np.array([[100]])
+
+        result = denoise(im)
+        
+        # Check shape
+        self.assertEqual(result.shape, expected_result.shape)
+        
+        # Check values
+        np.testing.assert_almost_equal(result, expected_result)
+
+    def test_denoise_single_row(self):
+        im = np.array([[1, 2, 3, 4, 5]])
+        
+        expected_result = np.array([[1.5, 2, 3, 4, 4.5]])
+
+        result = denoise(im)
+        
+        # Check shape
+        self.assertEqual(result.shape, expected_result.shape)
+        
+        # Check values
+        np.testing.assert_almost_equal(result, expected_result)
+
+    def test_denoise_single_column(self):
+        im = np.array([[1], [2], [3], [4], [5]])
+        
+        expected_result = np.array([[1.5], [2], [3], [4], [4.5]])
+
+        result = denoise(im)
+        
+        # Check shape
+        self.assertEqual(result.shape, expected_result.shape)
+        
+        # Check values
+        np.testing.assert_almost_equal(result, expected_result)
+
+    def test_denoise_larger_matrix(self):
+        im = np.array([[10, 20, 30, 40, 50], 
+                       [60, 70, 80, 90, 100], 
+                       [110, 120, 130, 140, 150], 
+                       [160, 170, 180, 190, 200], 
+                       [210, 220, 230, 240, 250]])
+        
+        expected_result = np.array([[ 40.,  45.,  55.,  65.,  70.],
+                                    [65.,  70.,  80.,  90.,  95.],
+                                    [115., 120., 130., 140., 145.,],
+                                    [165., 170., 180., 190., 195.],
+                                    [190., 195., 205., 215., 220.]])
+
+        result = denoise(im)
+        
+        # Check shape
+        self.assertEqual(result.shape, expected_result.shape)
+        
+        # Check values
+        np.testing.assert_almost_equal(result, expected_result)
+
+    def test_denoise_with_zeros(self):
+        im = np.array([[0, 0, 0, 0], 
+                       [0, 100, 200, 0], 
+                       [0, 0, 0, 0], 
+                       [0, 300, 400, 0]])
+        
+        expected_result = np.array([[100, 150, 150, 200], 
+                                    [100, 150, 150, 200], 
+                                    [200, 250, 250, 300], 
+                                    [300, 350, 350, 400]])
+
+        result = denoise(im)
+        
+        # Check shape
+        self.assertEqual(result.shape, expected_result.shape)
+        
+        # Check values
+        np.testing.assert_almost_equal(result, expected_result)
+
+    def test_denoise_fail_1D_array(self):
+        im = np.array([1, 2, 3, 4, 5])
+        
+        with self.assertRaises(Exception):
+            denoise(im)
+        
 
 class TestFunction36(BaseTestCase):
     calculate_monthly_sales = imported_functions[35]
@@ -1774,6 +1909,7 @@ class CustomTestResult(unittest.TestResult):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.failure_counts = [0] * len(functions_list)
+        self.error_counts = [0] * len(functions_list)
         self.total_tests = [0] * len(functions_list)
 
     def addFailure(self, test, err):
@@ -1782,6 +1918,16 @@ class CustomTestResult(unittest.TestResult):
         for index, case_name in test_cases.items():
             if case_name == test_case_name:
                 self.failure_counts[index] += 1
+                break
+    
+    def addError(self, test, err):
+        super().addError(test, err)
+        test_case_name = test.__class__.__name__
+        test_method_name = test._testMethodName
+        for index, case_name in test_cases.items():
+            if case_name == test_case_name:
+                self.error_counts[index] += 1
+                print(f"Error in test: {test_case_name}, method: {test_method_name}")
                 break
 
     def startTest(self, test):
@@ -1794,7 +1940,7 @@ class CustomTestResult(unittest.TestResult):
 
     def failure_fractions(self):
         return [
-            (self.failure_counts[i] / self.total_tests[i]) if self.total_tests[i] > 0 else 0
+            ((self.failure_counts[i] + self.error_counts[i]) / self.total_tests[i]) if self.total_tests[i] > 0 else 0
             for i in range(len(self.failure_counts))
         ]
 
