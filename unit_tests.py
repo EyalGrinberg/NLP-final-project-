@@ -2,6 +2,8 @@ import unittest
 import random
 import itertools
 import numpy as np
+import pandas as pd
+
 
 # List of string representations of functions
 functions_list = [
@@ -398,12 +400,44 @@ def find_num_changes(n, lst):
     return (-bin_prob * np.log2(bin_prob)).sum() 
 """,
 """def squeeze_vertical(im, factor):
-    h, w = im.shape 
+    max_length = max(len(row) for row in im)
+    padded_im = np.array([np.pad(row, (0, max_length - len(row)), 'constant') for row in im])
+    h, w = padded_im.shape 
     new_h = h // factor 
     res = np.zeros((new_h, w), dtype=float) 
     for i in range(new_h): 
-        res[i, :] = im[i * factor: (i + 1) * factor, :].mean(axis=0) 
+        res[i, :] = padded_im[i * factor: (i + 1) * factor, :].mean(axis=0) 
     return res
+""", 
+"""def last_numpy_fanc():
+    return None
+""",
+"""def calculate_monthly_sales(data): 
+    if data.empty:
+      return pd.DataFrame(columns=['Product', 'YearMonth', 'Sales', 'AverageMonthlySales'])
+    data['Date'] = pd.to_datetime(data['Date'])
+    data['Date'] = pd.to_datetime(data['Date'])
+    data['YearMonth'] = data['Date'].dt.to_period('M')
+    monthly_sales = data.groupby(['Product', 'YearMonth'])['Sales'].sum().reset_index()
+    monthly_average_sales = monthly_sales.groupby('Product')['Sales'].mean().reset_index()
+    monthly_average_sales.rename(columns={'Sales': 'AverageMonthlySales'}, inplace=True)
+    result = pd.merge(monthly_sales, monthly_average_sales, on='Product')
+    return result
+""",
+"""def recommendations(movies, movies_genres, genres, search_title): 
+    matching_title = movies[movies['title'] == search_title]
+    if matching_title.empty:
+        return pd.DataFrame(columns=['id', 'title', 'rate', 'runtime'])  
+    matching_title = matching_title.iloc[0]
+    matching_title_genres = movies_genres[movies_genres['movie_id'] == matching_title['id']]['genre_id'].tolist()
+    genre_movie_ids = movies_genres[movies_genres['genre_id'].isin(matching_title_genres)]['movie_id'].tolist()
+    filtered_movies = movies[
+        (movies['id'].isin(genre_movie_ids)) &
+        (movies['rate'].between(matching_title['rate'] - 1, matching_title['rate'] + 1)) &
+        (movies['runtime'].between(matching_title['runtime'] - 15, matching_title['runtime'] + 15)) &
+        (movies['id'] != matching_title['id'])
+    ]
+    return filtered_movies.head(3)
 """
     ]
 
@@ -1564,7 +1598,175 @@ class TestFunction34(unittest.TestCase):
         factor = 5
         expected = np.array([[4.2, 4.2, 4.2, 4.2, 4.2]])
         result = squeeze_vertical(im, factor)
-        np.testing.assert_array_almost_equal(result, expected)
+        np.testing.assert_array_equal(result, expected)
+
+    def test_squeeze_vertical_with_padding(self):
+        im = np.array([[1, 2, 5], [3, 4], [5, 6, 8], [7, 8]])
+        factor = 2
+        expected = np.array([[2.0, 3.0, 2.5], [6.0, 7.0, 4.0]])
+        result = squeeze_vertical(im, factor)
+        np.testing.assert_array_equal(result, expected)
+    
+    def test_squeeze_vertical_single_row(self):
+        im = np.array([[1, 2, 3]])
+        factor = 1
+        expected = np.array([[1, 2, 3]])
+        result = squeeze_vertical(im, factor)
+        np.testing.assert_array_equal(result, expected)
+    
+    def test_squeeze_vertical_single_column(self):
+        im = np.array([[1], [2], [3], [4]])
+        factor = 2
+        expected = np.array([[1.5], [3.5]])
+        result = squeeze_vertical(im, factor)
+        np.testing.assert_array_equal(result, expected)
+
+    def test_squeeze_vertical_single_element(self):
+        im = np.array([[1]])
+        factor = 1
+        expected = np.array([[1]])
+        result = squeeze_vertical(im, factor)
+        np.testing.assert_array_equal(result, expected)
+
+class TestFunction35(unittest.TestCase):
+    last_numpy_func = imported_functions[34]
+    # add last numpy func tests here
+
+class TestFunction36(BaseTestCase):
+    calculate_monthly_sales = imported_functions[35]
+    
+    def test_multiple_products(self):
+        data = pd.DataFrame({
+            'Date': ['2024-01-01', '2024-01-15', '2024-02-01', '2024-02-15', '2024-03-01', 
+                     '2024-01-03', '2024-01-20', '2024-02-05', '2024-02-25', '2024-03-10'],
+            'Product': ['A', 'A', 'A', 'A', 'A', 
+                        'B', 'B', 'B', 'B', 'B'],
+            'Sales': [100, 150, 200, 250, 300, 
+                      120, 130, 140, 150, 160]
+        })
+        expected = pd.DataFrame({
+            'Product': ['A', 'A', 'A', 'B', 'B', 'B'],
+            'YearMonth': [pd.Period('2024-01', freq='M'), pd.Period('2024-02', freq='M'), pd.Period('2024-03', freq='M'),
+                          pd.Period('2024-01', freq='M'), pd.Period('2024-02', freq='M'), pd.Period('2024-03', freq='M')],
+            'Sales': [250, 450, 300, 250, 290, 160],
+            'AverageMonthlySales': [333.333333, 333.333333, 333.333333, 233.333333, 233.333333, 233.333333]
+        })
+        result = calculate_monthly_sales(data)
+        pd.testing.assert_frame_equal(result, expected)
+    
+    def test_single_product_single_month(self):
+        data = pd.DataFrame({
+            'Date': ['2024-01-01', '2024-01-15'],
+            'Product': ['A', 'A'],
+            'Sales': [100, 150]
+        })
+        expected = pd.DataFrame({
+            'Product': ['A'],
+            'YearMonth': [pd.Period('2024-01', freq='M')],
+            'Sales': [250],
+            'AverageMonthlySales': [250.0]
+        })
+        result = calculate_monthly_sales(data)
+        pd.testing.assert_frame_equal(result, expected)
+    
+    def test_no_sales(self):
+        data = pd.DataFrame({
+            'Date': [],
+            'Product': [],
+            'Sales': []
+        })
+        expected = pd.DataFrame(columns=['Product', 'YearMonth', 'Sales', 'AverageMonthlySales'])
+        result = calculate_monthly_sales(data)
+        pd.testing.assert_frame_equal(result, expected)
+
+    def test_different_date_formats(self):
+        data = pd.DataFrame({
+            'Date': ['01-01-2024', '15-01-2024', '01-02-2024', '15-02-2024', '01-03-2024', 
+                     '03-01-2024', '20-01-2024', '05-02-2024', '25-02-2024', '10-03-2024'],
+            'Product': ['A', 'A', 'A', 'A', 'A', 
+                        'B', 'B', 'B', 'B', 'B'],
+            'Sales': [100, 150, 200, 250, 300, 
+                      120, 130, 140, 150, 160]
+        })
+        data['Date'] = pd.to_datetime(data['Date'], dayfirst=True)
+        expected = pd.DataFrame({
+            'Product': ['A', 'A', 'A', 'B', 'B', 'B'],
+            'YearMonth': [pd.Period('2024-01', freq='M'), pd.Period('2024-02', freq='M'), pd.Period('2024-03', freq='M'),
+                          pd.Period('2024-01', freq='M'), pd.Period('2024-02', freq='M'), pd.Period('2024-03', freq='M')],
+            'Sales': [250, 450, 300, 250, 290, 160],
+            'AverageMonthlySales': [333.333333, 333.333333, 333.333333, 233.333333, 233.333333, 233.333333]
+        })
+        result = calculate_monthly_sales(data)
+        pd.testing.assert_frame_equal(result, expected)
+
+class TestFunction37(BaseTestCase):
+    recommendations = imported_functions[36]
+    
+    # Create dataframes for testing
+    def setUp(self): 
+        self.movies = pd.DataFrame({
+            'id': [1, 2, 3, 4, 5],
+            'title': ['Inception', 'The Matrix', 'Interstellar', 'Memento', 'Avatar'],
+            'rate': [8.8, 8.7, 8.6, 8.4, 7.9],
+            'runtime': [148, 136, 169, 113, 162]
+        })
+        self.movies_genres = pd.DataFrame({
+            'movie_id': [1, 2, 3, 4, 5],
+            'genre_id': [1, 1, 2, 3, 1]
+        })
+        self.genres = pd.DataFrame({
+            'genre_id': [1, 2, 3],
+            'genre_name': ['Sci-Fi', 'Adventure', 'Thriller']
+        })
+    
+    def test_basic_functionality(self):
+        search_title = 'Inception'
+        expected = pd.DataFrame({
+            'id': [2, 5],
+            'title': ['The Matrix', 'Avatar'],
+            'rate': [8.7, 7.9],
+            'runtime': [136, 162]
+        })
+        result = recommendations(self.movies, self.movies_genres, self.genres, search_title)
+        pd.testing.assert_frame_equal(result.reset_index(drop=True), expected)
+
+    def test_no_matching_titles(self):
+        search_title = 'Nonexistent Movie'
+        expected = pd.DataFrame(columns=['id', 'title', 'rate', 'runtime'])
+        result = recommendations(self.movies, self.movies_genres, self.genres, search_title)
+        pd.testing.assert_frame_equal(result, expected)
+    
+    def test_no_similar_movies(self):
+        search_title = 'Interstellar'
+        expected = pd.DataFrame(columns=['id', 'title', 'rate', 'runtime'])
+        result = recommendations(self.movies, self.movies_genres, self.genres, search_title)
+        # Check if the shapes match
+        self.assertEqual(result.shape, expected.shape)
+        # Check if both DataFrames are empty
+        self.assertTrue(result.empty)
+        self.assertTrue(expected.empty)
+
+    def test_multiple_matching_movies(self):
+        self.movies = pd.DataFrame({
+            'id': [1, 2, 3, 4, 5, 6, 7, 8],
+            'title': ['Inception', 'Inception 2', 'Inception 3', 'Inception 4', 'Inception 5', 'Inception 6', 'Inception 7', 'Inception 8'],
+            'rate': [8.8, 8.7, 8.6, 8.5, 8.4, 8.3, 8.2, 8.1],
+            'runtime': [148, 148, 148, 148, 148, 148, 148, 148]
+        })
+        self.movies_genres = pd.DataFrame({
+            'movie_id': [1, 2, 3, 4, 5, 6, 7, 8],
+            'genre_id': [1, 1, 2, 3, 1, 1, 1, 1]
+        })
+        search_title = 'Inception'
+        result = recommendations(self.movies, self.movies_genres, self.genres, search_title)
+        self.assertEqual(len(result), 3)
+
+    def test_case_insensitive_search(self):
+        search_title = 'inception'
+        expected = pd.DataFrame(columns=['id', 'title', 'rate', 'runtime'])
+        result = recommendations(self.movies, self.movies_genres, self.genres, search_title)
+        pd.testing.assert_frame_equal(result, expected)
+
 
 
 # Custom TestResult class to count failures
