@@ -452,6 +452,46 @@ def find_num_changes(n, lst):
         (movies['id'] != matching_title['id'])
     ]
     return filtered_movies.head(3)
+""",
+"""def top_hours_worked_departments(employees, departments, works_on): 
+    if employees.empty or departments.empty or works_on.empty:
+        return pd.DataFrame(columns=['department_name', 'total_hours'])
+    employees_project_hours = works_on.groupby('employee_id')['hours_worked'].sum().reset_index()
+    employees_project_hours = employees_project_hours.merge(employees[['employee_id', 'name', 'department_id']], on='employee_id')
+    employees_project_hours = employees_project_hours[['name', 'department_id', 'hours_worked']]
+    employees_project_hours = employees_project_hours.rename(columns={'hours_worked': 'total_project_hours'})
+    department_hours = employees_project_hours.groupby('department_id')['total_project_hours'].sum().reset_index()
+    department_hours = department_hours.merge(departments, on='department_id')
+    department_hours = department_hours[['name', 'total_project_hours']]
+    department_hours = department_hours.rename(columns={'name': 'department_name', 'total_project_hours': 'total_hours'})
+    return department_hours.sort_values(by='total_hours', ascending=False).head(3)
+""",
+"""def huge_population_countries(countries, borders): 
+    if countries.empty or borders.empty:
+        return pd.DataFrame(columns=['name', 'population', 'border_population_sum'])
+    merged = borders.merge(countries, how='left', left_on='country2', right_on='name')
+    merged = merged.rename(columns={'name': 'country_name_2', 'population': 'population_2'})
+    merged = merged.merge(countries, how='left', left_on='country1', right_on='name')
+    merged = merged.rename(columns={'name': 'country_name_1', 'population': 'population_1'})
+    border_population_sum = merged.groupby('country1')['population_2'].sum().reset_index()
+    border_population_sum = border_population_sum.rename(columns={'country1': 'name', 'population_2': 'border_population_sum'})
+    result = countries.merge(border_population_sum, on='name', how='left')
+    filtered_countries = result[result['population'] > result['border_population_sum']]
+    return filtered_countries[['name', 'population', 'border_population_sum']]
+""",
+"""def countries_bordering_most_populated_in_asia(country_df, border_df): 
+    asian_countries = country_df[country_df['continent'] == 'Asia']    
+    max_population = asian_countries['population'].max()
+    most_populated_countries = asian_countries[asian_countries['population'] == max_population]
+    bordering_countries_set = set()
+    for country in most_populated_countries['name']:
+        borders = border_df[(border_df['country1'] == country) | (border_df['country2'] == country)]
+        for _, row in borders.iterrows():
+            bordering_countries_set.add(row['country1'])
+            bordering_countries_set.add(row['country2'])
+    bordering_countries_set -= set(most_populated_countries['name'])
+    bordering_countries_list = sorted(bordering_countries_set)
+    return bordering_countries_list
 """
     ]
 
@@ -1902,7 +1942,238 @@ class TestFunction37(BaseTestCase):
         result = recommendations(self.movies, self.movies_genres, self.genres, search_title)
         pd.testing.assert_frame_equal(result, expected)
 
+class TestFunction38(BaseTestCase):
+    top_hours_worked_departments = imported_functions[37]
 
+    def setUp(self):
+        self.employees = pd.DataFrame({
+            'employee_id': [1, 2, 3, 4],
+            'name': ['Alice', 'Bob', 'Charlie', 'David'],
+            'department_id': [101, 102, 101, 103],
+            'salary': [50000, 60000, 55000, 70000]
+        })
+        self.departments = pd.DataFrame({
+            'department_id': [101, 102, 103],
+            'name': ['HR', 'Engineering', 'Sales']
+        })
+        self.works_on = pd.DataFrame({
+            'employee_id': [1, 2, 2, 3, 4],
+            'project_id': [1, 1, 2, 3, 2],
+            'hours_worked': [120, 150, 200, 80, 100]
+        })
+
+    def test_basic(self):
+        expected = pd.DataFrame({
+            'department_name': ['Engineering', 'HR', 'Sales'],
+            'total_hours': [350, 200, 100]
+        })
+        result = top_hours_worked_departments(self.employees, self.departments, self.works_on)
+        pd.testing.assert_frame_equal(result.reset_index(drop=True), expected)
+
+    def test_no_employees(self):
+        employees_empty = pd.DataFrame(columns=['employee_id', 'name', 'department_id', 'salary'])
+        expected = pd.DataFrame(columns=['department_name', 'total_hours'])
+        result = top_hours_worked_departments(employees_empty, self.departments, self.works_on)
+        pd.testing.assert_frame_equal(result, expected)
+
+    def test_no_projects(self):
+        works_on_empty = pd.DataFrame(columns=['employee_id', 'project_id', 'hours_worked'])
+        expected = pd.DataFrame(columns=['department_name', 'total_hours'])
+        result = top_hours_worked_departments(self.employees, self.departments, works_on_empty)
+        pd.testing.assert_frame_equal(result, expected)
+
+    def test_no_departments(self):
+        departments_empty = pd.DataFrame(columns=['department_id', 'name'])
+        expected = pd.DataFrame(columns=['department_name', 'total_hours'])
+        result = top_hours_worked_departments(self.employees, departments_empty, self.works_on)
+        pd.testing.assert_frame_equal(result, expected)
+
+    def test_less_than_three_departments(self):
+        employees = pd.DataFrame({
+            'employee_id': [1, 2, 3],
+            'name': ['Alice', 'Bob', 'Charlie'],
+            'department_id': [101, 102, 101],
+            'salary': [50000, 60000, 55000]
+        })
+        works_on = pd.DataFrame({
+            'employee_id': [1, 2, 2],
+            'project_id': [1, 1, 2],
+            'hours_worked': [120, 150, 200]
+        })
+        expected = pd.DataFrame({
+            'department_name': ['Engineering', 'HR'],
+            'total_hours': [350, 120]
+        })
+        result = top_hours_worked_departments(employees, self.departments, works_on)
+        pd.testing.assert_frame_equal(result.reset_index(drop=True), expected)
+        
+    def test_more_than_three_departments(self):
+        employees = pd.DataFrame({
+            'employee_id': [1, 2, 3, 4, 5],
+            'name': ['Alice', 'Bob', 'Charlie', 'David', 'Eve'],
+            'department_id': [101, 102, 101, 103, 104],
+            'salary': [50000, 60000, 55000, 70000, 65000]
+        })
+        departments = pd.DataFrame({
+            'department_id': [101, 102, 103, 104],
+            'name': ['HR', 'Engineering', 'Sales', 'Marketing']
+        })
+        works_on = pd.DataFrame({
+            'employee_id': [1, 2, 2, 3, 4, 5],
+            'project_id': [1, 1, 2, 3, 2, 4],
+            'hours_worked': [120, 150, 200, 80, 100, 90]
+        })
+        expected = pd.DataFrame({
+            'department_name': ['Engineering', 'HR', 'Sales'],
+            'total_hours': [350, 200, 100]
+        })
+        result = top_hours_worked_departments(employees, departments, works_on)
+        pd.testing.assert_frame_equal(result.reset_index(drop=True), expected)
+    
+class TestFunction39(BaseTestCase):
+    huge_population_countries = imported_functions[38]
+    
+    def setUp(self):
+        self.countries = pd.DataFrame({
+            'name': ['A', 'B', 'C', 'D', 'E'],
+            'population': [1000, 2000, 500, 700, 300]
+        })
+        self.borders = pd.DataFrame({
+            'country1': ['A', 'B', 'B', 'C', 'D', 'E'],
+            'country2': ['B', 'A', 'C', 'B', 'E', 'D']
+        })
+
+    def test_basic(self):
+        expected = pd.DataFrame({
+            'name': ['B', 'D'],
+            'population': [2000, 700],
+            'border_population_sum': [1500, 300]
+        })
+        result = huge_population_countries(self.countries, self.borders)
+        pd.testing.assert_frame_equal(result.reset_index(drop=True), expected)
+
+    def test_no_countries(self):
+        countries = pd.DataFrame(columns=['name', 'population'])
+        borders = pd.DataFrame({
+            'country1': ['A', 'A', 'B'],
+            'country2': ['B', 'C', 'C']
+        })
+        expected = pd.DataFrame(columns=['name', 'population', 'border_population_sum'])
+        result = huge_population_countries(countries, borders)
+        pd.testing.assert_frame_equal(result, expected)
+
+    def test_no_borders(self):
+        countries = pd.DataFrame({
+            'name': ['A', 'B', 'C'],
+            'population': [1000, 2000, 500]
+        })
+        borders = pd.DataFrame(columns=['country1', 'country2'])
+        expected = pd.DataFrame(columns=['name', 'population', 'border_population_sum'])
+        result = huge_population_countries(countries, borders)
+        pd.testing.assert_frame_equal(result, expected)
+
+    def test_tie_population(self):
+        countries = pd.DataFrame({
+            'name': ['A', 'B', 'C'],
+            'population': [1000, 500, 500]
+        })
+        borders = pd.DataFrame({
+            'country1': ['A', 'A', 'B', 'C'],
+            'country2': ['B', 'C', 'A', 'A']
+        })
+        expected = pd.DataFrame(columns=['name', 'population', 'border_population_sum'])
+        result = huge_population_countries(countries, borders)
+        self.assertTrue(result.empty and expected.empty)
+        self.assertEqual(list(result.columns), list(expected.columns))
+    
+    def test_no_huge_population_countries(self):
+        countries = pd.DataFrame({
+            'name': ['A', 'B', 'C'],
+            'population': [1000, 1000, 1000]
+        })
+        borders = pd.DataFrame({
+            'country1': ['A', 'A', 'B', 'B', 'C', 'C'],
+            'country2': ['B', 'C', 'A', 'C', 'A', 'B']
+        })
+        expected = pd.DataFrame(columns=['name', 'population', 'border_population_sum'])
+        result = huge_population_countries(countries, borders)
+        self.assertTrue(result.empty and expected.empty)
+        self.assertEqual(list(result.columns), list(expected.columns))
+
+class TestFunction40(BaseTestCase):
+    countries_bordering_most_populated_in_asia = imported_functions[39]
+    
+    def setUp(self):
+        self.country_data = {
+            'name': ['China', 'India', 'Japan', 'Pakistan', 'Nepal', 'USA'],
+            'capital': ['Beijing', 'New Delhi', 'Tokyo', 'Islamabad', 'Kathmandu', 'Washington D.C.'],
+            'continent': ['Asia', 'Asia', 'Asia', 'Asia', 'Asia', 'North America'],
+            'population': [1444216107, 1500000000, 126476461, 225199937, 29136808, 331002651]
+        }
+        self.border_data = {
+            'country1': ['China', 'India', 'India', 'India', 'Pakistan', 'Nepal', 'USA', 'China'],
+            'country2': ['India', 'Pakistan', 'Nepal', 'China', 'Nepal', 'Pakistan', 'Mexico', 'Mongolia']
+        }
+        self.country_df = pd.DataFrame(self.country_data)
+        self.border_df = pd.DataFrame(self.border_data)
+
+    def test_countries_bordering_most_populated_in_asia(self):
+        expected_result = ['China', 'Nepal', 'Pakistan']
+        result = countries_bordering_most_populated_in_asia(self.country_df, self.border_df)
+        self.assertEqual(result, expected_result)
+
+    def test_no_asian_countries(self):
+        country_data = {
+            'name': ['USA', 'Canada', 'Mexico'],
+            'capital': ['Washington D.C.', 'Ottawa', 'Mexico City'],
+            'continent': ['North America', 'North America', 'North America'],
+            'population': [331002651, 37742154, 126190788]
+        }
+        border_data = {
+            'country1': ['USA', 'USA', 'Canada'],
+            'country2': ['Canada', 'Mexico', 'USA']
+        }
+        country_df = pd.DataFrame(country_data)
+        border_df = pd.DataFrame(border_data)
+        expected_result = []
+        result = countries_bordering_most_populated_in_asia(country_df, border_df)
+        self.assertEqual(result, expected_result)
+
+    def test_single_asian_country(self):
+        country_data = {
+            'name': ['China'],
+            'capital': ['Beijing'],
+            'continent': ['Asia'],
+            'population': [1444216107]
+        }
+        border_data = {
+            'country1': [],
+            'country2': []
+        }
+        country_df = pd.DataFrame(country_data)
+        border_df = pd.DataFrame(border_data)
+        expected_result = []
+        result = countries_bordering_most_populated_in_asia(country_df, border_df)
+        self.assertEqual(result, expected_result)
+
+    def test_multiple_most_populated_countries(self):
+        country_data = {
+            'name': ['China', 'India', 'Japan', 'Pakistan', 'Nepal', 'Mongolia'],
+            'capital': ['Beijing', 'New Delhi', 'Tokyo', 'Islamabad', 'Kathmandu', 'Ulaanbaatar'],
+            'continent': ['Asia', 'Asia', 'Asia', 'Asia', 'Asia', 'Asia'],
+            'population': [1400000000, 1400000000, 126476461, 225199937, 29136808, 3278290]
+        }
+        border_data = {
+            'country1': ['China', 'India', 'India', 'Pakistan', 'Nepal', 'Mongolia'],
+            'country2': ['Mongolia', 'Pakistan', 'Nepal', 'India', 'India', 'China']
+        }
+        country_df = pd.DataFrame(country_data)
+        border_df = pd.DataFrame(border_data)
+        expected_result = ['Mongolia', 'Nepal', 'Pakistan']
+        result = countries_bordering_most_populated_in_asia(country_df, border_df)
+        self.assertEqual(result, expected_result)
+        
+        
 
 # Custom TestResult class to count failures
 class CustomTestResult(unittest.TestResult):
