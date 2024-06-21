@@ -3,7 +3,7 @@ import random
 import itertools
 import numpy as np
 import pandas as pd
-
+import math
 
 # List of string representations of functions
 functions_list = [
@@ -495,6 +495,92 @@ def find_num_changes(n, lst):
 """
     ]
 
+classes_list = ["""class triangle: #1
+    def __init__(self, a, b, ab, color) -> None:
+        self.d = {}
+        self.d['a'] = a
+        self.d['b'] = b
+        self.d['ab'] = ab
+        self.d['color'] = color
+        c = math.sqrt(a**2 + b**2 - 2*b*a*math.cos(math.radians(ab)))
+        self.d['c'] = c
+        self.d['bc'] = math.degrees(math.acos((b**2 + c**2 - a**2)/(2*b*c)))
+        self.d['ac'] = math.degrees(math.acos((a**2 + c**2 - b**2)/(2*a*c)))
+
+    def get(self, name):
+        if len(name) == 2:
+            name = "".join(sorted(name))
+        if name not in self.d:
+            raise KeyError(f"ERROR: no triangale attribute with the name {name}.")
+        return self.d[name]""",
+"""class worker: #2
+
+    def __init__(self, id, first_name, last_name, job, salary = 5000, second_name = None):
+        self.id = id
+        if second_name:
+            self.full_name = first_name + " " + second_name + " " + last_name
+        else: 
+            self.full_name = first_name + " " + last_name
+        self.job = job
+        self.salary = salary
+    
+    def getFullName(self):
+        return self.full_name
+    
+    def getSalary(self):
+        return self.salary
+    
+    def getJob(self):
+        return self.job
+    
+    def update(self, job = None, salary = None):
+        if job:
+            self.job = job
+        if salary:
+            self.salary = salary
+""",
+"""class binaric_arithmatic: #3
+
+    def __init__(self, num):
+        self.num = num
+    
+    def get(self):
+        return self.num
+    
+    def inc(self):
+        if self.num == "0":
+            return "1"
+        new_bin_rev = ""
+        bin_rev = self.num[::-1]
+        for i in range(len(self.num)):
+            if bin_rev[i] == "1":
+                new_bin_rev = new_bin_rev + "0"
+            else:
+                new_bin_rev = new_bin_rev + "1" + bin_rev[i+1:]
+                return new_bin_rev[::-1]
+        if "1" not in new_bin_rev:
+            return "1" + new_bin_rev
+    
+    def dec(self):
+        if self.num == "1":
+            return "0"
+        new_bin_rev = ""
+        bin_rev = self.num[::-1]
+        for i in range(len(self.num)):
+            if bin_rev[i] == "0":
+                new_bin_rev = new_bin_rev + "1"
+            else:
+                if i == (len(self.num) - 1):
+                    new_bin_rev = new_bin_rev + "0"
+                    break
+                new_bin_rev = new_bin_rev + "0" + bin_rev[i + 1:]
+                break
+        if new_bin_rev[-1] == "0":
+            return new_bin_rev[:-1][::-1]
+        return new_bin_rev[::-1] 
+"""
+ ]
+
 # Function to convert string to a runnable function
 def string_to_function(func_str):
     """
@@ -522,11 +608,32 @@ def string_to_function(func_str):
     # Return the function object from the local namespace
     return local_namespace[func_name]
 
+def string_to_class(class_str):
+    """
+    Converts a string representation of a class into a runnable class.
+    
+    Parameters:
+    class_str (str): A string representation of the class to be converted.
+    
+    Returns:
+    class: A runnable class object.
+    """
+    local_namespace = {}
+    code = compile(class_str, '<string>', 'exec')
+    exec(code, globals(), local_namespace)
+    for item in local_namespace.values():
+        if isinstance(item, type):
+            return item
+    # Raise an error if the class definition is not found
+    raise ValueError("Class definition not found in the provided string.")
+
 # Dictionary to map function indices to their respective test cases
-test_cases = {i: f'TestFunction{i+1}' for i in range(len(functions_list))}
+test_cases = {i: f'TestGeneratedSolution{i+1}' for i in range(len(functions_list) + len(classes_list))}
 
 # Transform string representations to runnable functions
 imported_functions = [string_to_function(func_str) for func_str in functions_list]
+
+imported_classes = [string_to_class(class_str) for class_str in classes_list]
 
 # Base class for test cases to inherit from
 class BaseTestCase(unittest.TestCase):
@@ -536,7 +643,7 @@ class BaseTestCase(unittest.TestCase):
     def tearDown(self):
         pass  # Optional teardown method to run after each test
 
-class TestFunction1(BaseTestCase):
+class TestGeneratedSolution1(BaseTestCase):
     sum_even = imported_functions[0]
     
     def test_empty_list(self):
@@ -563,7 +670,7 @@ class TestFunction1(BaseTestCase):
 
 
 
-class TestFunction2(BaseTestCase):
+class TestGeneratedSolution2(BaseTestCase):
     find_num_changes = imported_functions[1]
 
     def test_empty_list(self):
@@ -585,7 +692,7 @@ class TestFunction2(BaseTestCase):
         lst = [1, 2, 5, 6]
         self.assertEqual(find_num_changes(4, lst), 3)
 
-class TestFunction3(BaseTestCase):
+class TestGeneratedSolution3(BaseTestCase):
     sum_nested = imported_functions[2]
 
     def test_empty_list(self):
@@ -623,7 +730,7 @@ class TestFunction3(BaseTestCase):
         lst = ["aa", "b", ["hello"]]
         self.assertEqual(sum_nested(lst), 0.0)
 
-class TestFunction4(BaseTestCase):
+class TestGeneratedSolution4(BaseTestCase):
     str_decomp = imported_functions[3]
 
     def test_empty_target(self):
@@ -664,7 +771,7 @@ class TestFunction4(BaseTestCase):
         word_bank = ["a", "ab", "b", "bc", "c", "abc", "abcd"]
         self.assertEqual(str_decomp(target, word_bank), 4)
 
-class TestFunction5(BaseTestCase):
+class TestGeneratedSolution5(BaseTestCase):
     n_choose_k = imported_functions[3]
 
     def test_n_negative(self):
@@ -700,7 +807,7 @@ class TestFunction5(BaseTestCase):
         self.assertEqual(n_choose_k(n, k), 120)
 
     
-class TestFunction6(BaseTestCase):
+class TestGeneratedSolution6(BaseTestCase):
     dfs_level_order = imported_functions[5]
 
     def test_empty_tree(self):
@@ -729,7 +836,7 @@ class TestFunction6(BaseTestCase):
         tree = list(range(1, 16))
         self.assertEqual(dfs_level_order(tree), "1,2,4,8,9,5,10,11,3,6,12,13,7,14,15")
 
-class TestFunction7(BaseTestCase):
+class TestGeneratedSolution7(BaseTestCase):
     half_sum_subset = imported_functions[6]
         
     def test_empty_list(self):
@@ -763,7 +870,7 @@ class TestFunction7(BaseTestCase):
         self.assertIn(sorted(half_sum_subset([3, 1, 4, 2, 2])), [[1, 2, 3], [2, 4]])
 
 
-class TestFunction8(BaseTestCase):
+class TestGeneratedSolution8(BaseTestCase):
     str_dist = imported_functions[7]
 
     def test_empty_strings(self):
@@ -791,7 +898,7 @@ class TestFunction8(BaseTestCase):
         self.assertEqual(str_dist("flaw", "lawn"), 2)
         self.assertEqual(str_dist("intention", "execution"), 5)
 
-class TestFunction9(BaseTestCase):
+class TestGeneratedSolution9(BaseTestCase):
     is_dag = imported_functions[8]
 
     def test_empty_graph(self):
@@ -824,7 +931,7 @@ class TestFunction9(BaseTestCase):
     def test_disconnected_graph(self):
         self.assertTrue(is_dag([[1], [], [3], []]))
 
-class TestFunction10(BaseTestCase):
+class TestGeneratedSolution10(BaseTestCase):
     foo = imported_functions[9]
 
     def test_initial_below_10(self):
@@ -854,7 +961,7 @@ class TestFunction10(BaseTestCase):
     def test_initial_negative(self):
         self.assertEqual(foo(-20), (-20, 0))
 
-class TestFunction11(BaseTestCase):
+class TestGeneratedSolution11(BaseTestCase):
     diff_sparse_matrices = imported_functions[10]
 
     def test_single_matrix(self):
@@ -886,7 +993,7 @@ class TestFunction11(BaseTestCase):
     def test_zero_values(self):
         self.assertEqual(diff_sparse_matrices([{(1, 1): 0}, {(1, 1): 3}]), {(1, 1): -3})
 
-class TestFunction12(BaseTestCase):
+class TestGeneratedSolution12(BaseTestCase):
     longest_subsequence_length = imported_functions[11]
 
     def test_empty_list(self):
@@ -913,7 +1020,7 @@ class TestFunction12(BaseTestCase):
     def test_equal_elements(self):
         self.assertEqual(longest_subsequence_length([2, 2, 2, 2, 2]), 1)
 
-class TestFunction13(BaseTestCase):
+class TestGeneratedSolution13(BaseTestCase):
     find_median = imported_functions[12]
     
     def test_odd_number_of_elements(self):
@@ -951,7 +1058,7 @@ class TestFunction13(BaseTestCase):
     def test_mix_float_and_int(self):
         self.assertEqual(find_median([1.5, 2, 3.5, 4]), 2.75)
 
-class TestFunction14(BaseTestCase):
+class TestGeneratedSolution14(BaseTestCase):
     find_primary_factors = imported_functions[13]
 
     def test_prime_number(self):
@@ -984,7 +1091,7 @@ class TestFunction14(BaseTestCase):
     def test_smallest_prime(self):
         self.assertEqual(find_primary_factors(2), [2])
         
-class TestFunction15(BaseTestCase):
+class TestGeneratedSolution15(BaseTestCase):
     graphs_intersection = imported_functions[14]
 
     def test_empty_graphs(self):
@@ -1022,7 +1129,7 @@ class TestFunction15(BaseTestCase):
         self.assertEqual(graphs_intersection({1: [2, 3], 2: [1, 3, 4], 3: [1, 2], 4: [2]} , {1: [2, 3, 5], 2: [1, 3], 3: [1, 2], 4: [5], 5: [1, 4]}), {1: [2, 3], 2: [1, 3], 3: [1, 2]})
         self.assertEqual(graphs_intersection({1: [2, 3], 2: [1, 3, 4], 3: [1, 2], 4: [2]} , {1: [2, 3, 4], 2: [1, 3, 4], 3: [1, 2, 4], 4: [1, 2, 3]}), {1: [2, 3], 2: [1, 3, 4], 3: [1, 2], 4: [2]})   
 
-class TestFunction16(BaseTestCase):
+class TestGeneratedSolution16(BaseTestCase):
     subset_sum = imported_functions[15]
 
     def test_empty_list_zero_target(self):
@@ -1072,7 +1179,7 @@ class TestFunction16(BaseTestCase):
     def test_list_is_singelton_zero_and_zero_target(self):
         self.assertEqual(subset_sum([0], 0), {(0,), ()})
 
-class TestFunction17(BaseTestCase):
+class TestGeneratedSolution17(BaseTestCase):
     sum_mult_str = imported_functions[16]
     
     def test_single_string(self):
@@ -1112,7 +1219,7 @@ class TestFunction17(BaseTestCase):
         self.assertEqual(sum_mult_str("'a'"), "a")
         self.assertEqual(sum_mult_str("'73'"), "73")
         
-class TestFunction18(BaseTestCase):
+class TestGeneratedSolution18(BaseTestCase):
     str_rep = imported_functions[17]
     
     def test_with_repeats(self):
@@ -1140,7 +1247,7 @@ class TestFunction18(BaseTestCase):
     def test_repeating_substring_with_overlap(self):
         self.assertTrue(str_rep("ababa", 3))
 
-class TestFunction19(BaseTestCase):
+class TestGeneratedSolution19(BaseTestCase):
     sort_two_sorted_lists = imported_functions[18]
     
     def test_empty_list(self):
@@ -1156,7 +1263,7 @@ class TestFunction19(BaseTestCase):
     def test_large_list(self):
         self.assertEqual(sort_two_sorted_lists([7, 6, 11, 4, 12, 0, 20, -10, 30, -30]), sorted([7, 6, 11, 4, 12, 0, 20, -10, 30, -30]))
     
-class TestFunction20(BaseTestCase):
+class TestGeneratedSolution20(BaseTestCase):
     prefix_suffix_match = imported_functions[19]
     
     def test_empty_list(self):
@@ -1205,7 +1312,7 @@ class TestFunction20(BaseTestCase):
     def test_case_sensitivity(self): 
         self.assertEqual(prefix_suffix_match(["Ab", "Ba"], 1), [])
     
-class TestFunction21(BaseTestCase):
+class TestGeneratedSolution21(BaseTestCase):
     rotate_matrix_clockwise = imported_functions[20]
     
     def test_empty_matrix(self):
@@ -1227,7 +1334,7 @@ class TestFunction21(BaseTestCase):
     def test_matrix_with_negative_numbers(self):
         self.assertEqual(rotate_matrix_clockwise([[1, -2, 3], [-4, 5, -6], [7, -8, 9]]), [[7, -4, 1], [-8, 5, -2], [9, -6, 3]])
     
-class TestFunction22(BaseTestCase):
+class TestGeneratedSolution22(BaseTestCase):
     cyclic_shift = imported_functions[21]
     
     def test_empty_list(self):
@@ -1267,7 +1374,7 @@ class TestFunction22(BaseTestCase):
         self.assertEqual(cyclic_shift([1, 2, 3], 'R', 3), [1, 2, 3])
         self.assertEqual(cyclic_shift([1, 2, 3], 'L', 3), [1, 2, 3])
         
-class TestFunction23(BaseTestCase):
+class TestGeneratedSolution23(BaseTestCase):
     encode_string = imported_functions[22]         
     
     def test_empty_string(self):
@@ -1300,7 +1407,7 @@ class TestFunction23(BaseTestCase):
         self.assertEqual(encode_string(" "), "1[ ]")
         self.assertEqual(encode_string("#"), "1[#]")    
 
-class TestFunction24(BaseTestCase):
+class TestGeneratedSolution24(BaseTestCase):
     list_sums = imported_functions[23]
     
     def test_empty_list(self):
@@ -1342,7 +1449,7 @@ class TestFunction24(BaseTestCase):
         list_sums(multiple_calls_list)
         self.assertEqual(multiple_calls_list, [1, 4, 10, 20, 35])
     
-class TestFunction25(BaseTestCase):
+class TestGeneratedSolution25(BaseTestCase):
     convert_base = imported_functions[24]
     
     def test_base_2(self):
@@ -1386,7 +1493,7 @@ class TestFunction25(BaseTestCase):
         self.assertEqual(convert_base(1024, 8), "2000")
         self.assertEqual(convert_base(1024, 5), "13044")
     
-class TestFunction26(BaseTestCase):
+class TestGeneratedSolution26(BaseTestCase):
     max_div_seq = imported_functions[25]
     
     def test_div_seq_length_1(self):
@@ -1408,7 +1515,7 @@ class TestFunction26(BaseTestCase):
     def test_no_digits_divisible_by_k(self):
         self.assertEqual(max_div_seq(123456, 7), 0)
     
-class TestFunction27(BaseTestCase):
+class TestGeneratedSolution27(BaseTestCase):
     find_dup = imported_functions[26]
     
     def test_large_input(self):
@@ -1426,7 +1533,7 @@ class TestFunction27(BaseTestCase):
     def test_two_elements(self):
         self.assertEqual(find_dup([1, 1]), 1)
     
-class TestFunction28(BaseTestCase):
+class TestGeneratedSolution28(BaseTestCase):
     lcm = imported_functions[27]
     
     def test_basic_cases(self):
@@ -1459,7 +1566,7 @@ class TestFunction28(BaseTestCase):
         self.assertEqual(lcm(18, 24), 72)
         self.assertEqual(lcm(40, 60), 120)
     
-class TestFunction29(BaseTestCase):
+class TestGeneratedSolution29(BaseTestCase):
     f19 = imported_functions[28]
     
     def test_smallest_valid_number(self):
@@ -1481,7 +1588,7 @@ class TestFunction29(BaseTestCase):
         result = f19()
         self.assertTrue(1000 <= result <= 9999)    
     
-class TestFunction30(BaseTestCase):
+class TestGeneratedSolution30(BaseTestCase):
     f20 = imported_functions[29]
     
     def test_expected_output(self):
@@ -1506,7 +1613,7 @@ class TestFunction30(BaseTestCase):
             self.assertIn(digit, num_str)
         self.assertEqual(len(result_str) + 3, len(num_str))
     
-class TestFunction31(BaseTestCase):
+class TestGeneratedSolution31(BaseTestCase):
     convolve_1d = imported_functions[30]
     
     def test_basic_convolution(self):
@@ -1537,7 +1644,7 @@ class TestFunction31(BaseTestCase):
         convolved_signal = convolve_1d(signal, kernel)
         self.assertTrue(np.allclose(convolved_signal, expected_result))    
     
-class TestFunction32(BaseTestCase):
+class TestGeneratedSolution32(BaseTestCase):
     mask_n = imported_functions[31]
     
     def test_idx_zero(self):
@@ -1565,7 +1672,7 @@ class TestFunction32(BaseTestCase):
         expected_mask = np.array([[False, False, False], [False, False, False], [False, False, False]])
         self.assertTrue(np.all(mask_n(im, 3, 1) == expected_mask))
     
-class TestFunction33(BaseTestCase):
+class TestGeneratedSolution33(BaseTestCase):
     entropy = imported_functions[32]
 
     def test_single_value_matrix(self):
@@ -1610,7 +1717,7 @@ class TestFunction33(BaseTestCase):
         expected_entropy = -(3 * (0.16 * np.log2(0.16)) + 0.12 * np.log2(0.12)  + 2*(0.2 * np.log2(0.2)))
         self.assertAlmostEqual(entropy(mat), expected_entropy)
 
-class TestFunction34(unittest.TestCase):
+class TestGeneratedSolution34(unittest.TestCase):
     squeeze_vertical = imported_functions[33]
 
     def test_squeeze_vertical_basic(self):
@@ -1682,7 +1789,7 @@ class TestFunction34(unittest.TestCase):
         result = squeeze_vertical(im, factor)
         np.testing.assert_array_equal(result, expected)
 
-class TestFunction35(unittest.TestCase):
+class TestGeneratedSolution35(unittest.TestCase):
     denoise = imported_functions[34]
     
     def test_denoise_basic(self):
@@ -1807,7 +1914,7 @@ class TestFunction35(unittest.TestCase):
             denoise(im)
         
 
-class TestFunction36(BaseTestCase):
+class TestGeneratedSolution36(BaseTestCase):
     calculate_monthly_sales = imported_functions[35]
     
     def test_multiple_products(self):
@@ -1874,7 +1981,7 @@ class TestFunction36(BaseTestCase):
         result = calculate_monthly_sales(data)
         pd.testing.assert_frame_equal(result, expected)
 
-class TestFunction37(BaseTestCase):
+class TestGeneratedSolution37(BaseTestCase):
     recommendations = imported_functions[36]
     
     # Create dataframes for testing
@@ -1942,7 +2049,7 @@ class TestFunction37(BaseTestCase):
         result = recommendations(self.movies, self.movies_genres, self.genres, search_title)
         pd.testing.assert_frame_equal(result, expected)
 
-class TestFunction38(BaseTestCase):
+class TestGeneratedSolution38(BaseTestCase):
     top_hours_worked_departments = imported_functions[37]
 
     def setUp(self):
@@ -2030,7 +2137,7 @@ class TestFunction38(BaseTestCase):
         result = top_hours_worked_departments(employees, departments, works_on)
         pd.testing.assert_frame_equal(result.reset_index(drop=True), expected)
     
-class TestFunction39(BaseTestCase):
+class TestGeneratedSolution39(BaseTestCase):
     huge_population_countries = imported_functions[38]
     
     def setUp(self):
@@ -2100,7 +2207,7 @@ class TestFunction39(BaseTestCase):
         self.assertTrue(result.empty and expected.empty)
         self.assertEqual(list(result.columns), list(expected.columns))
 
-class TestFunction40(BaseTestCase):
+class TestGeneratedSolution40(BaseTestCase):
     countries_bordering_most_populated_in_asia = imported_functions[39]
     
     def setUp(self):
@@ -2173,15 +2280,108 @@ class TestFunction40(BaseTestCase):
         result = countries_bordering_most_populated_in_asia(country_df, border_df)
         self.assertEqual(result, expected_result)
         
+class TestGeneratedSolution41(BaseTestCase):
+    Triangle = imported_classes[0]  
+
+    def setUp(self):
+        self.tri = self.Triangle(10, 5, 90, 'black')
+
+    def test_get_given_attributes(self):
+        self.assertEqual(self.tri.get('a'), 10)
+        self.assertEqual(self.tri.get('b'), 5)
+        self.assertEqual(self.tri.get('ab'), 90)
+        self.assertEqual(self.tri.get('color'), 'black')
+
+    def test_get_implicit_attributes(self):
+        self.assertAlmostEqual(self.tri.get('c'), 11.180339887498949)
+        self.assertAlmostEqual(self.tri.get('ac'), 26.565051177077994)
+        self.assertAlmostEqual(self.tri.get('bc'), 63.43494882292201)
+
+    def test_get_invalid_edge(self):
+        with self.assertRaises(KeyError):
+            self.tri.get('d')
+
+    def test_get_invalid_angle(self):
+        with self.assertRaises(KeyError):
+            self.tri.get('cd')
+    
+    def test_get_invalid_attribute(self):
+        with self.assertRaises(KeyError):
+            self.tri.get('hello')
+
+    def test_attribute_sorting(self):
+        # Testing if 'ba' gets sorted to 'ab'
+        self.assertEqual(self.tri.get('ba'), self.tri.get('ab'))   
+        self.assertAlmostEqual(self.tri.get('ca'), 26.565051177077994)   
+        self.assertAlmostEqual(self.tri.get('cb'), 63.43494882292201)
+
+class TestGeneratedSolution42(BaseTestCase):
+    Worker = imported_classes[1]
+    
+    def setUp(self):
+        # Creating a worker instance for testing
+        self.worker = self.Worker('12345', 'Jon', 'Cohen', 'Salesman')
+        self.worker_with_second_name = self.Worker('11111', 'David', 'Cohen', 'Math teacher', second_name='Julius')
+
+    def test_get_full_name_basic(self):
+        self.assertEqual(self.worker.getFullName(), "Jon Cohen")
+    
+    def test_get_full_name_with_second_name(self):
+        self.assertEqual(self.worker_with_second_name.getFullName(), "David Julius Cohen")
+
+    def test_get_job(self):
+        self.assertEqual(self.worker.getJob(), "Salesman")
+
+    def test_get_salary(self):
+        self.assertEqual(self.worker.getSalary(), 5000)
+
+    def test_update_job_and_salary(self):
+        self.worker.update(job='Engineer', salary=7000)
+        self.assertEqual(self.worker.getJob(), "Engineer")
+        self.assertEqual(self.worker.getSalary(), 7000)
+
+    def test_update_salary_only(self):
+        self.worker.update(salary=9000)
+        self.assertEqual(self.worker.getSalary(), 9000)
+        self.assertEqual(self.worker.getJob(), "Salesman")  # Job should remain unchanged
         
+    def test_update_job_only(self):
+        self.worker.update(job='Manager')
+        self.assertEqual(self.worker.getJob(), "Manager")
+        self.assertEqual(self.worker.getSalary(), 5000)
+
+class TestGeneratedSolution43(unittest.TestCase):
+    binaric_arithmatic = imported_classes[2]
+    
+    def setUp(self):
+        # Creating an instance for testing
+        self.zero = self.binaric_arithmatic("0")
+        self.one = self.binaric_arithmatic("1")
+        self.seven = self.binaric_arithmatic("111")
+        
+    def test_inc_positive(self):
+        self.assertEqual(self.seven.inc(), "1000")
+        self.assertEqual(self.one.inc(), "10")
+    
+    def test_inc_zero(self):    
+        self.assertEqual(self.zero.inc(), "1")
+
+    def test_dec(self):
+        self.assertEqual(self.seven.dec(), "110")
+        self.assertEqual(self.one.dec(), "0")
+    
+    def test_get(self):
+        self.assertEqual(self.seven.get(), "111")
+        self.assertEqual(self.one.get(), "1")
+        self.assertEqual(self.zero.get(), "0")
 
 # Custom TestResult class to count failures
 class CustomTestResult(unittest.TestResult):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.failure_counts = [0] * len(functions_list)
-        self.error_counts = [0] * len(functions_list)
-        self.total_tests = [0] * len(functions_list)
+        self.failure_counts = [0] * (len(functions_list) + len(classes_list))
+        self.error_counts = [0] * (len(functions_list) + len(classes_list))
+        self.total_tests = [0] * (len(functions_list) + len(classes_list))
 
     def addFailure(self, test, err):
         super().addFailure(test, err)
@@ -2198,7 +2398,7 @@ class CustomTestResult(unittest.TestResult):
         for index, case_name in test_cases.items():
             if case_name == test_case_name:
                 self.error_counts[index] += 1
-                print(f"Error in test: {test_case_name}, method: {test_method_name}")
+                print(f"Error in test: {test_case_name}, method: {test_method_name}, error: {err}")
                 break
 
     def startTest(self, test):
