@@ -4,6 +4,8 @@ import itertools
 import numpy as np
 import pandas as pd
 import math
+from unittest.mock import patch
+
 
 # List of string representations of functions
 functions_list = [
@@ -495,7 +497,7 @@ def find_num_changes(n, lst):
 """
     ]
 
-classes_list = ["""class triangle: #1
+classes_list = ["""class triangle: 
     def __init__(self, a, b, ab, color) -> None:
         self.d = {}
         self.d['a'] = a
@@ -513,7 +515,7 @@ classes_list = ["""class triangle: #1
         if name not in self.d:
             raise KeyError(f"ERROR: no triangale attribute with the name {name}.")
         return self.d[name]""",
-"""class worker: #2
+"""class worker: 
 
     def __init__(self, id, first_name, last_name, job, salary = 5000, second_name = None):
         self.id = id
@@ -539,7 +541,7 @@ classes_list = ["""class triangle: #1
         if salary:
             self.salary = salary
 """,
-"""class binaric_arithmatic: #3
+"""class binaric_arithmatic: 
 
     def __init__(self, num):
         self.num = num
@@ -578,8 +580,86 @@ classes_list = ["""class triangle: #1
         if new_bin_rev[-1] == "0":
             return new_bin_rev[:-1][::-1]
         return new_bin_rev[::-1] 
+""",
+"""class Point_2D: 
+
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        self.r = math.sqrt(x**2 + y**2)
+        self.theta = math.atan2(y, x)
+     
+    def __repr__(self):
+        return f"Point({self.x}, {self.y})"
+    
+    def __eq__(self, other):
+        return self.x == other.x and self.y == other.y
+    
+    def __add__(self, other):
+        return Point_2D(self.x + other.x, self.y + other.y)
+    
+    def __sub__(self, other):
+        return Point_2D(self.x - other.x, self.y - other.y)
+    
+    def distance(self, other):
+        return math.sqrt((self.x - other.x)**2 + (self.y - other.y)**2)
+    
+    def angle_wrt_origin(self, other):
+        dif_angle = other.theta - self.theta
+        if dif_angle < 0:
+            return dif_angle + 2 * math.pi
+        return dif_angle  
+""", 
+"""class Roulette: 
+
+    def __init__(self, initial_money):
+        self.balance = initial_money
+        self.reds = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36]
+        self.blacks = [2, 4, 6, 8, 10, 11, 13, 15, 17, 20, 22, 24, 26, 28, 29, 31, 33, 35]
+    
+    def get_balance(self):
+        return self.balance
+    
+    def bet(self, amount, bet_type):
+        if amount > self.balance:
+            raise KeyError(f"ERROR: current balance = {self.balance}, can't bet {amount}.")
+        roll = random.randint(0, 36)
+        print("roll: ", roll)
+        if bet_type == "red":
+            self.balance -= amount
+            if roll in self.reds:
+                self.balance += amount * 2
+        elif bet_type == "black":
+            self.balance -= amount
+            if roll in self.blacks:
+                self.balance += amount * 2
+        elif bet_type == "even":
+            self.balance -= amount
+            if roll > 0 and roll % 2 == 0:
+                self.balance += amount * 2
+        elif bet_type == "odd":
+            self.balance -= amount
+            if roll > 0 and roll % 2 == 1:
+                self.balance += amount * 2
+        elif bet_type == "1-12":
+            self.balance -= amount
+            if roll > 0 and roll < 13:
+                self.balance += amount * 2
+        elif bet_type == "13-24":
+            self.balance -= amount
+            if roll > 12 and roll < 25:
+                self.balance += amount * 2
+        elif bet_type == "25-36":
+            self.balance -= amount
+            if roll > 24 and roll < 37:
+                self.balance += amount * 2      
+        else:
+            self.balance -= amount
+            if roll == int(bet_type):
+                self.balance += amount * 36
+        return self.balance
 """
- ]
+]
 
 # Function to convert string to a runnable function
 def string_to_function(func_str):
@@ -2374,6 +2454,153 @@ class TestGeneratedSolution43(unittest.TestCase):
         self.assertEqual(self.seven.get(), "111")
         self.assertEqual(self.one.get(), "1")
         self.assertEqual(self.zero.get(), "0")
+
+class TestGeneratedSolution44(BaseTestCase):
+    Point_2D = imported_classes[3]
+    
+    def setUp(self):
+        # Creating Point_2D instances for testing
+        self.a = self.Point_2D(1, 1)
+        self.b = self.Point_2D(0, 1)
+        self.c = self.Point_2D(-1, 1)
+        self.d = self.Point_2D(1, 1)
+        self.a_plus_b = self.Point_2D(1, 2)
+        self.a_minus_b = self.Point_2D(1, 0)
+
+    def test_repr(self):
+        self.assertEqual(repr(self.a), "Point(1, 1)")
+
+    def test_eq(self):
+        self.assertTrue(self.a == self.d)
+        self.assertFalse(self.a == self.b)
+
+    # def test_add(self):
+    #     self.assertEqual(self.a + self.b, self.a_plus_b)
+
+    # def test_sub(self):
+    #     self.assertEqual(self.a - self.b, self.a_minus_b)
+
+    def test_distance(self):
+        self.assertEqual(self.a.distance(self.c), 2)
+        self.assertAlmostEqual(self.a.distance(self.b), math.sqrt(1))
+
+    def test_angle_wrt_origin(self):
+        self.assertAlmostEqual(self.b.angle_wrt_origin(self.c), math.pi / 4)
+        self.assertAlmostEqual(self.c.angle_wrt_origin(self.b), 2 * math.pi - math.pi / 4)
+
+class TestGeneratedSolution45(BaseTestCase):
+    Roulette = imported_classes[4]
+
+    def setUp(self):
+        # Create a Roulette instance with an initial balance
+        self.gambler = self.Roulette(1000)
+
+    def test_initial_balance(self):
+        self.assertEqual(self.gambler.get_balance(), 1000)
+
+    @patch('random.randint')
+    def test_bet_red_win(self, mock_randint):
+        mock_randint.return_value = 1  # A red number
+        self.gambler.bet(100, "red")
+        self.assertEqual(self.gambler.get_balance(), 1100)
+
+    @patch('random.randint')
+    def test_bet_red_lose(self, mock_randint):
+        mock_randint.return_value = 2  # A black number
+        self.gambler.bet(100, "red")
+        self.assertEqual(self.gambler.get_balance(), 900)
+
+    @patch('random.randint')
+    def test_bet_black_win(self, mock_randint):
+        mock_randint.return_value = 2  # A black number
+        self.gambler.bet(100, "black")
+        self.assertEqual(self.gambler.get_balance(), 1100)
+
+    @patch('random.randint')
+    def test_bet_black_lose(self, mock_randint):
+        mock_randint.return_value = 1  # A red number
+        self.gambler.bet(100, "black")
+        self.assertEqual(self.gambler.get_balance(), 900)
+
+    @patch('random.randint')
+    def test_bet_even_win(self, mock_randint):
+        mock_randint.return_value = 2  # An even number
+        self.gambler.bet(100, "even")
+        self.assertEqual(self.gambler.get_balance(), 1100)
+
+    @patch('random.randint')
+    def test_bet_even_lose(self, mock_randint):
+        mock_randint.return_value = 1  # An odd number
+        self.gambler.bet(100, "even")
+        self.assertEqual(self.gambler.get_balance(), 900)
+
+    @patch('random.randint')
+    def test_bet_odd_win(self, mock_randint):
+        mock_randint.return_value = 1  # An odd number
+        self.gambler.bet(100, "odd")
+        self.assertEqual(self.gambler.get_balance(), 1100)
+
+    @patch('random.randint')
+    def test_bet_odd_lose(self, mock_randint):
+        mock_randint.return_value = 2  # An even number
+        self.gambler.bet(100, "odd")
+        self.assertEqual(self.gambler.get_balance(), 900)
+
+    @patch('random.randint')
+    def test_bet_range_1_12_win(self, mock_randint):
+        mock_randint.return_value = 5  # A number in range 1-12
+        self.gambler.bet(100, "1-12")
+        self.assertEqual(self.gambler.get_balance(), 1100)
+
+    @patch('random.randint')
+    def test_bet_range_1_12_lose(self, mock_randint):
+        mock_randint.return_value = 13  # A number not in range 1-12
+        self.gambler.bet(100, "1-12")
+        self.assertEqual(self.gambler.get_balance(), 900)
+
+    @patch('random.randint')
+    def test_bet_range_13_24_win(self, mock_randint):
+        mock_randint.return_value = 15  # A number in range 13-24
+        self.gambler.bet(100, "13-24")
+        self.assertEqual(self.gambler.get_balance(), 1100)
+
+    @patch('random.randint')
+    def test_bet_range_13_24_lose(self, mock_randint):
+        mock_randint.return_value = 25  # A number not in range 13-24
+        self.gambler.bet(100, "13-24")
+        self.assertEqual(self.gambler.get_balance(), 900)
+
+    @patch('random.randint')
+    def test_bet_range_25_36_win(self, mock_randint):
+        mock_randint.return_value = 30  # A number in range 25-36
+        self.gambler.bet(100, "25-36")
+        self.assertEqual(self.gambler.get_balance(), 1100)
+
+    @patch('random.randint')
+    def test_bet_range_25_36_lose(self, mock_randint):
+        mock_randint.return_value = 24  # A number not in range 25-36
+        self.gambler.bet(100, "25-36")
+        self.assertEqual(self.gambler.get_balance(), 900)
+
+    @patch('random.randint')
+    def test_bet_specific_number_win(self, mock_randint):
+        mock_randint.return_value = 17  # Specific number bet
+        self.gambler.bet(100, "17")
+        self.assertEqual(self.gambler.get_balance(), 4500)
+
+    @patch('random.randint')
+    def test_bet_specific_number_lose(self, mock_randint):
+        mock_randint.return_value = 18  # Not the specific number
+        self.gambler.bet(100, "17")
+        self.assertEqual(self.gambler.get_balance(), 900)
+
+    def test_bet_insufficient_balance(self):
+        with self.assertRaises(KeyError):
+            self.gambler.bet(2000, "red")
+
+
+
+
 
 # Custom TestResult class to count failures
 class CustomTestResult(unittest.TestResult):
