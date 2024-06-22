@@ -658,6 +658,36 @@ classes_list = ["""class triangle:
             if roll == int(bet_type):
                 self.balance += amount * 36
         return self.balance
+""",
+"""class investments: #6
+
+    def __init__(self, name, initial_investment, avg_yearly_return, monthly_income, monthly_expenses):
+        self.balance = initial_investment
+        self.avg_yearly_return = avg_yearly_return
+        self.monthly_income = monthly_income
+        self.monthly_expenses = monthly_expenses
+        self.name = name
+    
+    def __repr__(self):
+        return f"name: {self.name} \\nbalance: {self.balance}\\navg_yearly_return: {self.avg_yearly_return}\\nmonthly_income: {self.monthly_income}\\nmonthly_expenses: {self.monthly_expenses}"
+    
+    def get_balance(self):
+        return self.balance
+    
+    def get_future_value(self, years):
+        future_balance = self.get_balance()
+        for i in range(years):
+            future_balance = (future_balance + (12 * self.monthly_income - 12 * self.monthly_expenses)) * (1 + self.avg_yearly_return / 100)
+        return future_balance
+    
+    def update_value_by_year(self, years):
+        self.balance = self.get_future_value(years)
+    
+    def withdraw(self, amount):
+        if amount > self.balance:
+            raise KeyError(f"ERROR: current balance = {self.balance}, can't withdraw {amount}.")
+        self.balance -= amount
+        return self.balance
 """
 ]
 
@@ -714,6 +744,8 @@ test_cases = {i: f'TestGeneratedSolution{i+1}' for i in range(len(functions_list
 imported_functions = [string_to_function(func_str) for func_str in functions_list]
 
 imported_classes = [string_to_class(class_str) for class_str in classes_list]
+
+Point_2D = imported_classes[3]
 
 # Base class for test cases to inherit from
 class BaseTestCase(unittest.TestCase):
@@ -2474,15 +2506,17 @@ class TestGeneratedSolution44(BaseTestCase):
         self.assertTrue(self.a == self.d)
         self.assertFalse(self.a == self.b)
 
-    # def test_add(self):
-    #     self.assertEqual(self.a + self.b, self.a_plus_b)
+    def test_add(self):
+        new_point = self.a + self.b
+        self.assertEqual(new_point, self.a_plus_b)
 
-    # def test_sub(self):
-    #     self.assertEqual(self.a - self.b, self.a_minus_b)
+    def test_sub(self):
+        self.assertEqual(self.a - self.b, self.a_minus_b)
 
     def test_distance(self):
         self.assertEqual(self.a.distance(self.c), 2)
         self.assertAlmostEqual(self.a.distance(self.b), math.sqrt(1))
+        self.assertEqual(self.a.distance(self.d), 0)
 
     def test_angle_wrt_origin(self):
         self.assertAlmostEqual(self.b.angle_wrt_origin(self.c), math.pi / 4)
@@ -2599,7 +2633,42 @@ class TestGeneratedSolution45(BaseTestCase):
             self.gambler.bet(2000, "red")
 
 
+import unittest
 
+class TestGeneratedSolution46(unittest.TestCase):
+    investments = imported_classes[5]
+    def setUp(self):
+        self.jon = self.investments("jon", 100000, 10, 15000, 10000)
+    
+    def test_initial_balance(self):
+        self.assertEqual(self.jon.get_balance(), 100000)
+    
+    def test_future_value_after_3_years(self):
+        self.assertAlmostEqual(self.jon.get_future_value(3), 351560, places=0)
+
+    def test_future_value_balance_stays_the_same(self):
+        self.assertEqual(self.jon.get_future_value(3), 351560)
+        self.assertEqual(self.jon.get_balance(), 100000)
+       
+    def test_withdraw_100000(self):
+        self.jon.update_value_by_year(3)  # Update balance before withdrawal
+        self.assertAlmostEqual(self.jon.withdraw(100000), 251560, places=0)
+    
+    def test_future_value_equals_updated_value(self):
+        predicted_value = self.jon.get_future_value(4)
+        self.jon.update_value_by_year(4)
+        self.assertEqual(predicted_value, self.jon.get_balance())
+
+    def test_withdraw_more_than_balance(self):
+        with self.assertRaises(KeyError):
+            self.jon.withdraw(200000)
+
+    def test_repr(self):
+        self.assertEqual(repr(self.jon), "name: jon \nbalance: 100000\navg_yearly_return: 10\nmonthly_income: 15000\nmonthly_expenses: 10000")
+
+    def test_repr_after_update(self):
+        self.jon.withdraw(5000)
+        self.assertEqual(repr(self.jon), "name: jon \nbalance: 95000\navg_yearly_return: 10\nmonthly_income: 15000\nmonthly_expenses: 10000")
 
 
 # Custom TestResult class to count failures
