@@ -659,7 +659,7 @@ classes_list = ["""class triangle:
                 self.balance += amount * 36
         return self.balance
 """,
-"""class investments: #6
+"""class investments: 
 
     def __init__(self, name, initial_investment, avg_yearly_return, monthly_income, monthly_expenses):
         self.balance = initial_investment
@@ -688,6 +688,122 @@ classes_list = ["""class triangle:
             raise KeyError(f"ERROR: current balance = {self.balance}, can't withdraw {amount}.")
         self.balance -= amount
         return self.balance
+""",
+"""class Restaurant: 
+
+    def __init__(self, name, cuisine, rating):
+        self.name = name
+        self.cuisine = cuisine
+        self.rating = rating
+        self.menu = {}
+        self.chefs = []
+
+    def __repr__(self):
+        return f"{self.name} ({self.cuisine}) - {self.rating}/5"
+
+    def add_dish(self, name, price):
+        self.menu[name] = price
+        
+    def remove_dish(self, name):
+        if name in self.menu:
+            del self.menu[name]
+        
+    def add_chef(self, chef):
+        self.chefs.append(chef)
+    
+    def remove_chef(self, chef):
+        if chef in self.chefs:
+            self.chefs.remove(chef)
+            
+    def get_menu(self):
+        return self.menu
+    
+    def get_chefs(self):
+        return self.chefs     
+""",
+"""class Polynomial:     
+
+    def __init__(self, coeffs):
+        self.coeffs = coeffs
+    
+    def __repr__(self):
+        res = ""
+        if len(self.coeffs) == 1:
+            return str(self.coeffs[0])
+        if self.coeffs[0] != 0:
+            if self.coeffs[1] > 0:
+                res += f"{self.coeffs[0]} + {self.coeffs[1]}x"
+            elif self.coeffs[1] < 0:
+                res += f"{self.coeffs[0]} - {abs(self.coeffs[1])}x"
+        if self.coeffs[0] == 0 and self.coeffs[1] != 0:
+            res += f"{self.coeffs[1]}x"
+        if self.coeffs[0] != 0 and self.coeffs[1] == 0:
+            res += f"{self.coeffs[0]}"
+        for i in range(2, len(self.coeffs)):
+            if self.coeffs[i] > 0:
+                res += f" + {self.coeffs[i]}x^{i}"
+            elif self.coeffs[i] < 0:
+                res += f" - {abs(self.coeffs[i])}x^{i}"
+        return res
+    
+    def get_deg(self):
+        return len(self.coeffs) - 1
+    
+    def __add__(self, other):
+        if len(self.coeffs) > len(other.coeffs):
+            pad_other = other.coeffs + [0] * (len(self.coeffs) - len(other.coeffs))
+            return Polynomial([x + y for x, y in zip(self.coeffs, pad_other)])
+        else:
+            pad_self = self.coeffs + [0] * (len(other.coeffs) - len(self.coeffs))
+            return Polynomial([x + y for x, y in zip(pad_self, other.coeffs)])
+    
+    def __eq__(self, other):
+        return self.coeffs == other.coeffs
+""",
+"""class TodoList: 
+
+    def __init__(self):
+        self.tasks = []
+    
+    def add_task(self, task):
+        self.tasks.append({'task': task, 'completed': False})
+
+    def remove_task(self, task):
+        for t in self.tasks:
+            if t['task'] == task:
+                self.tasks.remove(t)
+                return True
+        return False
+
+    def mark_completed(self, task):
+        for t in self.tasks:
+            if t['task'] == task:
+                t['completed'] = True
+                return True
+        return False
+
+    def list_tasks(self, completed=None):
+        if completed is None:
+            return [t['task'] for t in self.tasks]
+        return [t['task'] for t in self.tasks if t['completed'] == completed]
+""",
+"""class RecipeBook:
+    
+    def __init__(self):
+        self.recipes = []
+
+    def add_recipe(self, name, ingredients, instructions):
+        self.recipes.append({'name': name, 'ingredients': ingredients, 'instructions': instructions})
+
+    def remove_recipe(self, name):
+        for recipe in self.recipes:
+            if recipe['name'] == name:
+                self.recipes.remove(recipe)
+                return True
+        return False
+
+    def search_by_ingredient(self, ingredient):
+        return [recipe for recipe in self.recipes if ingredient in recipe['ingredients']]
 """
 ]
 
@@ -746,6 +862,7 @@ imported_functions = [string_to_function(func_str) for func_str in functions_lis
 imported_classes = [string_to_class(class_str) for class_str in classes_list]
 
 Point_2D = imported_classes[3]
+Polynomial = imported_classes[7]
 
 # Base class for test cases to inherit from
 class BaseTestCase(unittest.TestCase):
@@ -2462,7 +2579,7 @@ class TestGeneratedSolution42(BaseTestCase):
         self.assertEqual(self.worker.getJob(), "Manager")
         self.assertEqual(self.worker.getSalary(), 5000)
 
-class TestGeneratedSolution43(unittest.TestCase):
+class TestGeneratedSolution43(BaseTestCase):
     binaric_arithmatic = imported_classes[2]
     
     def setUp(self):
@@ -2507,8 +2624,7 @@ class TestGeneratedSolution44(BaseTestCase):
         self.assertFalse(self.a == self.b)
 
     def test_add(self):
-        new_point = self.a + self.b
-        self.assertEqual(new_point, self.a_plus_b)
+        self.assertEqual(self.a + self.b, self.a_plus_b)
 
     def test_sub(self):
         self.assertEqual(self.a - self.b, self.a_minus_b)
@@ -2632,10 +2748,7 @@ class TestGeneratedSolution45(BaseTestCase):
         with self.assertRaises(KeyError):
             self.gambler.bet(2000, "red")
 
-
-import unittest
-
-class TestGeneratedSolution46(unittest.TestCase):
+class TestGeneratedSolution46(BaseTestCase):
     investments = imported_classes[5]
     def setUp(self):
         self.jon = self.investments("jon", 100000, 10, 15000, 10000)
@@ -2669,6 +2782,169 @@ class TestGeneratedSolution46(unittest.TestCase):
     def test_repr_after_update(self):
         self.jon.withdraw(5000)
         self.assertEqual(repr(self.jon), "name: jon \nbalance: 95000\navg_yearly_return: 10\nmonthly_income: 15000\nmonthly_expenses: 10000")
+
+class TestGeneratedSolution47(BaseTestCase):
+    Restaurant = imported_classes[6]
+
+    def setUp(self):
+        self.restaurant = self.Restaurant("Ragazzo", "Italian", 4.5)
+
+    def test_initialization(self):
+        self.assertEqual(self.restaurant.name, "Ragazzo")
+        self.assertEqual(self.restaurant.cuisine, "Italian")
+        self.assertEqual(self.restaurant.rating, 4.5)
+        self.assertEqual(self.restaurant.menu, {})
+        self.assertEqual(self.restaurant.chefs, [])
+
+    def test_repr(self):
+        self.assertEqual(repr(self.restaurant), "Ragazzo (Italian) - 4.5/5")
+
+    def test_add_dish(self):
+        self.restaurant.add_dish("pasta", 10)
+        self.assertEqual(self.restaurant.menu, {"pasta": 10})
+        self.restaurant.add_dish("pizza", 20)
+        self.assertEqual(self.restaurant.menu, {"pasta": 10, "pizza": 20})
+
+    def test_remove_dish(self):
+        self.restaurant.add_dish("pasta", 10)
+        self.restaurant.add_dish("pizza", 20)
+        self.restaurant.remove_dish("pasta")
+        self.assertEqual(self.restaurant.menu, {"pizza": 20})
+        self.restaurant.remove_dish("burger")  # Trying to remove a non-existent dish
+        self.assertEqual(self.restaurant.menu, {"pizza": 20})
+
+    def test_add_chef(self):
+        self.restaurant.add_chef("Mario")
+        self.assertEqual(self.restaurant.chefs, ["Mario"])
+        self.restaurant.add_chef("Luigi")
+        self.assertEqual(self.restaurant.chefs, ["Mario", "Luigi"])
+
+    def test_remove_chef(self):
+        self.restaurant.add_chef("Mario")
+        self.restaurant.add_chef("Luigi")
+        self.restaurant.remove_chef("Mario")
+        self.assertEqual(self.restaurant.chefs, ["Luigi"])
+        self.restaurant.remove_chef("Peach")  # Trying to remove a non-existent chef
+        self.assertEqual(self.restaurant.chefs, ["Luigi"])
+
+    def test_get_menu(self):
+        self.restaurant.add_dish("pasta", 10)
+        self.restaurant.add_dish("pizza", 20)
+        self.assertEqual(self.restaurant.get_menu(), {"pasta": 10, "pizza": 20})
+
+    def test_get_chefs(self):
+        self.restaurant.add_chef("Mario")
+        self.restaurant.add_chef("Luigi")
+        self.assertEqual(self.restaurant.get_chefs(), ["Mario", "Luigi"])
+
+class TestGeneratedSolution48(BaseTestCase):
+    Polynomial = imported_classes[7]
+    
+    def setUp(self):
+        self.p1 = self.Polynomial([1, 2, 0, 4])
+        self.p2 = self.Polynomial([0, 2, -5, 0])
+        self.p3 = self.Polynomial([-7, 2, 0, 4])
+        self.p4 = self.Polynomial([-6, -2, 0, 4, 5])
+        self.p5 = self.Polynomial([0])
+
+    def test_initialization(self):
+        self.assertEqual(self.p1.coeffs, [1, 2, 0, 4])
+        self.assertEqual(self.p2.coeffs, [0, 2, -5, 0])
+        self.assertEqual(self.p3.coeffs, [-7, 2, 0, 4])
+        self.assertEqual(self.p4.coeffs, [-6, -2, 0, 4, 5])
+        self.assertEqual(self.p5.coeffs, [0])
+
+    def test_repr(self):
+        self.assertEqual(str(self.p1), "1 + 2x + 4x^3")
+        self.assertEqual(str(self.p2), "2x - 5x^2")
+        self.assertEqual(str(self.p3), "-7 + 2x + 4x^3")
+        self.assertEqual(str(self.p4), "-6 - 2x + 4x^3 + 5x^4")
+        self.assertEqual(str(self.p5), "0")
+
+    def test_get_deg(self):
+        self.assertEqual(self.p1.get_deg(), 3)
+        self.assertEqual(self.p2.get_deg(), 3)
+        self.assertEqual(self.p3.get_deg(), 3)
+        self.assertEqual(self.p4.get_deg(), 4)
+        self.assertEqual(self.p5.get_deg(), 0)
+
+    def test_add(self):
+        p1_plus_p2 = self.p1 + self.p2
+        p3_plus_p4 = self.p3 + self.p4
+        p2_plus_p5 = self.p2 + self.p5
+
+        self.assertEqual(str(p1_plus_p2), "1 + 4x - 5x^2 + 4x^3")
+        self.assertEqual(str(p3_plus_p4), "-13 + 8x^3 + 5x^4")
+        self.assertEqual(p2_plus_p5, self.p2)
+
+    def test_eq(self):
+        self.assertTrue(self.p1 == self.Polynomial([1, 2, 0, 4]))
+        self.assertFalse(self.p1 == self.p2)
+        self.assertTrue(self.p2 == self.Polynomial([0, 2, -5, 0]))
+        self.assertFalse(self.p3 == self.p4)
+        
+class TestGeneratedSolution49(BaseTestCase):
+    ToDoList = imported_classes[8]
+    
+    def setUp(self):
+        self.todo_list = self.ToDoList()
+        self.todo_list.add_task("Buy groceries")
+        self.todo_list.add_task("Go to school")
+        self.todo_list.add_task("Do HW")
+
+    def test_initialization(self):
+        empty_list = self.ToDoList()
+        self.assertEqual(empty_list.tasks, [])
+
+    def test_add_task(self):
+        self.todo_list.add_task("Read book")
+        self.assertIn({'task': "Read book", 'completed': False}, self.todo_list.tasks)
+
+    def test_remove_task(self):
+        result = self.todo_list.remove_task("Do HW")
+        self.assertTrue(result)
+        self.assertNotIn({'task': "Do HW", 'completed': False}, self.todo_list.tasks)
+        result = self.todo_list.remove_task("Nonexistent task")
+        self.assertFalse(result)
+
+    def test_mark_completed(self):
+        result = self.todo_list.mark_completed("Buy groceries")
+        self.assertTrue(result)
+        self.assertIn({'task': "Buy groceries", 'completed': True}, self.todo_list.tasks)
+        result = self.todo_list.mark_completed("Nonexistent task")
+        self.assertFalse(result)
+
+    def test_list_tasks(self):
+        self.assertEqual(self.todo_list.list_tasks(), ["Buy groceries", "Go to school", "Do HW"])
+        self.todo_list.mark_completed("Buy groceries")
+        self.assertEqual(self.todo_list.list_tasks(completed=True), ["Buy groceries"])
+        self.assertEqual(self.todo_list.list_tasks(completed=False), ["Go to school", "Do HW"])
+
+class TestGeneratedSolution50(BaseTestCase):
+    RecipeBook = imported_classes[9]
+    
+    def setUp(self):
+        self.book = self.RecipeBook()
+        self.book.add_recipe("Pasta", ["pasta", "tomato sauce", "cheese"], "Cook pasta, add sauce and cheese")
+        self.book.add_recipe("Pizza", ["dough", "tomato sauce", "cheese"], "Bake dough, add sauce and cheese")
+        self.book.add_recipe("Salad", ["lettuce", "tomato", "cucumber"], "Mix all ingredients")
+
+    def test_add_recipe(self):
+        self.book.add_recipe("Burger", ["burger bun", "beef patty", "lettuce", "tomato", "onion"], "Grill patty, assemble burger")
+        self.assertEqual(len(self.book.recipes), 4)
+
+    def test_remove_recipe(self):
+        self.assertTrue(self.book.remove_recipe("Pasta"))
+        self.assertEqual(len(self.book.recipes), 2)
+        self.assertFalse(self.book.remove_recipe("Nonexistent Recipe"))
+        self.assertEqual(len(self.book.recipes), 2)
+
+    def test_search_by_ingredient(self):
+        cheese_recipes = self.book.search_by_ingredient("cheese")
+        self.assertEqual(len(cheese_recipes), 2)
+        for recipe in cheese_recipes:
+            self.assertIn("cheese", recipe["ingredients"])
+
 
 
 # Custom TestResult class to count failures
